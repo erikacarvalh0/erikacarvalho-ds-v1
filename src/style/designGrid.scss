@@ -1,0 +1,13 @@
+$defaultGridSize: 8px;
+
+$smallGridSize: calc($defaultGridSize / 2);
+
+body {
+    @for $size from 1 through 10 {
+        --gridSize#{$size}x: calc(#{$defaultGridSize} * #{$size});
+    }
+}
+
+@function increaseGridSize($size: 1) {
+    @return calc($defaultGridSize * $size);
+}

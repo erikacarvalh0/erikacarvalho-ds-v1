@@ -1,0 +1,13 @@
+@import "./reset.scss";
+@import "./vars.scss";
+@import "./mixins.scss";
+@import "./designGrid.scss";
+@import "./fonts.scss";
+
+input[type="checkbox"][aria-role="button"] {
+    visibility: hidden;
+}
+
+body {
+    font-family: $fontPrimary;
+}

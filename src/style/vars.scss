@@ -1,0 +1,36 @@
+// COLORS
+$pink: #FF6584;
+$pinkLight: #EEC0CC;
+
+$acqua: #58C9D4;
+$acquaLight: #C4E9ED;
+$acquaDark: #21949F;
+
+$grey: #3F4147;
+$greyLight: #BABCBF;
+
+$grey100: #F4F4F6;
+
+
+body {
+    --pink: #{$pink};
+    --pinkLight: #{$pinkLight};
+
+    --acqua: #{$acqua};
+    --acquaLight: #{$acquaLight};
+    --acquaDark: #{$acquaDark};
+
+    --grey: #{$grey};
+    --greyLight: #{$greyLight};
+
+    --grey100: #{$grey100};
+}
+
+// FONTS
+$fontPrimary: 'Nunito', sans-serif;
+$fontSecondary: 'Josefin Sans', sans-serif;
+
+body {
+    --fontPrimary: #{$fontPrimary};
+    --fontSecondary: #{$fontSecondary};
+}

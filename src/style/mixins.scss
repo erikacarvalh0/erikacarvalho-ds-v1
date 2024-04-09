@@ -1,0 +1,11 @@
+@mixin fixBoldHover ($element) {
+    &::before {
+        display: block;
+        content: attr($element);
+        font-weight: bold;
+        height: 0;
+        overflow: hidden;
+        visibility: hidden;
+        margin-top: -1px;
+    }
+}
