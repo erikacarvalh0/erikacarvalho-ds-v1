@@ -1,11 +1,13 @@
 import React from "react"
 import { Dialog } from "../../molecules/Dialog"
 import { Menu } from "../../atoms/Icons"
-import './index.scss'
 
-export const Header = () => {
-	const currentPage = window.location.pathname;
-	const isHome =  currentPage == "/"
+import { useHeader } from  './hook'
+import './index.scss'
+import { iHeader, iHeaderLinks } from "../../interfaces/organisms"
+
+export const Header = ({ title, content, links }: iHeader) => {
+	const { isHome, isOpen, toggleDialog } = useHeader();
 
     return (
 		<header data-component className="header">
@@ -23,27 +25,20 @@ export const Header = () => {
 <path d="M57.5566 29C57.7353 29.3094 57.7353 29.6906 57.5566 30L43.9613 53.5478C43.7827 53.8572 43.4526 54.0478 43.0953 54.0478L15.9047 54.0478C15.5474 54.0478 15.2173 53.8571 15.0387 53.5478L1.44338 30C1.26475 29.6906 1.26475 29.3094 1.44338 29L15.0387 5.45225C15.2173 5.14285 15.5474 4.95225 15.9047 4.95225L43.0953 4.95225C43.4526 4.95225 43.7827 5.14285 43.9613 5.45225L57.5566 29Z" stroke="#39B2BE" stroke-width="2"></path>
 </svg>
 					</label>
-					<li className="header__menu-item">
-						<a className="header__menu-link" href="https://erikacarvalho.dev" title="Home">Home</a>
-					</li>
-					<li className="header__menu-item">
-						<a className="header__menu-link" href="https://erikacarvalho.dev/about" title="Sobre">Sobre</a>
-					</li>
-					<li className="header__menu-item">
-						<a className="header__menu-link" href="https://erikacarvalh0.github.io/badges-display/" title="Painel de Conquistas">Painel de Conquistas</a>
-					</li>
-					<li className="header__menu-item">
-						<a className="header__menu-link" href="https://github.com/erikacarvalh0/cv-generator-cli" title="CV Generator CLI">CV Generator CLI</a>
-					</li>
-					<button className="header__info" data-js="showInfo"> 
-						<span>
-							i
-						</span> 
-							About this project 
-					</button>
+					{ links?.map(({ text, href, target}: iHeaderLinks) => (
+						<li className="header__menu-item">
+							<a className="header__menu-link" href={href} target={target} title={text}>{text}</a>
+						</li>
+					)) }
+					{ content && 
+						<button onClick={toggleDialog} className="header__info" data-js="showInfo"> 
+							<span>i</span> 
+							{ title }
+						</button>
+					}
 				</ul>
 		
-				<Dialog />
+				<Dialog title={title} content={content} isOpen={isOpen} toggleDialog={toggleDialog} />
             </nav>
 
 			{!isHome &&

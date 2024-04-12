@@ -9,3 +9,24 @@
         margin-top: -1px;
     }
 }
+
+@mixin closeIcon ($color, $width: 100%) {
+    &:before,
+    &:after {
+        content: '';
+        position: absolute;
+        display: block;
+        width: $width;
+        height: 2px;
+        background: $color;
+        transition: all .2s ease;
+    }
+
+    &:before {
+        transform: translateY(-100%) rotate(45deg);
+    }
+
+    &:after {
+        transform: translateY(-100%) rotate(-45deg);
+    }
+}

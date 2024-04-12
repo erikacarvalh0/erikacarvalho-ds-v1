@@ -1,8 +1,9 @@
 @import "./reset.scss";
+@import "./fonts.scss";
 @import "./vars.scss";
 @import "./mixins.scss";
 @import "./designGrid.scss";
-@import "./fonts.scss";
+@import "./animations.scss";
 
 input[type="checkbox"][aria-role="button"] {
     visibility: hidden;
