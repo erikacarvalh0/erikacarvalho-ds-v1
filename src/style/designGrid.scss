@@ -2,6 +2,7 @@ $defaultGridSize: 8px;
 
 
 body {
+    --gridSizeDefault: #{$defaultGridSize};
     --gridSizeSmall: calc(#{$defaultGridSize} / 2);
 
     @for $size from 1 through 10 {

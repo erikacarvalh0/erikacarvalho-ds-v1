@@ -16,3 +16,10 @@ export interface iLink {
     customClass?: string,
     children?: ReactNode
 }
+export interface iButton {
+    text?: string,
+    children?: ReactNode,
+    theme?: "neutral" | "cta" | "cancel",
+    customClass?: string,
+    action: () => void
+}

@@ -1,2 +1,56 @@
 @import "../../style/default.scss";
 
+.button {
+    cursor: pointer;
+    padding: var(--gridSizeDefault) var(--gridSize2x);
+    font-size: var(--gridSize2x);
+    color: $grey6;
+    text-align: center;
+    font-family: $fontPrimary;
+    text-transform: lowercase;
+    transition: all .3s ease-in;
+
+    @include fixBoldHover(title);
+
+    &:hover {
+        color: white;
+        font-weight: 700;
+    }
+
+    &.neutral {
+        background: $grey3;
+
+        &:hover {
+            background: $grey;
+        }
+
+        &:disabled {
+            background: $grey4;
+        }
+    }
+
+    &.cta {
+        background: $acqua;
+
+        &:hover {
+            background: $acquaDark;
+        }
+
+        &:disabled {
+            background: $acquaLight;
+        }
+    }
+
+    &.cancel {
+        background: $pink;
+
+        &:hover {
+            background: $pinkDark;
+        }
+
+        &:disabled {
+            background: $pinkLight;
+            color: $grey3;
+        }
+    }
+}

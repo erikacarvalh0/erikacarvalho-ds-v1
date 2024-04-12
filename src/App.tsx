@@ -5,6 +5,7 @@ import { Header } from "./organisms/Header";
 import { headerContent, headerLinks } from "./data/example/header";
 import { Dialog } from "./molecules/Dialog";
 import { dialogErrorContent, dialogSuccessContent } from "./data/example/dialog";
+import { Button } from "./atoms/Button";
 const App = () => {
   const [isSuccessOpen, setIsSuccessOpen] = useState(false)
   const [isErrorOpen, setIsErrorOpen] = useState(false)
@@ -18,8 +19,8 @@ const App = () => {
     <div>Language: TypeScript</div>
     <div>CSS: Empty CSS</div>
 
-    <button onClick={toggleSuccess}>Open Success</button>
-    <button onClick={toggleError}>Open Error</button>
+    <Button theme="cta" text="Open Success" action={toggleSuccess} />
+    <Button theme="cancel" text="Open Error" action={toggleError} />
 
     <Dialog 
       theme="success"

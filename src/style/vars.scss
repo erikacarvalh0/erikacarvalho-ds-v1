@@ -1,6 +1,7 @@
 // COLORS
 $pink: #FF6584;
 $pinkLight: #EEC0CC;
+$pinkDark: #B15970;
 
 $acqua: #58C9D4;
 $acquaLight: #C4E9ED;
@@ -9,7 +10,9 @@ $acquaDark: #21949F;
 $grey: #3F4147;
 $greyLight: #BABCBF;
 
-$grey100: #F4F4F6;
+$grey3: #828282;
+$grey4: #BDBDBD;
+$grey6: #F4F4F6;
 
 
 body {
@@ -23,7 +26,9 @@ body {
     --grey: #{$grey};
     --greyLight: #{$greyLight};
 
-    --grey100: #{$grey100};
+    --grey3: #{$grey3};
+    --grey4: #{$grey4};
+    --grey6: #{$grey6};
 }
 
 // FONTS
