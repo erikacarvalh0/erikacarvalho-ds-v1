@@ -1,0 +1,109 @@
+@import "../../style/default.scss";
+
+.dialog {
+	position: relative;
+	border: 0;
+	box-shadow: 5px 7px 12px $grey;
+	padding: var(--gridSize6x);
+    max-width: 60vw;
+
+	&::backdrop {
+		background: rgba(0, 0, 0, .7);
+	}
+
+    &[open] {
+        animation: fadeIn 1.5s .3s ease both, pulse 1.5s .3s ease both;
+
+        &::backdrop {
+            animation: fadeIn .5s ease both, pulse .5s ease both;
+        }
+    }
+
+    &.hide {
+        animation: fadeOut .75s ease both;
+
+        &::backdrop {
+            animation: fadeOut .75s ease both;
+        }
+    }
+
+    &__close {
+        cursor: pointer;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 20px;
+        height: 20px;
+        padding: 0;
+        @include closeIcon($acquaDark);
+    }
+
+    &__title {
+        max-width: 70%;
+        font-family: $fontSecondary;
+        color: $grey;
+        font-size: 24px;
+        font-weight: 700;
+        text-transform: uppercase;
+        line-height: 1.5em;
+    }
+
+    &__body {
+        margin-top: var(--gridSize4x);
+    }
+
+    &__text {
+        display: flex;
+        gap: var(--gridSizeSmall);
+        align-items: center;
+        margin-top: var(--gridSize2x);
+        font-size: 16px;
+        color: $grey;
+
+        &:not(:only-of-type) {
+            &:before {
+                content: '';
+                display: block;
+                width: 4px ;
+                height: 4px;
+                background: $acqua;
+            }
+        }
+
+
+        strong {
+            margin-right: 5px;
+        }
+
+        a {
+            text-decoration: none;
+            color: $acqua;
+
+            &:not(:first-of-type) {
+                border-left: 1px solid $grey;
+                margin-left: 3px;
+                padding-left: 8px;
+            }
+            
+            &:after {
+                content: '';
+                background: currentColor;
+                display: block;
+                width: 0;
+                height: 2px;
+                border-radius: 2px;
+            }
+
+            &:hover {
+                font-weight: 700;
+                color: $grey;
+                transition: all .2s ease;
+
+                &:after {
+                    width: 3ch;
+                    transition: width .2s ease;
+                }
+            }
+        }
+    }
+}
