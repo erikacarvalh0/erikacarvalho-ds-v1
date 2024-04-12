@@ -1,0 +1,59 @@
+@import "../../style/default.scss";
+
+.link {
+    cursor: pointer;
+    text-decoration: none;
+    font-family: $fontPrimary;
+    font-size: 16px;
+
+    @include fixBoldHover(title);
+    
+    &:after {
+        content: '';
+        background: currentColor;
+        display: block;
+        width: 0;
+        height: 2px;
+        border-radius: 2px;
+    }
+
+    &:not(.no-hover) {
+        &:hover {
+            font-weight: 700;
+            transition: all .2s ease;
+    
+            &:after {
+                width: 3ch;
+                transition: width .2s ease;
+            }
+        }
+    }
+
+    &.default {
+        color: $acqua;
+
+        &:hover {
+            color: $grey;
+        }
+    }
+
+    &.highlight {
+        color: $grey;
+
+        &:hover {
+            color: $acqua;
+        }
+    }
+
+    &.alert {
+        color: $pink;
+
+        &:hover {
+            color: $grey;
+        }
+    }
+
+    &.light {
+        color: white;
+    }
+}

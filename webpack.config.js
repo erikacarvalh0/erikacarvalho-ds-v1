@@ -52,9 +52,12 @@ module.exports = (_, argv) => ({
       filename: "remoteEntry.js",
       remotes: {},
       exposes: {
-        "./Header": "./src/organisms/Header/index.tsx",
-        "./Icons": "./src/atoms/Icons/index.ts",
         "./Styles": "./src/atoms/Styles/index.tsx",
+        "./Icons": "./src/atoms/Icons/index.ts",
+        "./Link": "./src/atoms/Link/index.tsx",
+        "./Dialog": "./src/molecules/Dialog/index.tsx",
+        "./Header": "./src/organisms/Header/index.tsx",
+
       },
       shared: {
         ...deps,
@@ -66,6 +69,7 @@ module.exports = (_, argv) => ({
           singleton: true,
           requiredVersion: deps["react-dom"],
         },
+        
       },
     }),
     new HtmlWebPackPlugin({

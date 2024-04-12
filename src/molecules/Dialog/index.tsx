@@ -6,6 +6,7 @@ import { iContentDialog, iDialog } from "../../interfaces/molecules"
 import { useDialog } from "./hook"
 import "./index.scss"
 import { isObject } from "../../utils/isObject"
+import { Link } from "../../atoms/Link"
 
 
 export const Dialog = ({ isOpen, toggleDialog, theme = 'default', icon, title, content, message }: iDialog) => {
@@ -36,10 +37,10 @@ export const Dialog = ({ isOpen, toggleDialog, theme = 'default', icon, title, c
 					<>
 						<p className="dialog__text">
 							{highlight && <strong>{highlight}</strong>}
-							{ href && <a href={href} target={target}>{text}</a>}
+							{ href && <Link target={target}  text={text} href={href} />}
 							{ !href && text}
 						</p>
-						{button && <a href={button.href}>{button.text}</a>}
+						{button && <Link text={button.text} href={button.href} />}
 					</>
 				)) }
 			</section>	

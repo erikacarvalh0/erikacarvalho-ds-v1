@@ -70,40 +70,16 @@
             }
         }
 
-
-        strong {
-            margin-right: 5px;
-        }
-
-        a {
-            text-decoration: none;
-            color: $acqua;
-
+        .link {
             &:not(:first-of-type) {
                 border-left: 1px solid $grey;
                 margin-left: 3px;
                 padding-left: 8px;
             }
-            
-            &:after {
-                content: '';
-                background: currentColor;
-                display: block;
-                width: 0;
-                height: 2px;
-                border-radius: 2px;
-            }
+        }
 
-            &:hover {
-                font-weight: 700;
-                color: $grey;
-                transition: all .2s ease;
-
-                &:after {
-                    width: 3ch;
-                    transition: width .2s ease;
-                }
-            }
+        strong {
+            margin-right: 5px;
         }
     }
 }

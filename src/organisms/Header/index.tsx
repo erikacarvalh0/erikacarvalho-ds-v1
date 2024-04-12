@@ -1,10 +1,11 @@
 import React from "react"
 import { Dialog } from "../../molecules/Dialog"
-import { Menu } from "../../atoms/Icons"
+import { Logo, Menu } from "../../atoms/Icons"
 
 import { useHeader } from  './hook'
 import './index.scss'
 import { iHeader, iHeaderLinks } from "../../interfaces/organisms"
+import { Link } from "../../atoms/Link"
 
 export const Header = ({ title, content, links }: iHeader) => {
 	const { isHome, isOpen, toggleDialog } = useHeader();
@@ -20,14 +21,11 @@ export const Header = ({ title, content, links }: iHeader) => {
 				
 				<ul data-js="menu" className="header__menu">
 					<label htmlFor="menu-btn" data-js="closeMenu" className="header__menu-button">
-						<svg id="icon-menu" width="59" height="59" viewBox="0 0 59 59" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M53.4226 28.5C53.7799 29.1188 53.7799 29.8812 53.4226 30.5L42.3273 49.7176C41.9701 50.3364 41.3098 50.7176 40.5953 50.7176L18.4047 50.7176C17.6902 50.7176 17.0299 50.3364 16.6727 49.7176L5.57735 30.5C5.22009 29.8812 5.22009 29.1188 5.57735 28.5L16.6727 9.28238C17.0299 8.66357 17.6902 8.28238 18.4047 8.28238L40.5953 8.28238C41.3098 8.28238 41.9701 8.66357 42.3274 9.28238L53.4226 28.5Z" fill="#39B2BE"></path>
-<path d="M57.5566 29C57.7353 29.3094 57.7353 29.6906 57.5566 30L43.9613 53.5478C43.7827 53.8572 43.4526 54.0478 43.0953 54.0478L15.9047 54.0478C15.5474 54.0478 15.2173 53.8571 15.0387 53.5478L1.44338 30C1.26475 29.6906 1.26475 29.3094 1.44338 29L15.0387 5.45225C15.2173 5.14285 15.5474 4.95225 15.9047 4.95225L43.0953 4.95225C43.4526 4.95225 43.7827 5.14285 43.9613 5.45225L57.5566 29Z" stroke="#39B2BE" stroke-width="2"></path>
-</svg>
+						<Menu className="header__menu-icon" />
 					</label>
 					{ links?.map(({ text, href, target}: iHeaderLinks) => (
 						<li className="header__menu-item">
-							<a className="header__menu-link" href={href} target={target} title={text}>{text}</a>
+							<Link theme="light" customClass="header__menu-link" href={href} target={target} text={text} />
 						</li>
 					)) }
 					{ content && 
@@ -42,9 +40,9 @@ export const Header = ({ title, content, links }: iHeader) => {
             </nav>
 
 			{!isHome &&
-				<a href="https://erikacarvalho.dev">
-					<img className="header__image" src="images/icons/logo.svg" />
-				</a>
+				<Link href="https://erikacarvalho.dev">
+					<Logo className="header__image" />
+				</Link>
 			}
 		</header>
         
