@@ -6,6 +6,7 @@ import { headerContent, headerLinks } from "./data/example/header";
 import { Dialog } from "./molecules/Dialog";
 import { dialogErrorContent, dialogSuccessContent } from "./data/example/dialog";
 import { Button } from "./atoms/Button";
+import { Input } from "./atoms/Input";
 const App = () => {
   const [isSuccessOpen, setIsSuccessOpen] = useState(false)
   const [isErrorOpen, setIsErrorOpen] = useState(false)
@@ -21,6 +22,12 @@ const App = () => {
 
     <Button theme="cta" text="Open Success" action={toggleSuccess} />
     <Button theme="cancel" text="Open Error" action={toggleError} />
+
+    <Input type="text" name="name" label="Name" />
+    <Input type="text" name="name-error" label="Name" fieldError={true} />
+    <Input type="number" name="age" label="Age" />
+    <Input type="email" name="email" label="E-mail" />
+    <Input type="password" name="password" label="Senha" />
 
     <Dialog 
       theme="success"

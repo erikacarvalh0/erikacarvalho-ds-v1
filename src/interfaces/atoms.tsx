@@ -23,3 +23,18 @@ export interface iButton {
     customClass?: string,
     action: () => void
 }
+export interface iInput {
+    label?: string,
+    type: "text" | "number" | "date" | "email" | "password"
+    customClass?: string,
+    name: string,
+    fieldError?: boolean
+}
+export interface iEmailDomains {
+    onClick: (e: any) => void,
+    onMouseEnter: (e: any) => void,
+    selectedDomain: number,
+    showDomains: boolean,
+    hasError: boolean,
+    domainsRef: any
+}
