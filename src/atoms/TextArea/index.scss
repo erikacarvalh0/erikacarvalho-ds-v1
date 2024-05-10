@@ -1,0 +1,15 @@
+@import "../../style/default.scss";
+
+.textarea {
+    &.no-resize {
+        resize: none;
+    }
+
+    &:focus,
+    &.filled,
+    &:valid:not(:empty) {
+      & + .label {
+        transform: translateY(-18px);
+      }
+    }
+}
