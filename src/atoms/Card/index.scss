@@ -1,0 +1,33 @@
+@import "../../style/default.scss";
+
+.card {
+    background: white;
+    padding: var(--gridSize3x) var(--gridSize2x);
+    border: 1px solid $grey4;
+
+    &__title {
+        font-family: $fontSecondary;
+        color: $acqua;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: var(--gridSize2x);
+    }
+
+    &__subtitle {
+        color: $grey;
+        font-weight: bold;
+        font-size: var(--gridSize3x);
+        margin-top: var(--gridSizeDefault);
+    }
+
+    &__content > * {
+        margin-top: var(--gridSizeDefault);
+    }
+
+    &__text {
+        color: $grey;
+        font-size: var(--gridSize2x);
+        line-height: 1.5em;
+    }
+
+}

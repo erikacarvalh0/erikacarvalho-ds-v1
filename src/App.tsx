@@ -10,6 +10,7 @@ import { Input } from "./atoms/Input";
 import { Textarea } from "./atoms/TextArea";
 import { Select } from "./atoms/Select";
 import { Img } from "./atoms/Img";
+import { Card } from "./atoms/Card";
 
 const App = () => {
   const [isSuccessOpen, setIsSuccessOpen] = useState(false)
@@ -26,6 +27,22 @@ const App = () => {
 
     <Button theme="cta" text="Open Success" action={toggleSuccess} />
     <Button theme="cancel" text="Open Error" action={toggleError} />
+
+    <Card title="Lendo por aí" subtitle="O Retorno do Cangaceiro Javascript" text="Você aprenderá os conceitos da Programação Funcional por meio de exemplos práticos com a criação da nossa própria biblioteca e operadores. Para completar, o autor traz os padrões de projeto mais utilizados para você melhorar ainda mais seus projetos." />
+    <Card 
+      title="Lendo por aí" 
+      subtitle="O Retorno do Cangaceiro Javascript" 
+      text="Você aprenderá os conceitos da Programação Funcional por meio de exemplos práticos com a criação da nossa própria biblioteca e operadores. Para completar, o autor traz os padrões de projeto mais utilizados para você melhorar ainda mais seus projetos."
+      button={{
+        action: () => console.log('click'),
+        text: "Card button"
+      }}
+      img={{
+        src:"/images/test.png",
+        srcmobile:"/images/test-mobile.png",
+        media: 768
+      }}
+    />
 
     <Img src="/images/test.png" />
     <Img src="/images/test.png"  srcmobile="/images/test-mobile.png" media={768} />

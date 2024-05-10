@@ -80,3 +80,20 @@ export interface iImg {
     styled?: boolean,
     customClass?: string
 }
+
+export interface iList {
+    items: iObject[],
+    status?: iObject,
+    validateError?: boolean
+}
+
+export interface iCard {
+    title: string,
+    subtitle: string,
+    img?: iImg,
+    text?: string,
+    list?: iList,
+    button?: iButton,
+    link?: iLink,
+    children?: ReactNode
+}
