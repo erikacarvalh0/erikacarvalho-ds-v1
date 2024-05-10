@@ -1,12 +1,11 @@
-import React from "react"
+import React, { Fragment } from "react"
 import classnames from "classnames"
 
 import { iContentDialog, iDialog } from "../../interfaces/molecules"
+import { Link } from "../../atoms/Link"
 
 import { useDialog } from "./hook"
 import "./index.scss"
-import { isObject } from "../../utils/isObject"
-import { Link } from "../../atoms/Link"
 
 
 export const Dialog = ({ isOpen, toggleDialog, theme = 'default', icon, title, content, message }: iDialog) => {
@@ -33,15 +32,15 @@ export const Dialog = ({ isOpen, toggleDialog, theme = 'default', icon, title, c
 					</p>
 				}
 
-				{ content?.map(({ highlight, text, href, target, button}: iContentDialog) => (
-					<>
+				{ content?.map(({ highlight, text, href, target, button}: iContentDialog, index: number) => (
+					<Fragment key={index}>
 						<p className="dialog__text">
 							{highlight && <strong>{highlight}</strong>}
 							{ href && <Link target={target}  text={text} href={href} />}
 							{ !href && text}
 						</p>
 						{button && <Link text={button.text} href={button.href} />}
-					</>
+					</Fragment>
 				)) }
 			</section>	
 		</dialog>

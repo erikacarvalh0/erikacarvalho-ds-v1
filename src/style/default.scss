@@ -5,7 +5,7 @@
 @import "./designGrid.scss";
 @import "./animations.scss";
 
-input[type="checkbox"][aria-role="button"] {
+input[type="checkbox"][role="button"] {
     visibility: hidden;
 }
 

@@ -17,14 +17,14 @@ export const Header = ({ title, content, links }: iHeader) => {
                     <Menu className="header__image" />
                     <div className="header__hamburguer"></div>
                 </label>
-                <input type="checkbox" id="menu-btn" aria-role="button" />
+                <input type="checkbox" id="menu-btn" role="button"  />
 				
 				<ul data-js="menu" className="header__menu">
 					<label htmlFor="menu-btn" data-js="closeMenu" className="header__menu-button">
 						<Menu className="header__menu-icon" />
 					</label>
-					{ links?.map(({ text, href, target}: iHeaderLinks) => (
-						<li className="header__menu-item">
+					{ links?.map(({ text, href, target}: iHeaderLinks, index: number) => (
+						<li key={index} className="header__menu-item">
 							<Link theme="light" customClass="header__menu-link" href={href} target={target} text={text} />
 						</li>
 					)) }
