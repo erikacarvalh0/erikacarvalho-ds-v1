@@ -1,0 +1,90 @@
+@import "../../style/default.scss";
+
+
+.input {
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 2px solid $acqua;
+    padding: var(--gridSizeSmall) var(--gridSize3x) var(--gridSizeSmall) var(--gridSizeDefault);
+    color: $grey;
+  
+    &-container {
+      position: relative;
+      width: fit-content;
+  
+      &:not(:first-child) {
+        margin-top: var(--gridSize3x);
+      }
+
+      &.top-element {
+        z-index: 1;
+      }
+    }
+  
+    & + .label {
+      position: absolute;
+      top: 6px;
+      left: var(--gridSizeDefault);
+      color: $acqua;
+      text-transform: uppercase;
+      transition: all .3s ease;
+    }
+  
+    &:focus,
+    &.filled,
+    &:valid:not(:empty) {
+      & + .label {
+        font-weight: 700;
+        font-size: var(--gridSizeDefault);
+        transform: translateY(-12px);
+      }
+    }
+  
+    &.error {
+      border-color: $alert;
+  
+      & + .label {
+        width: 100%;
+        font-weight: 700;
+        font-size: var(--gridSizeDefault);
+        transform: translateY(-12px);
+        color: $alert;
+
+        @include closeIcon($alert, var(--gridSize2x));
+  
+        &:after,
+        &:before {
+          position: absolute;
+          right: var(--gridSizeDefault);
+          top: calc(var(--gridSize2x) + 2px);
+        }
+      }
+
+      & ~ .input__btn-password {
+        right: var(--gridSize3x);
+      }
+    }
+
+    &.select {
+      cursor: pointer;
+    }
+
+    &__btn-select {
+      cursor: pointer;
+      position: absolute;
+      right: var(--gridSizeDefault);
+      top: calc(var(--gridSizeDefault) + 2px);
+      border: solid $acqua;
+      border-width: 0 3px 3px 0;
+      display: inline-block;
+      padding: 3px;
+      transform: rotate(45deg);
+      transition: transform .3s ease;
+
+      &.open {
+        transform: rotate(-135deg);
+      }
+
+    }
+
+  }

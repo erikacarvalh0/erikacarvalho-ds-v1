@@ -1,0 +1,47 @@
+@import "../../../style/default.scss";
+
+@mixin focusStyle() {
+  background: $acquaDark;
+  color: white;
+}
+
+.option {
+  padding: var(--gridSizeDefault);
+  font-family: $fontPrimary;
+  color: $grey;
+  font-size: 14px;
+
+  &:not(.disabled):hover {
+    @include focusStyle();
+    transition: all .3s ease;
+  }
+
+  &__container {
+    position: absolute;
+    background: white;
+    width: 100%;
+    max-height: 300px;
+    border: 1px solid $grey6;
+    overflow: scroll;
+
+    &.has-focus {
+      .option {
+        &:hover {
+          background: initial;
+          color: initial;
+        }
+        &.focus {
+          @include focusStyle()
+        }
+      }
+    }
+  }
+
+  &__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+}
