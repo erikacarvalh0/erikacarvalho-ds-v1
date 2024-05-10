@@ -9,8 +9,9 @@ import { useInput } from "./hook"
 import './index.scss'
 import { Eye, EyeClosed } from "../Icons"
 
-export const Input = ({ label, type, name, customClass, fieldError = false}: iInput) => {
+export const Input = ({ label, type, name, customClass, rules, fieldError = false}: iInput) => {
     const {
+        randId,
         domainsRef,
         typeState,
         value,
@@ -20,13 +21,14 @@ export const Input = ({ label, type, name, customClass, fieldError = false}: iIn
         showDomains,
         hasError,
         selectedDomain,
+        passwordRulesStatus,
         changeValue,
         handleClickDomain,
         closeDomainList,
         handleKeyUp,
         handleMouseContainer,
         handlePasswordType
-    } = useInput(fieldError, type)
+    } = useInput(fieldError, type, rules)
 
     const showDomainsElements = isEmail && showDomains && hasError;
 
@@ -39,11 +41,11 @@ export const Input = ({ label, type, name, customClass, fieldError = false}: iIn
                 onChange={changeValue}
                 type={typeState} 
                 name={name} 
-                id={`input-${name}`}
+                id={`input-${name}-${randId}`}
                 className={classNames("input", type, { filled: !!value, error: hasError})} 
             />
             
-            {label && <label className="label" htmlFor="input-text">{label}</label>}
+            {label && <label className="label" htmlFor={`input-${name}-${randId}`}>{label}</label>}
             
             { showDomainsElements && 
                 <EmailDomains 
@@ -64,6 +66,12 @@ export const Input = ({ label, type, name, customClass, fieldError = false}: iIn
               } 
             </button>}
         </div>
+
+        { isPassword && rules && 
+            <ul className="password-rules">
+              { rules.map((rule, index) => rule.text && <li key={index} className={classNames("password-rules__item", {"success": passwordRulesStatus?.[index], "error": !passwordRulesStatus?.[index] && !!value.length})}>{ rule.text }</li>)}
+            </ul>
+        }
 
         { showDomainsElements &&  <div onClick={closeDomainList} className="domain__bg"></div> }
     </>

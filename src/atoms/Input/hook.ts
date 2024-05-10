@@ -1,34 +1,70 @@
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 import { emailDomains } from "../../data/emailDomains"
+import { iObject } from "../../interfaces/atoms"
 
-export const useInput = (fieldError: boolean, type: string) => {
+export const useInput = (fieldError: boolean, type: string, rules?: iObject[]) => {
     const [ showDomains, setShowDomains ] = useState(false)
     const [ value, setValue ] = useState('')
     const [ typeState, setTypeState ] = useState(type)
     const [ selectedDomain, setSelectedDomain ] = useState(-1)
     const [ hasError, setHasError ] = useState(fieldError)
+    const passwordStatusControl = {}
+    const [ passwordRulesStatus, setPasswordRulesStatus] = useState(passwordStatusControl)
     const domainsRef = useRef(null)
 
+    const randId = Math.random()
     const emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
     const isEmail = type === "email"
     const isPassword = type === "password"
     const [isPasswordVisible, setIsPasswordVisible] = useState(false) 
 
     const changeValue = (e: any) => {
-        setValue(e.target.value)
+        const currentValue = e.target.value
+        
+        setValue(currentValue)
+
+        switch(type) {
+            case "email": {
+                checkEmail(currentValue)
+                break;
+            }
+            case "text": {
+                checkText(currentValue)
+                break;
+            }
+            case "password": {
+                checkPassword(currentValue)
+                break;
+            }
+        }
     }
 
-    useEffect(() => {
-        if(isEmail && value?.includes('@')) {
-            setShowDomains(true)
+    const checkPassword = (currentValue: string) => {
+        if(rules) {
+            rules.map(({text, rule} : iObject, index) => {
+                passwordStatusControl[index] = !!rule(currentValue)
+                setPasswordRulesStatus(passwordStatusControl)
+            })
+            const passwordHasError = !Object.values(passwordStatusControl).every(ruleStatus => ruleStatus)
+            setHasError(passwordHasError)
+        }
+    }
 
-            if(emailRegex.test(value)) {
+    const checkText = (currentValue: string) => {
+        setHasError(currentValue.length < 2)
+    }
+
+    const checkEmail = (currentValue: string) => {
+        if(currentValue?.includes('@')) {
+            setShowDomains(true)
+            
+            if(emailRegex.test(currentValue)) {
                 setHasError(false)
             } else {
                 setHasError(true)
             }
         }
-    }, [value])
+    }
 
     const closeDomainList = () => {
         setShowDomains(false)
@@ -88,9 +124,6 @@ export const useInput = (fieldError: boolean, type: string) => {
         if (pressedUp && selectedDomain > 0) {
             setSelectedDomain(selectedDomain - 1)
         }
-
-        console.log('selectedDomain', selectedDomain)
-        console.log('emailDomains.length', emailDomains.length)
         
         if (pressedDown && selectedDomain < emailDomains.length - 1) {
             setSelectedDomain(selectedDomain + 1)
@@ -114,7 +147,6 @@ export const useInput = (fieldError: boolean, type: string) => {
     }
 
     const handlePasswordType = () => {
-        console.log('typeState', typeState)
         if (typeState === type) {
             setTypeState('text')
             setIsPasswordVisible(true)
@@ -124,6 +156,7 @@ export const useInput = (fieldError: boolean, type: string) => {
         }
     }
     return {
+        randId,
         domainsRef,
         typeState,
         value,
@@ -133,6 +166,7 @@ export const useInput = (fieldError: boolean, type: string) => {
         showDomains,
         hasError,
         selectedDomain,
+        passwordRulesStatus,
         changeValue,
         handleClickDomain,
         closeDomainList,

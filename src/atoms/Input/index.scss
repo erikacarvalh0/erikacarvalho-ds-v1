@@ -5,7 +5,7 @@
     box-sizing: border-box;
     border: none;
     border-bottom: 2px solid $acqua;
-    padding: var(--gridSizeSmall) var(--gridSizeDefault);
+    padding: var(--gridSizeSmall) var(--gridSize3x) var(--gridSizeSmall) var(--gridSizeDefault);
     color: $grey;
   
     &-container {
@@ -41,7 +41,6 @@
     }
   
     &.error {
-      padding-right: var(--gridSize3x);
       border-color: $alert;
   
       & + .label {
@@ -60,7 +59,10 @@
           top: calc(var(--gridSize2x) + 2px);
         }
       }
-  
+
+      & ~ .input__btn-password {
+        right: var(--gridSize3x);
+      }
     }
 
     &.number {
@@ -82,6 +84,44 @@
       & > svg {
         animation: fadeIn .3s ease both;
         font-size: var(--gridSize2x);
+      }
+
+    }
+  }
+
+  .password-rules {
+    margin-top: var(--gridSize2x);
+
+    &__item {
+      margin-top: var(--gridSizeDefault);
+      padding-left: var(--gridSizeDefault);
+      font-size: calc(var(--gridSizeDefault) + var(--gridSizeSmall));
+      transition: color .3s ease;
+
+      &:before {
+        content: '•';
+        margin-right: calc(var(--gridSizeSmall) + 3px);
+      }
+
+      &.error, &.success {
+        &:before {
+          content: '•';
+          margin-right: var(--gridSizeSmall);
+        }
+      }
+      &.error {
+        color: $pinkDark;
+
+        &:before {
+          content: '✕'
+        }
+      }
+      &.success {
+        color: $acquaDark;
+
+        &:before {
+          content: '✓'
+        }
       }
     }
   }
