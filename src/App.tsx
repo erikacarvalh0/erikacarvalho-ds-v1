@@ -9,6 +9,7 @@ import { Button } from "./atoms/Button";
 import { Input } from "./atoms/Input";
 import { Textarea } from "./atoms/TextArea";
 import { Select } from "./atoms/Select";
+import { Img } from "./atoms/Img";
 
 const App = () => {
   const [isSuccessOpen, setIsSuccessOpen] = useState(false)
@@ -25,6 +26,9 @@ const App = () => {
 
     <Button theme="cta" text="Open Success" action={toggleSuccess} />
     <Button theme="cancel" text="Open Error" action={toggleError} />
+
+    <Img src="/images/test.png" />
+    <Img src="/images/test.png"  srcmobile="/images/test-mobile.png" media={768} />
 
     <Select name="select" label="select" options={["Opt 1", "Opt 2", "Opt 3"]} />
     <Input type="text" name="name" label="Name" />

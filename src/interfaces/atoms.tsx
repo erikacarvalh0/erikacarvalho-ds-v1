@@ -7,7 +7,6 @@ interface ReactNodeArray extends Array<ReactNode> {}
 type ReactFragment = {} | ReactNodeArray;
 type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
 
-
 export interface iLink {
     text?: string,
     href: string,
@@ -71,4 +70,13 @@ export interface iSelectOptions {
     hasError: boolean,
     optionsRef: any,
     options: string[]
+}
+
+export interface iImg {
+    src: string, 
+    srcmobile?: string, 
+    maxWidth?: number, 
+    media?: number, 
+    styled?: boolean,
+    customClass?: string
 }
