@@ -8,6 +8,7 @@ import { useInput } from "./hook"
 
 import './index.scss'
 import { Eye, EyeClosed } from "../Icons"
+import { List } from "../List"
 
 export const Input = ({ label, type, name, customClass, rules, fieldError = false}: iInput) => {
     const {
@@ -68,9 +69,7 @@ export const Input = ({ label, type, name, customClass, rules, fieldError = fals
         </div>
 
         { isPassword && rules && 
-            <ul className="password-rules">
-              { rules.map((rule, index) => rule.text && <li key={index} className={classNames("password-rules__item", {"success": passwordRulesStatus?.[index], "error": !passwordRulesStatus?.[index] && !!value.length})}>{ rule.text }</li>)}
-            </ul>
+            <List items={rules} status={passwordRulesStatus} validateError={!!value.length} />
         }
 
         { showDomainsElements &&  <div onClick={closeDomainList} className="domain__bg"></div> }
