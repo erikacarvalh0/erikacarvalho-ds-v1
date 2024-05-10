@@ -28,7 +28,32 @@ export interface iInput {
     type: "text" | "number" | "date" | "email" | "password"
     customClass?: string,
     name: string,
-    fieldError?: boolean
+    fieldError?: boolean,
+    rules?: iObject[]
+}
+export interface iSelect {
+    label?: string,
+    customClass?: string,
+    name: string,
+    fieldError?: boolean,
+    options: string[]
+}
+
+export interface iObject {
+    [key: string]: string | number | boolean | iObject | undefined | iFunction
+}
+
+export interface iFunction {
+    (value: string): void
+}
+export interface iTextarea {
+    label?: string,
+    customClass?: string,
+    name: string,
+    fieldError?: boolean,
+    rows?: number,
+    cols?: number,
+    resize?: boolean
 }
 export interface iEmailDomains {
     onClick: (e: any) => void,
@@ -37,4 +62,13 @@ export interface iEmailDomains {
     showDomains: boolean,
     hasError: boolean,
     domainsRef: any
+}
+export interface iSelectOptions {
+    onClick: (e: any) => void,
+    onMouseEnter: (e: any) => void,
+    selectedOption: number,
+    showOptions: boolean,
+    hasError: boolean,
+    optionsRef: any,
+    options: string[]
 }

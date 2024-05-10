@@ -1,7 +1,3 @@
-export interface iObject {
-    [key: string]: string | number | boolean | iObject | undefined,
-}
-
 export interface iContentDialog {
     text: string,
     highlight?: string,
