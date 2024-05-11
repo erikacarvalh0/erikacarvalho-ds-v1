@@ -201,7 +201,6 @@
 }
 
 #menu-btn:checked {
-	background-color: #f0f;
 	& + .header__menu {
 		opacity: 1;
 		transform: translateX(0);

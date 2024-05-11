@@ -1,0 +1,64 @@
+@import "../../style/default.scss";
+
+.accordion {
+  width: 100;
+
+  input:checked {
+    & ~ .accordion__item {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: all;
+      height: auto;
+      max-height: 100vh;
+      margin-top: var(--gridSize2x);
+    }
+
+    & ~ .accordion__label {
+      &.has-arrow:before {
+        bottom: 2px;
+        transform: rotate(-135deg);
+      }
+    }
+  }
+
+  &__item {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    height: 0;
+    max-height: 0;
+    overflow: hidden;
+    padding: 0;
+    transition: all .3s ease;
+
+    color: $grey;
+    font-size: var(--gridSize2x);
+  }
+
+  &__label {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    font-family: $fontSecondary;
+    color: $grey;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: var(--gridSize2x);
+
+    &.acqua {
+      color: $acqua;
+    }
+
+    &.pink {
+      color: $pink;
+    }
+
+    &.has-arrow {
+      &:before {
+        content: '';
+        @include arrowDown()
+      }
+    }
+  }
+}

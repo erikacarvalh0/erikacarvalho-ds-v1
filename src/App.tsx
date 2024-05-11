@@ -11,6 +11,7 @@ import { Textarea } from "./atoms/TextArea";
 import { Select } from "./atoms/Select";
 import { Img } from "./atoms/Img";
 import { Card } from "./atoms/Card";
+import { Accordion } from "./atoms/Accordion";
 
 const App = () => {
   const [isSuccessOpen, setIsSuccessOpen] = useState(false)
@@ -20,10 +21,10 @@ const App = () => {
 
   return (<div className="container">
     <Header title="Sobre o Projeto" content={headerContent} links={headerLinks} />
-    <div>Name: ecds</div>
-    <div>Framework: react</div>
-    <div>Language: TypeScript</div>
-    <div>CSS: Empty CSS</div>
+    
+    <Accordion title="Teste" hasArrow acqua>
+      <p> texto texto texto</p>
+    </Accordion>
 
     <Button theme="cta" text="Open Success" action={toggleSuccess} />
     <Button theme="cancel" text="Open Error" action={toggleError} />

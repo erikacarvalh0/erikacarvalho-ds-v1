@@ -97,3 +97,11 @@ export interface iCard {
     link?: iLink,
     children?: ReactNode
 }
+
+export interface iAccordion {
+    title: string,
+    children: ReactNode,
+    hasArrow?: boolean,
+    acqua?: boolean,
+    pink?: boolean,
+}
