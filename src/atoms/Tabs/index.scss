@@ -1,0 +1,100 @@
+@import "../../style/default.scss";
+
+.tabs {
+  padding: var(--gridSize2x);
+
+  &__header {
+    display: flex;
+    gap: var(--gridSize2x);
+
+    input:checked {
+      & + .tabs__header-item {
+        @include underlineHover();
+        
+        &:after {
+          width: 100%;
+        }
+
+        &:not(.secondary):after {
+          color: $acqua;
+        }
+
+        &.primary {
+          color: $colorPrimary;
+        }
+        &.secondary {
+          color: $colorSecondary;
+        }
+      }
+    }
+
+    &-item {
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: var(--gridSizeDefault);
+      font-family: $fontSecondary;
+      color: $grey;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: var(--gridSize2x);
+
+      @include underlineDefault();
+
+      &:hover {
+        @include underlineHover();
+      }
+
+      &:after {
+        position: absolute;
+        bottom: 0;
+      }
+
+      &.acqua {
+        color: $acqua;
+      }
+
+      &.pink {
+        color: $pink;
+      }
+
+      &.has-arrow {
+        &:before {
+          content: '';
+          @include arrowDown()
+        }
+      }
+    }
+  }
+
+  &__content {
+    background: white;
+    position: relative;
+    min-height: fit-content;
+    height: auto;
+    padding-bottom: var(--gridSize4x);
+  }
+}
+
+.tab {
+  &__item {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    overflow: hidden;
+    padding: 0;
+    transition: all .3s ease;
+
+    color: $grey;
+    font-size: var(--gridSize2x);
+
+    &.is-active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: all;
+      margin-top: var(--gridSize2x);
+    }
+  }
+}

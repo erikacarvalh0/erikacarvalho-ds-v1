@@ -5,7 +5,9 @@ type ReactChild = ReactElement | ReactText;
 
 interface ReactNodeArray extends Array<ReactNode> {}
 type ReactFragment = {} | ReactNodeArray;
-type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
+
+export type iFn = () => void
+export type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
 
 export interface iLink {
     text?: string,
@@ -104,4 +106,22 @@ export interface iAccordion {
     hasArrow?: boolean,
     acqua?: boolean,
     pink?: boolean,
+}
+
+export interface iTab { 
+    title: string,
+    icon?: any,
+    children: ReactNode,
+    index: number,
+    activeId: string
+}
+
+export interface iTabs { 
+    theme: 'default' | 'primary' | 'secondary'
+}
+
+export interface iTabsHeader {
+    children: ReactNode, 
+    handleOnChange: any, 
+    id: number
 }
