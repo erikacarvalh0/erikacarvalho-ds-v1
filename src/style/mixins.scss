@@ -46,3 +46,23 @@
         transform: rotate(-135deg);
     }
 }
+
+@mixin underlineDefault() {
+    &:after {
+        content: '';
+        background: currentColor;
+        display: block;
+        width: 0;
+        height: 2px;
+        border-radius: 2px;
+    }
+}
+
+@mixin underlineHover() {
+    transition: all .2s ease;
+
+    &:after {
+        width: 3ch;
+        transition: width .2s ease;
+    }
+}
