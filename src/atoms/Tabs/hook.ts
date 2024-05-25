@@ -2,13 +2,13 @@ import { useEffect, useRef, useState } from "react"
 
 export const useTab = () => {
     const randId = Math.random()
-    const tabsContentRef = useRef(null)
+    const tabsContentRef = useRef<HTMLElement>(null)
     const [ activeId, setActiveId ] = useState('tab-0')
     const [ maxHeight, setMaxHeight ] = useState(0)
 
     const setContentHeight = (activeId: string) => {
         const itemIndex = activeId.split('-')[1]
-        const activeContent = tabsContentRef?.current.children[itemIndex]
+        const activeContent = tabsContentRef?.current?.children?.[itemIndex]
         const activeContentHeight = activeContent.clientHeight
 
         setMaxHeight(activeContentHeight)
