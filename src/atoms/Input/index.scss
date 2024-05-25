@@ -1,5 +1,6 @@
 @import "../../style/default.scss";
 
+$topSpacing: 12px;
 
 .input {
     box-sizing: border-box;
@@ -11,10 +12,7 @@
     &-container {
       position: relative;
       width: fit-content;
-  
-      &:not(:first-child) {
-        margin-top: var(--gridSize3x);
-      }
+      padding-top: $topSpacing;
 
       &.top-element {
         z-index: 1;
@@ -23,7 +21,7 @@
   
     & + .label {
       position: absolute;
-      top: 6px;
+      top: $topSpacing;
       left: var(--gridSizeDefault);
       color: $acqua;
       text-transform: uppercase;
@@ -36,7 +34,7 @@
       & + .label {
         font-weight: 700;
         font-size: var(--gridSizeDefault);
-        transform: translateY(-12px);
+        transform: translateY(calc($topSpacing * -1));
       }
     }
   

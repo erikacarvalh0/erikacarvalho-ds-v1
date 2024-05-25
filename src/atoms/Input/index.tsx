@@ -3,16 +3,17 @@ import classNames from "classnames"
 
 import { iInput } from "../../interfaces/atoms"
 
+import { Eye, EyeClosed } from "../Icons"
+import { List } from "../List"
+
 import { EmailDomains } from "./EmailDomains"
 import { useInput } from "./hook"
 
 import './index.scss'
-import { Eye, EyeClosed } from "../Icons"
-import { List } from "../List"
 
-export const Input = ({ label, type, name, customClass, rules, fieldError = false}: iInput) => {
+export const Input = ({ label, type, name, customClass, rules, isRequired = false , fieldError = false, formValuesState}: iInput) => {
     const {
-        randId,
+        inputId,
         domainsRef,
         typeState,
         value,
@@ -28,8 +29,9 @@ export const Input = ({ label, type, name, customClass, rules, fieldError = fals
         closeDomainList,
         handleKeyUp,
         handleMouseContainer,
-        handlePasswordType
-    } = useInput(fieldError, type, rules)
+        handlePasswordType,
+        handleBlur
+    } = useInput(fieldError, type, rules, name, formValuesState)
 
     const showDomainsElements = isEmail && showDomains && hasError;
 
@@ -40,13 +42,15 @@ export const Input = ({ label, type, name, customClass, rules, fieldError = fals
                 value={value}
                 onKeyUp={handleKeyUp}
                 onChange={changeValue}
+                onBlur={handleBlur}
                 type={typeState} 
                 name={name} 
-                id={`input-${name}-${randId}`}
+                id={inputId}
+                required={isRequired}
                 className={classNames("input", type, { filled: !!value, error: hasError})} 
             />
             
-            {label && <label className="label" htmlFor={`input-${name}-${randId}`}>{label}</label>}
+            {label && <label className="label" htmlFor={inputId}>{label}</label>}
             
             { showDomainsElements && 
                 <EmailDomains 

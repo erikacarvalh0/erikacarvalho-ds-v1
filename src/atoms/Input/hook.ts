@@ -1,31 +1,56 @@
-import { useRef, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { emailDomains } from "../../data/emailDomains"
 import { iObject } from "../../interfaces/atoms"
 
-export const useInput = (fieldError: boolean, type: string, rules?: iObject[]) => {
+interface iRule { rule: (param:number | string) => string }
+
+export const useInput = (fieldError: boolean, type: string, rules?: any[], name: string, formValuesState?: any) => {
     const [ showDomains, setShowDomains ] = useState(false)
     const [ value, setValue ] = useState('')
     const [ typeState, setTypeState ] = useState(type)
     const [ selectedDomain, setSelectedDomain ] = useState(-1)
     const [ hasError, setHasError ] = useState(fieldError)
-    const passwordStatusControl = {}
+    const passwordStatusControl : iObject = {}
     const [ passwordRulesStatus, setPasswordRulesStatus] = useState(passwordStatusControl)
-    const domainsRef = useRef(null)
+    const domainsRef = useRef<HTMLElement>(null)
 
-    const randId = Math.random()
+    const [ randId ] = useState(Math.floor(Math.random() * 10))
+    const inputId = `input-${name}-${randId}`
     const emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
     const isEmail = type === "email"
     const isPassword = type === "password"
     const [isPasswordVisible, setIsPasswordVisible] = useState(false) 
 
+    useEffect(() => {
+        if (formValuesState) {
+            const [ formValues, setFormValues ] = formValuesState
+            
+            setFormValues({
+                ...formValues,
+                [inputId]: value
+            })
+        }
+    }, [value])
+
+
     const changeValue = (e: any) => {
         const currentValue = e.target.value
         
         setValue(currentValue)
+        checkFields(e.target)
+
+        setTimeout(() => {
+            checkFields(e.target)
+            checkRequired(e.target)
+        }, 1000)
+    }
+
+    const checkFields = (target: HTMLInputElement, isBlur?: boolean) => {
+        const currentValue = target.value
 
         switch(type) {
             case "email": {
-                checkEmail(currentValue)
+                checkEmail(currentValue, isBlur)
                 break;
             }
             case "text": {
@@ -33,20 +58,22 @@ export const useInput = (fieldError: boolean, type: string, rules?: iObject[]) =
                 break;
             }
             case "password": {
-                checkPassword(currentValue)
+                checkPassword(currentValue, isBlur)
                 break;
             }
         }
     }
 
-    const checkPassword = (currentValue: string) => {
+    const checkPassword = (currentValue: string, isBlur?: boolean) => {
         if(rules) {
-            rules.map(({text, rule} : iObject, index) => {
+            rules.map(({ rule } : iRule, index) => {
                 passwordStatusControl[index] = !!rule(currentValue)
                 setPasswordRulesStatus(passwordStatusControl)
             })
             const passwordHasError = !Object.values(passwordStatusControl).every(ruleStatus => ruleStatus)
             setHasError(passwordHasError)
+        } else if (isBlur) {
+            setHasError(false)
         }
     }
 
@@ -54,7 +81,7 @@ export const useInput = (fieldError: boolean, type: string, rules?: iObject[]) =
         setHasError(currentValue.length < 2)
     }
 
-    const checkEmail = (currentValue: string) => {
+    const checkEmail = (currentValue: string, isBlur?: boolean) => {
         if(currentValue?.includes('@')) {
             setShowDomains(true)
             
@@ -63,6 +90,18 @@ export const useInput = (fieldError: boolean, type: string, rules?: iObject[]) =
             } else {
                 setHasError(true)
             }
+        } else if (isBlur) {
+            setHasError(true)
+        } else {
+            setShowDomains(false)
+        }
+    }
+
+    const checkRequired = (target: HTMLInputElement) => {
+        const currentValue = target.value
+
+        if (target.hasAttribute('required') && !currentValue) {
+            setHasError(true)
         }
     }
 
@@ -72,10 +111,13 @@ export const useInput = (fieldError: boolean, type: string, rules?: iObject[]) =
     }
 
     const scrollElementToView = (pressedDown: boolean, pressedUp: boolean) => {
-        if( domainsRef?.current && selectedDomain > -1) {
-            const listPosition = domainsRef?.current.getBoundingClientRect()
+        const domainsList = domainsRef?.current
 
-            const domainsElms = domainsRef?.current?.children
+        if( domainsList && selectedDomain > -1) {
+            const listPosition = domainsList.getBoundingClientRect()
+            const formParentTop = domainsList?.closest('form')?.parentElement?.getBoundingClientRect().top || 0
+    
+            const domainsElms = domainsList?.children
             const currentDomainElm = domainsElms[selectedDomain]
             const currentDomainPosition = currentDomainElm.getBoundingClientRect()
             const currentDomainBottom = currentDomainPosition.bottom + currentDomainPosition.height
@@ -84,20 +126,26 @@ export const useInput = (fieldError: boolean, type: string, rules?: iObject[]) =
             const upPosition = currentDomainPosition.height + listPosition.top + 2
 
             if (pressedDown && currentDomainBottom > listPosition.bottom){
-                currentDomainElm.scrollIntoView()
-                
+                scrollElement(currentDomainElm, formParentTop)
             }
 
             if (pressedUp && currentDomainTop < upPosition){
                 const previousDomainElm = domainsElms[selectedDomain - 1 ] || currentDomainElm
-                previousDomainElm.scrollIntoView()
+                scrollElement(previousDomainElm, formParentTop)
             } 
         }
     }
 
+    const scrollElement = (elm: Element, top: number) => {
+        elm.scrollIntoView()
+        window.scrollTo(top, 0)
+    }
+
     const handleDomainSelection = (selectedDomain: string) => {
         const [ newEmail ] = value.split('@')
-        setValue(`${newEmail}@${selectedDomain}`)
+        const newValue = `${newEmail}@${selectedDomain}`
+        setValue(newValue)
+        checkEmail(newValue)
         closeDomainList()
     }
 
@@ -155,8 +203,17 @@ export const useInput = (fieldError: boolean, type: string, rules?: iObject[]) =
             setTypeState(type)
         }
     }
+
+    const handleBlur = ({ target }: { target: HTMLInputElement}) => {
+        checkRequired(target)
+
+        if (value) {
+            checkFields(target, true)
+        }
+    }
+
     return {
-        randId,
+        inputId,
         domainsRef,
         typeState,
         value,
@@ -172,6 +229,7 @@ export const useInput = (fieldError: boolean, type: string, rules?: iObject[]) =
         closeDomainList,
         handleKeyUp,
         handleMouseContainer,
-        handlePasswordType
+        handlePasswordType,
+        handleBlur
     }
 }

@@ -14,8 +14,7 @@ export const EmailDomains = ({ domainsRef, showDomains, hasError, onClick, onMou
                     role="button"
                     onClick={onClick}
                     className={classNames("domain", {
-                        "focus": selectedDomain === index, 
-                        // "has-pointer": 
+                        "focus": selectedDomain === index
                     })} 
                     key={`domain-${index}`}
                 >
