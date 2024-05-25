@@ -1,3 +1,5 @@
+import { ReactNode, iFn, iObject } from "./atoms"
+
 export interface iContentDialog {
     text: string,
     highlight?: string,
@@ -20,3 +22,9 @@ export interface iDialog {
 }
 
 export interface iDialogHook { isOpen: boolean, toggleDialog: () => void }
+
+export interface iForm {
+	children?: ReactNode,
+    handleSubmit?: (values: iObject) => void,
+    buttonText?: string
+}

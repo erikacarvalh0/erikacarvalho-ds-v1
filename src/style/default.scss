@@ -5,6 +5,10 @@
 @import "./designGrid.scss";
 @import "./animations.scss";
 
+* {
+    box-sizing: border-box;
+}
+
 input[role="button"] {
     visibility: hidden;
     position: absolute;

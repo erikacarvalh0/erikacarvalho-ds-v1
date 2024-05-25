@@ -1,4 +1,4 @@
-import { ReactElement, ReactPortal } from "react";
+import { MouseEventHandler, ReactElement, ReactPortal } from "react";
 
 type ReactText = string | number;
 type ReactChild = ReactElement | ReactText;
@@ -18,11 +18,13 @@ export interface iLink {
     children?: ReactNode
 }
 export interface iButton {
+    isDisabled?: boolean
     text?: string,
     children?: ReactNode,
     theme?: "neutral" | "cta" | "cancel",
     customClass?: string,
-    action: () => void
+    action: (event: any) => void,
+    type?: "submit"
 }
 export interface iInput {
     label?: string,
@@ -31,6 +33,8 @@ export interface iInput {
     name: string,
     fieldError?: boolean,
     rules?: iObject[]
+    isRequired?: boolean,
+    formValuesState?: any
 }
 export interface iSelect {
     label?: string,
@@ -112,8 +116,8 @@ export interface iTab {
     title: string,
     icon?: any,
     children: ReactNode,
-    index: number,
-    activeId: string
+    index?: number,
+    activeId?: string
 }
 
 export interface iTabs { 
