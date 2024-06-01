@@ -1,0 +1,64 @@
+@import "../../style/default.scss";
+
+.carousel {
+  display: flex;
+  justify-content: space-between;
+  overflow-x: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+
+  &:-webkit-scrollbar {
+    display: none;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: var(--gridSizeDefault);
+  }
+
+  &__btn {
+    &.carousel__btn {
+      padding: 0;
+
+      &-next,
+      &-previous {
+        @include arrowDown();
+        background: none;
+        position: initial;
+        color: $acquaLight;
+        width: calc(var(--gridSizeDefault) + var(--gridSizeSmall));
+        height: calc(var(--gridSizeDefault) + var(--gridSizeSmall));
+
+        &:hover {
+          background: none;
+          color: $acquaDark;
+        }
+      }
+
+      &-next {
+        transform: rotate(-45deg);
+      }
+
+      &-previous {
+        transform: rotate(135deg);
+      }
+
+      &-dot {
+        width: calc(var(--gridSizeDefault) + 2px);
+        height: calc(var(--gridSizeDefault) + 2px);
+        background: $acquaLight;
+        border-radius: calc(var(--gridSizeDefault) + 2px);
+        
+        &.active {
+          background: $acqua;
+        }
+
+        &:hover {
+          background: $acquaDark;
+        }
+      }
+    }
+  }
+}

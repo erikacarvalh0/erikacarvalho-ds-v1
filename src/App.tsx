@@ -17,6 +17,7 @@ import { Form } from "./molecules/Form";
 import { iObject } from "./interfaces/atoms";
 import { Table } from "./molecules/Table";
 import { TCol } from "./molecules/Table/TCol";
+import { Carousel, CItem } from "./atoms/Carousel";
 
 const App = () => {
   const [isSuccessOpen, setIsSuccessOpen] = useState(false)
@@ -119,10 +120,42 @@ const App = () => {
     
   ]
 
+  const carouselConfig = {
+    autoWidth: true,
+    maxDots: true,
+    groupScroll: true,
+    layout: "ctrls-in-line",
+    dots: true,
+    itemsPerPage: 2,
+  
+    responsive: [
+      {
+        breakpoint: 780,
+        settings: {
+          layout: "vertical-align",
+          centerSingleItemAW: true
+        }
+      }
+    ]
+  };
+
   return (<div className="container">
     <Header title="Sobre o Projeto" content={headerContent} links={headerLinks} />
 
     <Tabs>
+      <TabItem title="Carousel">
+        <Carousel config={carouselConfig}>
+          <CItem>Content 1</CItem>
+          <CItem>Content 2<Img src="/images/test.png" /></CItem>
+          <CItem>Content 3</CItem>
+          <CItem>Content 4<Img src="/images/test.png" /></CItem>
+          <CItem>Content 5</CItem>
+          <CItem>Content 6<Img src="/images/test.png" /></CItem>
+          <CItem>Content 7</CItem>
+          <CItem>Content 8<Img src="/images/test.png" /></CItem>
+          <CItem>Content 9</CItem>
+        </Carousel>
+      </TabItem>
       <TabItem title="Table">
         <Table data={tableData}>
           <TCol id="1" sort>Test 1</TCol>
