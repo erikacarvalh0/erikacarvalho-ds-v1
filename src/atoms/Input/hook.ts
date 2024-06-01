@@ -1,4 +1,6 @@
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
+
+import { getRandomNumber } from "../../utils/randomNumber"
 import { emailDomains } from "../../data/emailDomains"
 import { iObject } from "../../interfaces/atoms"
 
@@ -14,7 +16,7 @@ export const useInput = (fieldError: boolean, type: string, rules?: any[], name:
     const [ passwordRulesStatus, setPasswordRulesStatus] = useState(passwordStatusControl)
     const domainsRef = useRef<HTMLElement>(null)
 
-    const [ randId ] = useState(Math.floor(Math.random() * 10))
+    const [ randId ] = useState(getRandomNumber())
     const inputId = `input-${name}-${randId}`
     const emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
     const isEmail = type === "email"

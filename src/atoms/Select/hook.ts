@@ -1,5 +1,7 @@
 import { useRef, useState } from "react"
 
+import { getRandomNumber } from "../../utils/randomNumber"
+
 export const useSelect = (fieldError: boolean, options: string[]) => {
     const [ showOptions, setShowOptions ] = useState(false)
     const [ value, setValue ] = useState('')
@@ -8,7 +10,7 @@ export const useSelect = (fieldError: boolean, options: string[]) => {
     const optionsRef = useRef(null)
     const [ filteredOptions, setFilteredOptions ] = useState(options)
 
-    const randId = Math.random()
+    const randId = getRandomNumber()
 
     const changeValue = (e: any) => {
         const currentValue = e.target.value

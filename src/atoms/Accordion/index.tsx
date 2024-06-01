@@ -2,11 +2,12 @@ import React from "react"
 import classNames from "classnames"
 
 import { iAccordion } from "../../interfaces/atoms"
+import { getRandomNumber } from "../../utils/randomNumber"
 
 import './index.scss'
 
 export const Accordion = ({ title, children, hasArrow, acqua, pink, size } : iAccordion) => {
-    const randId = Math.floor(Math.random() * 10)
+    const randId = getRandomNumber()
     return (
         <div className="accordion">
             <input type="checkbox" id={`accordion-btn-${randId}`} role="button"  />

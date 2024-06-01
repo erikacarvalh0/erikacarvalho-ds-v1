@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react"
 
+import { getRandomNumber } from "../../utils/randomNumber"
+
 export const useTab = () => {
-    const randId = Math.random()
+    const randId = getRandomNumber()
     const tabsContentRef = useRef<HTMLElement>(null)
     const [ activeId, setActiveId ] = useState('tab-0')
     const [ maxHeight, setMaxHeight ] = useState(0)
