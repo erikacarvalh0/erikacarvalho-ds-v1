@@ -7,21 +7,21 @@ import { Accordion } from "../../atoms/Accordion"
 
 export const CombinedRow = ({rowIndex, row, hiddenCols, rowsIndexes, header}) => {
     return (<>
-        <tr className="table__row" key={rowIndex}> {
+        <tr className="table__row" key={rowIndex}>{
             Object.values(row).map((col, colIndex) => {
                 return hiddenCols.includes(colIndex)
-                    ? <></>
-                    : <td className="table__cell" key={colIndex}>{ col }</td>
-            })}
-        </tr>
+                    ? null
+                    : <td className="table__cell" key={colIndex}>{col}</td>
+            })
+        }</tr>
         <tr>
             <td colSpan={rowsIndexes.length - hiddenCols.length}>
                 <Accordion title="Mais informações" hasArrow size="small">
-                    { hiddenCols.map(hiddenCol => {
+                    { hiddenCols.map((hiddenCol, colIndex) => {
                         const tColText = Children.toArray(header)[hiddenCol].props.children
                         const rowText = row[rowsIndexes[hiddenCol]]
                         
-                        return (<p className="table__inner-text"><strong>{ tColText }:</strong> { rowText }</p>)
+                        return (<p key={colIndex} className="table__inner-text"><strong>{ tColText }:</strong> { rowText }</p>)
                     }) }
                 </Accordion>
 
@@ -43,23 +43,19 @@ export const Table =({ data, children } : iTable) => {
         <TableContext.Provider value={{ sortState }}>
             <table ref={tableRef} className="table">
                 <thead className="table__header">
-                    <tr className="table__row">
-                        { React.Children.map(children, (child, index) => {
-                            return !hiddenCols.includes(index)
-                                ? child
-                                : <></>
-                        })
-                        }
-                    </tr>
+                    <tr className="table__row">{ 
+                        React.Children.map(children, (child, index) => !hiddenCols.includes(index)
+                            ? child
+                            : null
+                        )
+                    }</tr>
                 </thead>
                 <tbody>
                     { sortedData.map((row, rowIndex) =>{
                         const rowsIndexes = Object.keys(row)
                         return hiddenCols.length === 0
-                            ? <tr className="table__row" key={rowIndex}> {
-                                Object.values(row).map((col, colIndex) => <td className="table__cell" key={colIndex}>{ col }</td>
-                            )}</tr>
-                            : <CombinedRow rowIndex={rowIndex} row={row} hiddenCols={hiddenCols} rowsIndexes={rowsIndexes} header={children}/>
+                            ? <tr className="table__row" key={rowIndex}>{Object.values(row).map((col, colIndex) => <td className="table__cell" key={colIndex}>{col}</td>)}</tr>
+                            : <CombinedRow key={rowIndex} rowIndex={rowIndex} row={row} hiddenCols={hiddenCols} rowsIndexes={rowsIndexes} header={children}/>
                     }) }
                 </tbody>
             </table>
