@@ -14,7 +14,7 @@
     }
 
     & ~ .accordion__label {
-      &.has-arrow:before {
+      &.has-arrow:after {
         bottom: 2px;
         transform: rotate(-135deg);
       }
@@ -45,6 +45,23 @@
     font-weight: bold;
     text-transform: uppercase;
     font-size: var(--gridSize2x);
+    
+    &.large {
+      font-size: calc(var(--gridSize2x) + var(--gridSizeSmall));
+    }
+
+    &.small {
+      font-size: calc(var(--gridSize2x) - var(--gridSizeSmall));
+
+      &.has-arrow {
+        &:after {
+          padding: 0;
+          height: 5px;
+          width: 5px;
+          border-width: 0 2px 2px 0;
+        }
+      }
+    }
 
     &.acqua {
       color: $acqua;
@@ -55,7 +72,7 @@
     }
 
     &.has-arrow {
-      &:before {
+      &:after {
         content: '';
         @include arrowDown()
       }
