@@ -1,0 +1,81 @@
+@import "../../style/default.scss";
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+
+    &__header {
+        font-family: $fontSecondary;
+        text-transform: uppercase;
+
+        .table__cell {
+            border-bottom: 1px solid $greyLight;
+            text-align: left;
+            font-size: calc(var(--gridSize2x) + var(--gridSizeSmall));
+        }
+    }
+    
+    &__cell {
+        min-width: 150px;
+        vertical-align: middle;
+        padding:var(--gridSize2x) var(--gridSizeDefault);
+        font-size: var(--gridSize2x);
+        
+        &.has-arrow {
+            position: relative;
+            cursor: pointer;
+            padding-right: var(--gridSize3x);
+
+            &:after {
+                content: '';
+                @include arrowDown();
+                position: relative;
+                top: -4px;
+                left: 12px;
+            }
+
+            &.desc,
+            &.asc {
+                &:after {
+                    color: $acquaDark;
+                }
+            }
+
+            &.desc {
+                &:after {
+                    transform: rotate(-135deg) translate(-5px, -1px);
+                }
+            }
+        }
+    }
+
+    &__inner-text {
+        color: $grey;
+        font-size: calc(var(--gridSize2x) - 2px);
+
+        &:not(:first-of-type) {
+            margin-top: var(--gridSizeDefault);
+        }
+        &:not(:last-of-type) {
+            padding-bottom: var(--gridSizeDefault);
+            border-bottom: 1px solid $grey5;
+        }
+    }
+
+    .accordion {
+        background: $grey6;
+        padding: var(--gridSizeDefault);
+
+        &__label {
+            padding: var(--gridSizeDefault) 0;
+            justify-content: initial;
+            
+            &:after {
+                position: relative;
+                top: 0;
+                left: 12px;
+            }
+        }
+    }
+    
+}

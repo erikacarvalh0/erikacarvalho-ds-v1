@@ -28,3 +28,8 @@ export interface iForm {
     handleSubmit?: (values: iObject) => void,
     buttonText?: string
 }
+
+export interface iTable {
+    data: iObject[],
+    children: ReactNode
+}

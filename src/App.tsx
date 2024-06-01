@@ -15,6 +15,8 @@ import { Accordion } from "./atoms/Accordion";
 import { TabItem, Tabs } from "./atoms/Tabs";
 import { Form } from "./molecules/Form";
 import { iObject } from "./interfaces/atoms";
+import { Table } from "./molecules/Table";
+import { TCol } from "./molecules/Table/TCol";
 
 const App = () => {
   const [isSuccessOpen, setIsSuccessOpen] = useState(false)
@@ -23,17 +25,122 @@ const App = () => {
   const toggleError = () => setIsErrorOpen(!isErrorOpen)
   const handleFormSubmit = (values: iObject) => console.log('handle submit', values)
 
+  const tableData = [
+    {
+      1: 1,
+      2: "TEst 1",
+      3: <Button theme="cta" text="Open Success" action={toggleSuccess} />,
+      4: 'a',
+      5: '5',
+      6: '6',
+      7: 'seven seven seven'
+    },
+    {
+      1: 2,
+      2: "TEst 2",
+      3: <Button theme="cta" text="Open Success" action={toggleSuccess} />,
+      4: 'b',
+      5: '5',
+      6: '6',
+      7: 'seven seven seven'
+    },
+    {
+      1: 3,
+      2: "TEst 3",
+      3: <Button theme="cta" text="Open Success" action={toggleSuccess} />,
+      4: 'ca',
+      5: '5',
+      6: '6',
+      7: 'seven seven seven'
+    },
+    {
+      1: 4,
+      2: "TEst 4",
+      3: <Button theme="cta" text="Open Success" action={toggleSuccess} />,
+      4: 'da',
+      5: '5',
+      6: '6',
+      7: 'seven seven seven'
+    },
+    {
+      1: 5,
+      2: "TEst 5",
+      3: <Button theme="cta" text="Open Success" action={toggleSuccess} />,
+      4: 'ea',
+      5: '5',
+      6: '6',
+      7: 'seven seven seven'
+    },
+    {
+      1: 6,
+      2: "TEst 6",
+      3: <Button theme="cta" text="Open Success" action={toggleSuccess} />,
+      4: 'fa',
+      5: '5',
+      6: '6',
+      7: 'seven seven seven'
+    },
+    {
+      1: 7,
+      2: "TEst 7",
+      3: <Button theme="cta" text="Open Success" action={toggleSuccess} />,
+      4: 'g',
+      5: '5',
+      6: '6',
+      7: 'seven seven seven'
+    },
+    {
+      1: 8,
+      2: "TEst 8",
+      3: <Button theme="cta" text="Open Success" action={toggleSuccess} />,
+      4: 'ha',
+      5: '5',
+      6: '6',
+      7: 'seven seven seven'
+    },
+    {
+      1: 9,
+      2: "TEst 9",
+      3: <Button theme="cta" text="Open Success" action={toggleSuccess} />,
+      4: 'ia',
+      5: '5',
+      6: '6',
+      7: 'seven seven seven'
+    },
+    {
+      1: 10,
+      2: "TEst 10",
+      3: <Button theme="cta" text="Open Success" action={toggleSuccess} />,
+      4: 'ga',
+      5: '5',
+      6: '6',
+      7: 'seven seven seven'
+    },
+    
+  ]
+
   return (<div className="container">
     <Header title="Sobre o Projeto" content={headerContent} links={headerLinks} />
 
     <Tabs>
+      <TabItem title="Table">
+        <Table data={tableData}>
+          <TCol id="1" sort>Test 1</TCol>
+          <TCol id="2">Test 2</TCol>
+          <TCol id="3">Test 3</TCol>
+          <TCol id="4" sort>Test 4</TCol>
+          <TCol id="5">Test 5</TCol>
+          <TCol id="6">Test 6</TCol>
+          <TCol id="7">Test 7</TCol>
+        </Table>
+      </TabItem>
       <TabItem title="Form">
         <Form handleSubmit={handleFormSubmit} buttonText="Login">
           <Input isRequired type="email" name="email-login" label="E-mail" />
           <Input isRequired type="password" name="password-login" label="Senha" />
         </Form>
       </TabItem>
-      <TabItem title="Taylorem Ipswift ">
+      <TabItem title="Accordion">
         <Accordion title="Taylorem Ipswift" hasArrow acqua>
           <p>CD red lipstick Speak Now the 1 Taylor Marjorie rollout indie album I kept you like an oath i had a marvelous time ruining everything back catalogue Red Cardigan All Too Well red lipstick Blank Space vocalist James bonus director squad cats august Shake it Off blondie cats presale Red easter egg (Taylor's Version) vocalist Long Pong Sessions 13 Target Exclusive Grammy songwriter Taylah artist co-writer stadium vocals record producer stadium single cats song snow on the beach masters 3am All Too Well farm Fearless vocals signer All Too Well country karma is a cat Cats songwriter artist Taylor Our Song queue New York bonus businesswoman Taylor album of the year merch my tears ricochet Target Exclusive vinyl Tim McGraw (Taylor's Version) red lipstick era the last great american dynasty Grammy era clock Blank Space stadium All Too Well quill I knew you were trouble Our Song Delicate i had a marvelous time ruining everything Grammy karma is a cat clock Swift Lover Fest Red quill 1989 fountain pen Grammy glitter gel pen refrigerator light album tour Anti-Hero exile vocalist Hot 100 New York Grammy [From the Vault] music video reputation 3am reputation blondie 13 producer (Taylor's Version) rollout cottagecore New York Shake it Off stadium casette swiftie I knew you were trouble album (Taylor's Version) 13 piano Long Pong Sessions (Taylor's Version) Target Exclusive Selena Gomez I swear I don't love the drama, it loves me easter egg solo 13 Midnight Rain masters London James Grammy stadium fans Target Exclusive exile vocals merch Selena Gomez Lover Fest Shake it Off (10 Minute Version) artist Midnights refrigerator light Jack Antonoff Anti-Hero fans [From the Vault] vocals album Marjorie re-record quill Elvira I swear I don't love the drama, it loves me squad fame evermore soft Woulda Shoulda Coulda cottagecore Grammy tracklist 3am Nashville London Blank Space sexy baby Our Song guitar debut vocalist piano I swear I don't love the drama, it loves me co-writer style soft 22 album producer Hot 100 bonus tracklist Grammy All Too Well vocalist refrigerator light you need to calm down folk Elvira stained glass windows in my mind easter egg Joe tracklist London song vocals fountain pen music video Long Pong Sessions Jack Antonoff Taylah vocals queue [From the Vault] fame Our Song tour Elvira back catalogue 22 you need to calm down easter egg All Too Well Grammy fame folk i had a marvelous time ruining everything Midnights fountain pen deluxe Lover Fest I knew you were trouble song 3am blondie Willow album exile London remix Delicate cats Grammy Willow producer style here's how Cruel Summer can still be a single Haim Swift Eras Tour Lover blondie farm guitar quill the last great american dynasty Grammy surprise vinyl Swift red lipstick Delicate song evermore the last great american dynasty karma is a cat song vocals song rollout Our Song stadium glitter gel pen fuck the patriarchy Eras Tour Taylor Cardigan vinyl tracklist James record Jack Antonoff style All Too Well betty rollout I knew you were trouble fuck the patriarchy squad I kept you like an oath tour song Our Song the last great american dynasty [From the Vault] Joe</p>
         </Accordion>

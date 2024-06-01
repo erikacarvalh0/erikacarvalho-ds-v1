@@ -110,6 +110,7 @@ export interface iAccordion {
     hasArrow?: boolean,
     acqua?: boolean,
     pink?: boolean,
+    size?: 'large' | 'small'
 }
 
 export interface iTab { 
@@ -128,4 +129,10 @@ export interface iTabsHeader {
     children: ReactNode, 
     handleOnChange: any, 
     id: number
+}
+
+export interface iTCol {
+    children: ReactNode 
+    sort: string
+    id: string
 }
