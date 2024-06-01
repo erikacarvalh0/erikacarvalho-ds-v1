@@ -6,7 +6,7 @@ import { useTab } from "./hook"
 
 import './index.scss'
 
-export const TabsHeader = ({children, handleOnChange, id} : iTabsHeader) => (
+export const TabsHeader = ({children, handleOnChange, id, activeId} : iTabsHeader) => (
     <header className="tabs__header">
         { React.Children.map(children, ({ props }, index) => {
             return (<>
@@ -16,11 +16,12 @@ export const TabsHeader = ({children, handleOnChange, id} : iTabsHeader) => (
                     type="radio"  
                     id={`tab-${index}`} 
                     role="button"
+                    checked={activeId === `tab-${index}`}
                 />
                 <label 
                     className={classNames("tabs__header-item", props?.theme,
                     { 
-                        "has-arrow": props?.hasArrow
+                        "has-arrow": props?.hasArrow,
                     })} 
                     htmlFor={`tab-${index}`}
                 >
@@ -35,7 +36,7 @@ export const Tabs = ({ children } ) => {
     const {  randId, tabsContentRef, maxHeight, activeId, onChange, onChangeContent } = useTab()
 
     return <section className="tabs">
-        <TabsHeader id={randId} handleOnChange={onChange}>{children} </TabsHeader>
+        <TabsHeader activeId={activeId} id={randId} handleOnChange={onChange}>{children}</TabsHeader>
         
         <main 
             onChange={onChangeContent} 

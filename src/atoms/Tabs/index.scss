@@ -5,6 +5,7 @@
 
   &__header {
     display: flex;
+    width: 100%;
     gap: var(--gridSize2x);
 
     input:checked {
@@ -80,6 +81,7 @@
 .tab {
   &__item {
     position: absolute;
+    width: 100%;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
