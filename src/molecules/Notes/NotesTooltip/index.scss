@@ -1,0 +1,16 @@
+@import "../../../style/default.scss";
+
+.notes__tooltip {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--gridSize3x);
+  align-items: center;
+
+  .button {
+    display: flex;
+    align-items: center;
+    gap: var(--gridSizeDefault);
+    padding: 0;
+    color: white;
+  }
+}

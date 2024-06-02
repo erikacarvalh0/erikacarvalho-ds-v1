@@ -20,6 +20,7 @@ export interface iLink {
 export interface iButton {
     isDisabled?: boolean
     text?: string,
+    title?: string,
     children?: ReactNode,
     theme?: "neutral" | "cta" | "cancel",
     customClass?: string,
@@ -153,4 +154,13 @@ export interface iMediaControls {
     rewind?: boolean
     download?: boolean
     fullScreen?: boolean
+}
+
+export interface iTooltip {
+    children: ReactChild[]
+    customClass?: string
+    highlight?: boolean
+    closeOnClick?: iFn
+    props?: any
+    style?: any
 }

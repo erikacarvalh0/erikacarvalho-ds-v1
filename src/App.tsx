@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { createRoot } from 'react-dom/client';
 
 import { Header } from "./organisms/Header";
@@ -20,6 +20,7 @@ import { TCol } from "./molecules/Table/TCol";
 import { Carousel, CItem } from "./atoms/Carousel";
 import { Video } from "./molecules/Video";
 import { Audio } from "./molecules/Audio";
+import { Notes } from "./molecules/Notes";
 
 const App = () => {
   const [isSuccessOpen, setIsSuccessOpen] = useState(false)
@@ -141,10 +142,16 @@ const App = () => {
     ]
   };
 
+  const notesRef = useRef(null)
+
   return (<div className="container">
     <Header title="Sobre o Projeto" content={headerContent} links={headerLinks} />
 
     <Tabs>
+      <TabItem title="Notes">
+        <Notes notesRef={notesRef} />
+        <p ref={notesRef}>CD red lipstick Speak Now the 1 Taylor Marjorie rollout indie album I kept you like an oath i had a marvelous time ruining everything back catalogue Red Cardigan All Too Well red lipstick Blank Space vocalist James bonus director squad cats august Shake it Off blondie cats presale Red easter egg (Taylor's Version) vocalist Long Pong Sessions 13 Target Exclusive Grammy songwriter Taylah artist co-writer stadium vocals record producer stadium single cats song snow on the beach masters 3am All Too Well farm Fearless vocals signer All Too Well country karma is a cat Cats songwriter artist Taylor Our Song queue New York bonus businesswoman Taylor album of the year merch my tears ricochet Target Exclusive vinyl Tim McGraw (Taylor's Version) red lipstick era the last great american dynasty Grammy era clock Blank Space stadium All Too Well quill I knew you were trouble Our Song Delicate i had a marvelous time ruining everything Grammy karma is a cat clock Swift Lover Fest Red quill 1989 fountain pen Grammy glitter gel pen refrigerator light album tour Anti-Hero exile vocalist Hot 100 New York Grammy [From the Vault] music video reputation 3am reputation blondie 13 producer (Taylor's Version) rollout cottagecore New York Shake it Off stadium casette swiftie I knew you were trouble album (Taylor's Version) 13 piano Long Pong Sessions (Taylor's Version) Target Exclusive Selena Gomez I swear I don't love the drama, it loves me easter egg solo 13 Midnight Rain masters London James Grammy stadium fans Target Exclusive exile vocals merch Selena Gomez Lover Fest Shake it Off (10 Minute Version) artist Midnights refrigerator light Jack Antonoff Anti-Hero fans [From the Vault] vocals album Marjorie re-record quill Elvira I swear I don't love the drama, it loves me squad fame evermore soft Woulda Shoulda Coulda cottagecore Grammy tracklist 3am Nashville London Blank Space sexy baby Our Song guitar debut vocalist piano I swear I don't love the drama, it loves me co-writer style soft 22 album producer Hot 100 bonus tracklist Grammy All Too Well vocalist refrigerator light you need to calm down folk Elvira stained glass windows in my mind easter egg Joe tracklist London song vocals fountain pen music video Long Pong Sessions Jack Antonoff Taylah vocals queue [From the Vault] fame Our Song tour Elvira back catalogue 22 you need to calm down easter egg All Too Well Grammy fame folk i had a marvelous time ruining everything Midnights fountain pen deluxe Lover Fest I knew you were trouble song 3am blondie Willow album exile London remix Delicate cats Grammy Willow producer style here's how Cruel Summer can still be a single Haim Swift Eras Tour Lover blondie farm guitar quill the last great american dynasty Grammy surprise vinyl Swift red lipstick Delicate song evermore the last great american dynasty karma is a cat song vocals song rollout Our Song stadium glitter gel pen fuck the patriarchy Eras Tour Taylor Cardigan vinyl tracklist James record Jack Antonoff style All Too Well betty rollout I knew you were trouble fuck the patriarchy squad I kept you like an oath tour song Our Song the last great american dynasty [From the Vault] Joe</p>
+      </TabItem>
       <TabItem title="Audio">
         <Audio theme="highlight" src="/audios/example.ogg" forward download title="Example audio" rewind />
       </TabItem>

@@ -33,3 +33,14 @@ export interface iTable {
     data: iObject[],
     children: ReactNode
 }
+
+export interface iNotesTooltip { 
+    coord: iObject
+    text: string
+    setText: any
+    setHasNewNote: any
+}
+
+export interface iNotes {
+    notesRef: any
+}

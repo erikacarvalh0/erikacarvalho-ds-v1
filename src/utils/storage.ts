@@ -1,0 +1,2 @@
+export const getLSItem = (key: string) => localStorage.getItem(key) ? JSON.parse(localStorage.getItem(key) || '') : null
+export const setLSItem = (key: string, content: any) => localStorage.setItem(key, JSON.stringify(content))
