@@ -18,7 +18,8 @@ import { iObject } from "./interfaces/atoms";
 import { Table } from "./molecules/Table";
 import { TCol } from "./molecules/Table/TCol";
 import { Carousel, CItem } from "./atoms/Carousel";
-import { Video } from "./atoms/Video";
+import { Video } from "./molecules/Video";
+import { Audio } from "./molecules/Audio";
 
 const App = () => {
   const [isSuccessOpen, setIsSuccessOpen] = useState(false)
@@ -144,6 +145,9 @@ const App = () => {
     <Header title="Sobre o Projeto" content={headerContent} links={headerLinks} />
 
     <Tabs>
+      <TabItem title="Audio">
+        <Audio theme="highlight" src="/audios/example.ogg" forward download title="Example audio" rewind />
+      </TabItem>
       <TabItem title="Video">
         <Video theme="highlight" src="/videos/example.mp4" forward fullScreen download title="Example video" rewind />
       </TabItem>

@@ -15,7 +15,7 @@
     &.highlight {
       border: var(--gridSizeDefault) solid $acquaLight;
 
-      .video__btn-large {
+      .media__btn-large {
         color: $acqua;
       }
     }
@@ -42,7 +42,8 @@
       }
     }
   }
-
+}
+.media { 
   &__controls {
     position: relative;
     z-index: 100;

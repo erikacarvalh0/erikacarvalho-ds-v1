@@ -136,3 +136,21 @@ export interface iTCol {
     sort: string
     id: string
 }
+
+export interface iMedia {
+    src: string
+    title: string
+    forward?: boolean
+    rewind?: boolean
+    download?: boolean
+    fullScreen?: boolean
+    theme?: 'highlight'
+}
+
+export interface iMediaControls {
+    mediaRef: any
+    forward?: boolean
+    rewind?: boolean
+    download?: boolean
+    fullScreen?: boolean
+}
