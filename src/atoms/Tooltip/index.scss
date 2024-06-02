@@ -1,0 +1,47 @@
+@import "../../style/default.scss";
+
+.tooltip {
+  position: absolute;
+  z-index: 1;
+  background: $grey;
+  color: white;
+  padding: var(--gridSize2x);
+  transform: translateY(-100%);
+
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    display: inline-block;
+    width: 0; 
+    height: 0; 
+    border-left: var(--gridSizeDefault) solid transparent;
+    border-right: var(--gridSizeDefault) solid transparent;
+    border-top: var(--gridSizeDefault) solid $grey;
+    transform: translateX(-12px);
+  }
+
+  &.highlight {
+    background: $highlightDark;
+
+    &:after {
+      border-top: var(--gridSizeDefault) solid $highlightDark;
+    }
+  }
+
+  &.cta {
+    background: $cta;
+
+    &:after {
+      border-top: var(--gridSizeDefault) solid $cta;
+    }
+  }
+
+  &__bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+}
