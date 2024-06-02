@@ -2,7 +2,6 @@
 
 .button {
     cursor: pointer;
-    padding: var(--gridSizeDefault) var(--gridSize2x);
     font-size: var(--gridSize2x);
     text-align: center;
     font-family: $fontPrimary;
@@ -10,7 +9,7 @@
     transition: all .3s ease-in;
     color: $grey;
 
-    @include fixBoldHover(title);
+    // @include fixBoldHover(title);
 
     &:hover {
         color: white;
@@ -20,6 +19,7 @@
     &.neutral,
     &.cta,
     &.cancel {
+        padding: var(--gridSizeDefault) var(--gridSize2x);
         color: $grey6;
 
         &:hover {

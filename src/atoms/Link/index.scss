@@ -27,12 +27,12 @@
         color: $grey;
 
         &:hover {
-            color: $acqua;
+            color: $highlight;
         }
     }
 
     &.alert {
-        color: $pink;
+        color: $cta;
 
         &:hover {
             color: $grey;

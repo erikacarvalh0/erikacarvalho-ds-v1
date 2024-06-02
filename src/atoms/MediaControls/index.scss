@@ -13,10 +13,10 @@
     height: fit-content;
 
     &.highlight {
-      border: var(--gridSizeDefault) solid $acquaLight;
+      border: var(--gridSizeDefault) solid $highlightLight;
 
       .media__btn-large {
-        color: $acqua;
+        color: $highlight;
       }
     }
 

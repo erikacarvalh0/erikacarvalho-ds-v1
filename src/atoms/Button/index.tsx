@@ -3,11 +3,11 @@ import './index.scss'
 import { iButton } from "../../interfaces/atoms"
 import classNames from "classnames"
 
-export const Button =({action, isDisabled = false, text, theme, children, customClass}: iButton) => (
+export const Button =({action, isDisabled = false, title, text, theme, children, customClass}: iButton) => (
     <button
         disabled={isDisabled}
         onClick={action}
-        title={text}
+        title={text || title}
         className={classNames("button", theme, customClass, {"no-hover": children})}
     >
         {text}
