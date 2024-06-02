@@ -15,14 +15,16 @@ const SvgRewind = ({
     width="1em"
     height="1em"
     fill="none"
-    viewBox="0 0 24 24"
+    viewBox="0 0 12 10"
     aria-labelledby={titleId}
     {...props}
   >
     {title ? <title id={titleId}>{title}</title> : null}
     <path
-      fill="currentColor"
-      d="M2 7h3v10H2zM6 12l7.002-5v10zM21.002 7 14 12l7.002 5z"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M11 1 7 5l4 4M7 1 3 5l4 4M1 9V1"
     />
   </svg>
 );

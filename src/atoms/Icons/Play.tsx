@@ -15,18 +15,24 @@ const SvgPlay = ({
     width="1em"
     height="1em"
     fill="none"
-    viewBox="0 0 24 24"
+    viewBox="0 0 18 18"
     aria-labelledby={titleId}
     {...props}
   >
     {title ? <title id={titleId}>{title}</title> : null}
     <path
-      fill="currentColor"
-      fillRule="evenodd"
-      d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18m0 2c6.075 0 11-4.925 11-11S18.075 1 12 1 1 5.925 1 12s4.925 11 11 11"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M9 17c4.438 0 8-3.526 8-7.964S13.438 1 9 1 1 4.598 1 9.036 4.562 17 9 17"
       clipRule="evenodd"
     />
-    <path fill="currentColor" d="m16 12-6 4.33V7.67z" />
+    <path
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="m7 13 4-4-4-4"
+    />
   </svg>
 );
 const Memo = memo(SvgPlay);

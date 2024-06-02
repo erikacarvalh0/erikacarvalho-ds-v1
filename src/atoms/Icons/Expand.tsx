@@ -15,14 +15,16 @@ const SvgExpand = ({
     width="1em"
     height="1em"
     fill="none"
-    viewBox="0 0 24 24"
+    viewBox="0 0 15 15"
     aria-labelledby={titleId}
     {...props}
   >
     {title ? <title id={titleId}>{title}</title> : null}
     <path
-      fill="currentColor"
-      d="m12.306 16.593-.035 2-6.999-.122.123-7 2 .036-.063 3.585 7.894-7.624-3.532-.061.035-2 6.999.122-.123 7-2-.036.064-3.638-7.948 7.676z"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M6.667 13.728H1.01L1 8.061M1.01 13.728 13.738 1M13.779 6.696 13.739 1H8.082"
     />
   </svg>
 );

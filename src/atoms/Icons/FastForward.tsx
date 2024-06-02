@@ -15,14 +15,16 @@ const SvgFastForward = ({
     width="1em"
     height="1em"
     fill="none"
-    viewBox="0 0 24 24"
+    viewBox="0 0 12 10"
     aria-labelledby={titleId}
     {...props}
   >
     {title ? <title id={titleId}>{title}</title> : null}
     <path
-      fill="currentColor"
-      d="M21.002 17h-3V7h3zM17.002 12 10 17V7zM2 17l7.002-5L2 7z"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="m1 9 4-4-4-4M5 9l4-4-4-4M11 1v8"
     />
   </svg>
 );

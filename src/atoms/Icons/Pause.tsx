@@ -15,17 +15,23 @@ const SvgPause = ({
     width="1em"
     height="1em"
     fill="none"
-    viewBox="0 0 24 24"
+    viewBox="0 0 18 18"
     aria-labelledby={titleId}
     {...props}
   >
     {title ? <title id={titleId}>{title}</title> : null}
-    <path fill="currentColor" d="M9 9h2v6H9zM15 15h-2V9h2z" />
     <path
-      fill="currentColor"
-      fillRule="evenodd"
-      d="M23 12c0 6.075-4.925 11-11 11S1 18.075 1 12 5.925 1 12 1s11 4.925 11 11m-2 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M9 17c4.438 0 8-3.526 8-7.964S13.438 1 9 1 1 4.598 1 9.036 4.562 17 9 17"
       clipRule="evenodd"
+    />
+    <path
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M11 5v8M7 5v8"
     />
   </svg>
 );

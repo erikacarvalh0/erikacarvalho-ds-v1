@@ -21,7 +21,7 @@ const SvgDownload = ({
   >
     {title ? <title id={titleId}>{title}</title> : null}
     <path
-      stroke="#2A2E3B"
+      stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       d="m2.5 7.5 3.999 4.233 4-4.191M6.5.5v11M.5 14.5h12"
