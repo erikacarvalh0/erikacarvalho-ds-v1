@@ -1,8 +1,14 @@
 export { default as Book } from "./Book";
+export { default as Download } from "./Download";
+export { default as Expand } from "./Expand";
 export { default as Eye } from "./Eye";
 export { default as EyeClosed } from "./EyeClosed";
+export { default as FastForward } from "./FastForward";
 export { default as Logo } from "./Logo";
 export { default as Logotype } from "./Logotype";
 export { default as Menu } from "./Menu";
 export { default as Octocat } from "./Octocat";
+export { default as Pause } from "./Pause";
+export { default as Play } from "./Play";
+export { default as Rewind } from "./Rewind";
 export { default as Twitter } from "./Twitter";

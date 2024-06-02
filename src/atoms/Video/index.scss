@@ -1,0 +1,104 @@
+@import "../../style/default.scss";
+
+.video {
+  background: $grey;
+  min-width: 600px;
+  height: fit-content;
+  max-height: 60vh;
+  max-width: 60vw;
+
+  &__container {
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+
+    &.highlight {
+      border: var(--gridSizeDefault) solid $acquaLight;
+
+      .video__btn-large {
+        color: $acqua;
+      }
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      left: 0;
+      display: block;
+      background: $grey;
+      width: 100%;
+      height: calc(100% - 40px);
+      opacity: 0;
+      transition: opacity .3s .1s ease
+    }
+
+
+    &.paused {
+      &:before {
+        z-index: 10;
+        opacity: .7;
+      }
+    }
+  }
+
+  &__controls {
+    position: relative;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: var(--gridSizeDefault);
+    background: $grey;
+    margin-top: -4px;
+    padding: var(--gridSizeDefault) var(--gridSize2x);
+  }
+
+  &__btn {
+    padding: 0;
+    width: var(--gridSize3x);
+    height: var(--gridSize3x);
+    color: $grey3;
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    &-large {
+      position: absolute;
+      z-index: 20;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%);
+      width: 64px;
+      height: 64px;
+      color: white;
+      opacity: 1;
+      transition: opacity .3s ease;
+    }
+  }
+
+  &__timeline {
+    -webkit-appearance: none;
+    appearance: none;
+    z-index: 0;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    border: none;
+
+    &::-webkit-progress-bar {
+      background: $grey4;
+    }
+
+    &::-webkit-progress-value {
+      transition: width .5s linear;
+      background: $acquaDark;
+    }
+  }
+
+  &__time {
+    color: $grey3;
+  }
+}
