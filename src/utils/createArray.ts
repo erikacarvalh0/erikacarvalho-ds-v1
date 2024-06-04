@@ -1,0 +1,1 @@
+export const createArray = ( num:number ) => Array.from(Array(num + 1).keys()).slice(1)
