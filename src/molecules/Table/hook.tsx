@@ -5,23 +5,36 @@ import { iObject } from "../../interfaces/atoms"
 export const TableContext = createContext([])
 
 export const useTable = (data: iObject[]) => {
+    const paginationConfig = {
+        maxPagesNums: 4,
+        itemsPerPage: 1,
+        arrows: true
+    }
     
     const sortState = useState({
         id: null,
         dir: 'asc'
     })
 
+    const [ isSorted, setIsSorted ] = useState(true)
     const hiddenColsState = useState([])
-    const [ sortedData, setSortedData ] = useState(data)
-
-    const [ sortValues ] = sortState
+    const visibleItemsState = useState(data)
+    const [ visibleItems, setVisibleItems ] = visibleItemsState
     const [ hiddenCols, setHiddenCols ] = hiddenColsState
+    const [ sortValues ] = sortState
+    
     const hiddenIndexes = []
 
     const tableRef = useRef(null)
 
+    // useEffect(() => { // TODO: SORT NEW VISIBLE ITEMS
+    //     if (!isSorted) {
+    //         sortTable()
+    //     }
+    // }, [ visibleItems, sortValues.dir ])
+
     const sortTable = () => {
-        const dataToSort = sortedData || []
+        const dataToSort = visibleItems || []
         const sortedByCol = dataToSort.sort((a: iObject, b: iObject) => {
             const id = sortValues.id || 0
 
@@ -29,7 +42,8 @@ export const useTable = (data: iObject[]) => {
                 ? a?.[id] < b?.[id] ? 1 : -1
                 : a?.[id] > b?.[id] ? 1 : -1
         })
-        setSortedData([...sortedByCol])
+        setVisibleItems([...sortedByCol])
+        setIsSorted(true)
     }
 
     const hideCols = () => {
@@ -66,7 +80,9 @@ export const useTable = (data: iObject[]) => {
     return {
         hiddenCols,
         sortState,
-        sortedData,
-        tableRef
+        tableRef,
+        paginationConfig,
+        visibleItemsState,
+        visibleItems
     }
 }

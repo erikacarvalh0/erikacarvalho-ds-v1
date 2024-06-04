@@ -1,11 +1,15 @@
 import React, { Children } from "react"
 
 import { iTable } from "../../interfaces/molecules"
+import { iTableRow } from "../../interfaces/atoms"
+
+import { Accordion } from "../../atoms/Accordion"
+import { Pagination } from "../../atoms/Pagination"
+
 import { TableContext, useTable } from "./hook"
 import './index.scss'
-import { Accordion } from "../../atoms/Accordion"
 
-export const CombinedRow = ({rowIndex, row, hiddenCols, rowsIndexes, header}) => {
+export const CombinedRow = ({rowIndex, row, hiddenCols, rowsIndexes, header} : iTableRow) => {
     return (<>
         <tr className="table__row" key={rowIndex}>{
             Object.values(row).map((col, colIndex) => {
@@ -35,12 +39,16 @@ export const Table =({ data, children } : iTable) => {
     const { 
         hiddenCols,
         sortState,
-        sortedData,
-        tableRef 
+        tableRef,
+        paginationConfig,
+        visibleItemsState,
+        visibleItems
     } = useTable(data)
 
+    const context: any = { sortState }
+
     return (
-        <TableContext.Provider value={{ sortState }}>
+        <TableContext.Provider value={context}>
             <table ref={tableRef} className="table">
                 <thead className="table__header">
                     <tr className="table__row">{ 
@@ -51,7 +59,7 @@ export const Table =({ data, children } : iTable) => {
                     }</tr>
                 </thead>
                 <tbody>
-                    { sortedData.map((row, rowIndex) =>{
+                    { visibleItems.map((row, rowIndex) =>{
                         const rowsIndexes = Object.keys(row)
                         return hiddenCols.length === 0
                             ? <tr className="table__row" key={rowIndex}>{Object.values(row).map((col, colIndex) => <td className="table__cell" key={colIndex}>{col}</td>)}</tr>
@@ -59,6 +67,7 @@ export const Table =({ data, children } : iTable) => {
                     }) }
                 </tbody>
             </table>
+            <Pagination allItems={data} config={paginationConfig} visibleItemsState={visibleItemsState} />
         </TableContext.Provider>
     )
 }
