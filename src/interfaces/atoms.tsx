@@ -164,3 +164,26 @@ export interface iTooltip {
     props?: any
     style?: any
 }
+
+export interface iPagConfig {
+    maxPagesNums?: number,
+    itemsPerPage: number,
+    arrows?: boolean,
+    dots?: boolean,
+    theme?: 'default' | 'highlight' | 'cta',
+    return?: boolean
+}
+
+export interface iPagination {
+    config: iPagConfig,
+    allItems: any[],
+    visibleItemsState: any
+}
+
+export interface iTableRow {
+    rowIndex: number
+    row: any[]
+    hiddenCols: any[]
+    rowsIndexes: number[]
+    header: any[]
+}

@@ -1,0 +1,65 @@
+@import "../../style/default.scss";
+
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--gridSizeDefault);
+  margin-top: var(--gridSize2x);
+  padding: 0;
+
+  .button {
+    &.active {
+      color: $acqua;
+    }
+
+    &:hover {
+      color: $acquaDark;
+    }
+  }
+
+  &__next,
+  &__previous {
+    &.is-arrow {
+      @include arrowDown();
+      background: none;
+      position: initial;
+      color: $acquaLight;
+      width: calc(var(--gridSizeDefault) + var(--gridSizeSmall));
+      height: calc(var(--gridSizeDefault) + var(--gridSizeSmall));
+
+      &:hover {
+        background: none;
+        color: $acquaDark;
+      }
+    }
+  }
+
+  &__next.is-arrow {
+    transform: rotate(-45deg);
+  }
+
+  &__previous.is-arrow {
+    transform: rotate(135deg);
+  }
+
+  &__page {
+    min-width: 3.5ch;
+    padding: 0;
+
+    &.is-dot {
+      width: calc(var(--gridSizeDefault) + 2px);
+      height: calc(var(--gridSizeDefault) + 2px);
+      background: $acquaLight;
+      border-radius: calc(var(--gridSizeDefault) + 2px);
+      
+      &.active {
+        background: $acqua;
+      }
+  
+      &:hover {
+        background: $acquaDark;
+      }
+    }
+  }
+}
