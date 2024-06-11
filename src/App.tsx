@@ -22,6 +22,9 @@ import { Video } from "./molecules/Video";
 import { Audio } from "./molecules/Audio";
 import { Notes } from "./molecules/Notes";
 import { Chart } from "./atoms/Chart";
+import { tableData } from "./data/example/table";
+import { chartConfig, chartData } from "./data/example/chart";
+import { carouselConfig } from "./data/example/carousel";
 
 const App = () => {
   const [isSuccessOpen, setIsSuccessOpen] = useState(false)
@@ -29,131 +32,7 @@ const App = () => {
   const toggleSuccess = () => setIsSuccessOpen(!isSuccessOpen)
   const toggleError = () => setIsErrorOpen(!isErrorOpen)
   const handleFormSubmit = (values: iObject) => console.log('handle submit', values)
-
-  const tableData = [
-    {
-      1: 1,
-      2: "TEst 1",
-      3: <Button theme="cta" text="Open Success" action={toggleSuccess} />,
-      4: 'a',
-      5: '5',
-      6: '6',
-      7: 'seven seven seven'
-    },
-    {
-      1: 2,
-      2: "TEst 2",
-      3: <Button theme="cta" text="Open Success" action={toggleSuccess} />,
-      4: 'b',
-      5: '5',
-      6: '6',
-      7: 'seven seven seven'
-    },
-    {
-      1: 3,
-      2: "TEst 3",
-      3: <Button theme="cta" text="Open Success" action={toggleSuccess} />,
-      4: 'ca',
-      5: '5',
-      6: '6',
-      7: 'seven seven seven'
-    },
-    {
-      1: 4,
-      2: "TEst 4",
-      3: <Button theme="cta" text="Open Success" action={toggleSuccess} />,
-      4: 'da',
-      5: '5',
-      6: '6',
-      7: 'seven seven seven'
-    },
-    {
-      1: 5,
-      2: "TEst 5",
-      3: <Button theme="cta" text="Open Success" action={toggleSuccess} />,
-      4: 'ea',
-      5: '5',
-      6: '6',
-      7: 'seven seven seven'
-    },
-    {
-      1: 6,
-      2: "TEst 6",
-      3: <Button theme="cta" text="Open Success" action={toggleSuccess} />,
-      4: 'fa',
-      5: '5',
-      6: '6',
-      7: 'seven seven seven'
-    },
-    {
-      1: 7,
-      2: "TEst 7",
-      3: <Button theme="cta" text="Open Success" action={toggleSuccess} />,
-      4: 'g',
-      5: '5',
-      6: '6',
-      7: 'seven seven seven'
-    },
-    {
-      1: 8,
-      2: "TEst 8",
-      3: <Button theme="cta" text="Open Success" action={toggleSuccess} />,
-      4: 'ha',
-      5: '5',
-      6: '6',
-      7: 'seven seven seven'
-    },
-    {
-      1: 9,
-      2: "TEst 9",
-      3: <Button theme="cta" text="Open Success" action={toggleSuccess} />,
-      4: 'ia',
-      5: '5',
-      6: '6',
-      7: 'seven seven seven'
-    },
-    {
-      1: 10,
-      2: "TEst 10",
-      3: <Button theme="cta" text="Open Success" action={toggleSuccess} />,
-      4: 'ga',
-      5: '5',
-      6: '6',
-      7: 'seven seven seven'
-    },
-    
-  ]
-
-  const carouselConfig = {
-    autoWidth: true,
-    maxDots: true,
-    groupScroll: true,
-    layout: "ctrls-in-line",
-    dots: true,
-    itemsPerPage: 2,
-  
-    responsive: [
-      {
-        breakpoint: 780,
-        settings: {
-          layout: "vertical-align",
-          centerSingleItemAW: true
-        }
-      }
-    ]
-  };
-
   const notesRef = useRef(null)
-
-  const chartConfig = {
-    interval: 5,
-    type: 'bar'
-}
-
-  const chartData = {
-      colA: [10, 14, 12],
-      colB: [8, 10, 14]
-  }
 
   return (<div className="container">
     <Header title="Sobre o Projeto" content={headerContent} links={headerLinks} />
@@ -164,7 +43,7 @@ const App = () => {
         <Chart title="Gráfico de colunas" data={chartData} config={{...chartConfig, type: 'column'}} />
       </TabItem>
       <TabItem title="Table">
-        <Table data={tableData}>
+        <Table data={tableData(toggleSuccess)}>
           <TCol id="1" sort>Test 1</TCol>
           <TCol id="2">Test 2</TCol>
           <TCol id="3">Test 3</TCol>
