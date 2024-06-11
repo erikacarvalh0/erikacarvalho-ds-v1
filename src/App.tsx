@@ -21,6 +21,7 @@ import { Carousel, CItem } from "./atoms/Carousel";
 import { Video } from "./molecules/Video";
 import { Audio } from "./molecules/Audio";
 import { Notes } from "./molecules/Notes";
+import { Chart } from "./atoms/Chart";
 
 const App = () => {
   const [isSuccessOpen, setIsSuccessOpen] = useState(false)
@@ -144,10 +145,24 @@ const App = () => {
 
   const notesRef = useRef(null)
 
+  const chartConfig = {
+    interval: 5,
+    type: 'bar'
+}
+
+  const chartData = {
+      colA: [10, 14, 12],
+      colB: [8, 10, 14]
+  }
+
   return (<div className="container">
     <Header title="Sobre o Projeto" content={headerContent} links={headerLinks} />
 
     <Tabs>
+      <TabItem title="Column chart">
+        <Chart title="Gráfico de barras" data={chartData} config={chartConfig} />
+        <Chart title="Gráfico de colunas" data={chartData} config={{...chartConfig, type: 'column'}} />
+      </TabItem>
       <TabItem title="Table">
         <Table data={tableData}>
           <TCol id="1" sort>Test 1</TCol>

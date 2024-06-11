@@ -1,0 +1,56 @@
+@import "../../style/default.scss";
+
+.chart {
+  display: grid;
+
+  &.bar {
+    grid-template-columns: auto; /* The default, but best to be explicit */
+    grid-auto-columns: 1fr;
+    grid-column-start: 2;
+    gap: var(--gridSizeDefault) 0;
+
+    .chart__col {
+      height: 1fr; 
+      margin: 0 var(--gridSizeDefault);
+    }
+
+    .space {
+      margin-top: var(--gridSize3x);
+    }
+  }
+
+  &.column {
+    min-height: 500px;
+    grid-template-rows: auto; /* The default, but best to be explicit */
+    grid-auto-rows: 1fr;
+    grid-auto-columns: 50px;
+    height: 1fr; 
+    column-gap:var(--gridSizeDefault);
+
+    .space {
+      margin-left: var(--gridSize2x);
+    }
+
+    & > :not(.space) {
+      margin-right: var(--gridSize2x);
+    }
+
+    .chart__value {
+      display: flex;
+      align-self: flex-end;
+      justify-content: center;
+    }
+  }
+
+  &__col {
+    background: $acqua;
+  }
+
+  &__label {
+    color: $grey3;
+  }
+
+  &__value {
+    color: $acquaDark;
+  }
+}
