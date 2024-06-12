@@ -1,7 +1,18 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 const Dotenv = require('dotenv-webpack');
+const path = require('path');
 const deps = require("./package.json").dependencies;
+
+const setRelativePath = (filePath) => {
+  const innerFolders = filePath.split('/').length - 1
+  let path = ''
+  for (let i = 1; i < innerFolders; i++) {
+    path = path + '../'
+  }
+  return path
+}
+
 module.exports = (_, argv) => ({
   output: {
     publicPath: "http://localhost:1234/",
@@ -28,12 +39,21 @@ module.exports = (_, argv) => ({
       {
         test: /\.s[ac]ss$/i,
         use: [
-          // Creates `style` nodes from JS strings
           "style-loader",
-          // Translates CSS into CommonJS
           "css-loader",
-          // Compiles Sass to CSS
-          "sass-loader",
+          {
+            loader: "sass-loader",
+            options: {
+              additionalData: (content, loaderContext) => {
+                const { resourcePath, rootContext } = loaderContext;
+                const filePath = path.relative(rootContext, resourcePath);
+
+                return filePath.includes('default') 
+                  ? content
+                  : `@import '${setRelativePath(filePath)}style/default.scss';${content}`;
+              },
+            },
+          },
         ],
       },
       {

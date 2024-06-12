@@ -6,7 +6,8 @@
     "build": "webpack --mode production",
     "build:dev": "webpack --mode development",
     "build:start": "cd dist && PORT=1234 npx serve",
-    "start": "yarn svgr && webpack serve --open --mode development",
+    "start": "webpack serve --open --mode development",
+    "start:icons": "yarn svgr && webpack serve --open --mode development",
     "start:live": "yarn svgr && webpack serve --open --mode development --live-reload --hot"
   },
   "license": "MIT",
@@ -40,6 +41,7 @@
   },
   "dependencies": {
     "classnames": "^2.5.1",
+    "path": "^0.12.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "rimraf": "^5.0.5",
