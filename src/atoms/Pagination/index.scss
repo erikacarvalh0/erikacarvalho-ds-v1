@@ -25,6 +25,7 @@
       color: $acquaLight;
       width: calc(var(--gridSizeDefault) + var(--gridSizeSmall));
       height: calc(var(--gridSizeDefault) + var(--gridSizeSmall));
+      transition: color .3s ease;
 
       &:hover {
         background: none;
