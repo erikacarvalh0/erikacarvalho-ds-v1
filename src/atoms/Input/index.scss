@@ -52,7 +52,7 @@
         &:before {
           position: absolute;
           right: var(--gridSizeDefault);
-          top: calc(var(--gridSize2x) + 2px);
+          top: calc(var(--gridSize2x) + 6px);
         }
       }
 
@@ -73,7 +73,7 @@
       cursor: pointer;
       position: absolute;
       right: var(--gridSizeDefault);
-      top: 2px;
+      top: 14px;
       padding: 0;
       color: $acqua;
       
