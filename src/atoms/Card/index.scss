@@ -1,4 +1,11 @@
- .card {
+.cards {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--gridSize3x);
+}
+
+.card {
     background: white;
     padding: var(--gridSize3x) var(--gridSize2x);
     border: 1px solid $grey4;

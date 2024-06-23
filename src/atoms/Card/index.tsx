@@ -1,19 +1,20 @@
 import React from "react"
-import './index.scss'
-import { iCard } from "../../interfaces/atoms"
-import classNames from "classnames"
+import { iCard, ReactNode } from "../../interfaces/atoms"
+
 import { Img } from "../Img"
 import { List } from "../List"
 import { Button } from "../Button"
 import { Link } from "../Link"
 
+import './index.scss'
+
 export const Card =({ title, subtitle, img, text, list, button, link, children} : iCard) => (
-    <article className={classNames('card')}>
+    <article className='card'>
         <header>
             <h2 className="card__title">{ title }</h2>
             <h3 className="card__subtitle">{ subtitle }</h3>
         </header>
-        <div className={classNames("card__content")}>
+        <div className="card__content">
             { img && <Img src={img.src} srcmobile={img?.srcmobile} maxWidth={img.maxWidth} media={img.media} />}
             { text && <p className="card__text">{ text }</p> }
             { list && <List items={list} />}
@@ -29,3 +30,9 @@ export const Card =({ title, subtitle, img, text, list, button, link, children} 
         </div>
     </article>
 )
+
+export const CardContainer = ({ children } : { children : ReactNode }) => {
+    return (<section className="cards">
+        { children }
+    </section>)
+}
