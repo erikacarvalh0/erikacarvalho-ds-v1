@@ -1,9 +1,14 @@
 import classNames from 'classnames'
 import React, { Fragment } from 'react'
-import { useBarColumn } from './hook'
-import { getRandomNumber } from '../../../utils/randomNumber'
 
-export const BarColumn = ({type, data}) => {
+import { getRandomNumber } from '../../../utils/randomNumber'
+import { iChart } from '..'
+
+import { useBarColumn } from './hook'
+import { iBarColumnData } from '../../../interfaces/atoms'
+
+export const BarColumn = ({ config, data } : iChart) => {
+    const { type } = config
     const {
         chartDir,
         valuesGrouped,
@@ -11,7 +16,7 @@ export const BarColumn = ({type, data}) => {
     } = useBarColumn({ type, data })
 
     return (<ul className={classNames("chart", type)}>
-    { valuesGrouped?.map((values, chartI) => {
+    { valuesGrouped?.map((values: iBarColumnData, chartI: number) => {
         return Object.keys(values).map((label, i) => {
             const {
                 valueDir,

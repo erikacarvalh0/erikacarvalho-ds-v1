@@ -187,3 +187,21 @@ export interface iTableRow {
     rowsIndexes: number[]
     header: any[]
 }
+
+export interface iBarColumnData {
+    [key: string]: number[] 
+}
+export interface iPieData {
+    label: string,
+    percentage: number,
+    color: string,
+}
+export interface iChartConfig {
+    interval?: number,
+    type: 'line' |  'bar' | 'column' | 'pie'
+}
+
+export interface iChart {
+    config: iChartConfig,
+    data: number[] | iPieData | iBarColumnData
+}

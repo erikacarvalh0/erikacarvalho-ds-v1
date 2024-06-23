@@ -1,0 +1,73 @@
+.line {
+    &__wrapper { 
+        border-bottom: 2px solid $grey3; 
+        border-left: 2px solid $grey3; 
+        height: 250px; 
+        position: relative; 
+    } 
+
+    &__line { 
+        height: 1px; 
+        position: absolute; 
+        transform-origin: left bottom; 
+        background-color: $grey;
+    } 
+
+    &__point { 
+        border-radius: 50%; 
+        position: absolute; 
+        height: var(--gridSizeDefault); 
+        width: var(--gridSizeDefault); 
+        z-index: 1; 
+        background-color: $grey4;
+
+        &:hover {
+            & + .line__point-label {
+                opacity: 1;
+            }
+        }
+    } 
+
+    &__point-label {
+        opacity: 0;
+        position: absolute; 
+        z-index: 1;
+        background-color: white;
+        padding: var(--gridSizeSmall);
+        color: $grey;
+        font-size: var(--gridSize2x);
+        transition: opacity .3s ease;
+    }
+
+    &.acqua {
+        .line__line { 
+            background-color: $acquaDark;
+        } 
+
+        .line__point { 
+            background-color: $acqua;
+        }
+
+        .line__point-label {
+            background-color: white;
+            color: $acquaDark;
+        }
+    }
+
+    &.pink {
+        .line__line { 
+            background-color: $pinkDark;
+        } 
+
+        .line__point { 
+            background-color: $pink;
+        }
+
+        .line__point-label {
+            background-color: white;
+            color: $pinkDark;
+        }
+    }
+
+}
+

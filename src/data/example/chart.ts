@@ -3,6 +3,17 @@ export const chartData = {
     colB: [8, 10, 14]
 }
 
+export const chartConfig = {
+    interval: 5,
+    type: 'bar'
+}
+
+export const lineConfig = {
+    interval: 50,
+    type: 'line'
+}
+export const lineData = [10, 50, 15, 30, 28, 0]
+
 export const pieData = [
     {
         label: 'Rice',
@@ -25,8 +36,3 @@ export const pieData = [
         color: "#555"
     },
 ]
-
-export const chartConfig = {
-    interval: 5,
-    type: 'bar'
-}
