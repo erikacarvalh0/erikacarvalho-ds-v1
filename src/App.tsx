@@ -23,8 +23,10 @@ import { Audio } from "./molecules/Audio";
 import { Notes } from "./molecules/Notes";
 import { Chart } from "./atoms/Chart";
 import { tableData } from "./data/example/table";
-import { chartConfig, chartData } from "./data/example/chart";
+import { chartConfig, chartData, pieData } from "./data/example/chart";
 import { carouselConfig } from "./data/example/carousel";
+
+import "./index.scss"
 
 const App = () => {
   const [isSuccessOpen, setIsSuccessOpen] = useState(false)
@@ -39,6 +41,7 @@ const App = () => {
 
     <Tabs>
       <TabItem title="Column chart">
+        <Chart title="Gráfico de pizza" data={pieData} config={{type: 'pie'}} />
         <Chart title="Gráfico de barras" data={chartData} config={chartConfig} />
         <Chart title="Gráfico de colunas" data={chartData} config={{...chartConfig, type: 'column'}} />
       </TabItem>
