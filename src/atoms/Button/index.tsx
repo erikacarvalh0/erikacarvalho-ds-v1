@@ -8,7 +8,7 @@ export const Button =({action, isDisabled = false, title, text, theme, children,
         disabled={isDisabled}
         onClick={action}
         title={text || title}
-        className={classNames("button", theme, customClass, {"no-hover": children})}
+        className={classNames("button", theme, customClass)}
     >
         {text}
         {children}
