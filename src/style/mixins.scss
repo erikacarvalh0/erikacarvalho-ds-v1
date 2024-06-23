@@ -2,6 +2,7 @@
     &::before {
         display: block;
         content: attr($element);
+        font-family: $fontPrimary;
         font-weight: bold;
         height: 0;
         overflow: hidden;

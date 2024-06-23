@@ -10,7 +10,7 @@ import { Input } from "./atoms/Input";
 import { Textarea } from "./atoms/TextArea";
 import { Select } from "./atoms/Select";
 import { Img } from "./atoms/Img";
-import { Card } from "./atoms/Card";
+import { Card, CardContainer } from "./atoms/Card";
 import { Accordion } from "./atoms/Accordion";
 import { TabItem, Tabs } from "./atoms/Tabs";
 import { Form } from "./molecules/Form";
@@ -23,7 +23,7 @@ import { Audio } from "./molecules/Audio";
 import { Notes } from "./molecules/Notes";
 import { Chart } from "./atoms/Chart";
 import { tableData } from "./data/example/table";
-import { chartConfig, chartData, pieData } from "./data/example/chart";
+import { chartConfig, chartData, lineConfig, lineData, pieData } from "./data/example/chart";
 import { carouselConfig } from "./data/example/carousel";
 
 import "./index.scss"
@@ -41,6 +41,7 @@ const App = () => {
 
     <Tabs>
       <TabItem title="Column chart">
+        <Chart title="Gráfico de linhas" data={lineData} config={lineConfig} />
         <Chart title="Gráfico de pizza" data={pieData} config={{type: 'pie'}} />
         <Chart title="Gráfico de barras" data={chartData} config={chartConfig} />
         <Chart title="Gráfico de colunas" data={chartData} config={{...chartConfig, type: 'column'}} />
@@ -108,21 +109,23 @@ const App = () => {
         />
       </TabItem>
       <TabItem title="Cards">
-        <Card title="Lendo por aí" subtitle="O Retorno do Cangaceiro Javascript" text="Você aprenderá os conceitos da Programação Funcional por meio de exemplos práticos com a criação da nossa própria biblioteca e operadores. Para completar, o autor traz os padrões de projeto mais utilizados para você melhorar ainda mais seus projetos." />
-        <Card 
-          title="Lendo por aí" 
-          subtitle="O Retorno do Cangaceiro Javascript" 
-          text="Você aprenderá os conceitos da Programação Funcional por meio de exemplos práticos com a criação da nossa própria biblioteca e operadores. Para completar, o autor traz os padrões de projeto mais utilizados para você melhorar ainda mais seus projetos."
-          button={{
-            action: () => console.log('click'),
-            text: "Card button"
-          }}
-          img={{
-            src:"/images/test.png",
-            srcmobile:"/images/test-mobile.png",
-            media: 768
-          }}
-        />
+        <CardContainer>
+          <Card title="Lendo por aí" subtitle="O Retorno do Cangaceiro Javascript" text="Você aprenderá os conceitos da Programação Funcional por meio de exemplos práticos com a criação da nossa própria biblioteca e operadores. Para completar, o autor traz os padrões de projeto mais utilizados para você melhorar ainda mais seus projetos." />
+          <Card 
+            title="Lendo por aí" 
+            subtitle="O Retorno do Cangaceiro Javascript" 
+            text="Você aprenderá os conceitos da Programação Funcional por meio de exemplos práticos com a criação da nossa própria biblioteca e operadores. Para completar, o autor traz os padrões de projeto mais utilizados para você melhorar ainda mais seus projetos."
+            button={{
+              action: () => console.log('click'),
+              text: "Card button"
+            }}
+            img={{
+              src:"/images/test.png",
+              srcmobile:"/images/test-mobile.png",
+              media: 768
+            }}
+          />
+        </CardContainer>
       </TabItem>
       <TabItem title="Images">
         <Img src="/images/test.png" />
