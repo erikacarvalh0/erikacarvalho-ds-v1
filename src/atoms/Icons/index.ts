@@ -1,11 +1,14 @@
 export { default as Book } from "./Book";
 export { default as Bookmark } from "./Bookmark";
 export { default as Copy } from "./Copy";
+export { default as Document } from "./Document";
 export { default as Download } from "./Download";
+export { default as Email } from "./Email";
 export { default as Expand } from "./Expand";
 export { default as Eye } from "./Eye";
 export { default as EyeClosed } from "./EyeClosed";
 export { default as FastForward } from "./FastForward";
+export { default as Linkedin } from "./Linkedin";
 export { default as Logo } from "./Logo";
 export { default as Logotype } from "./Logotype";
 export { default as Menu } from "./Menu";
