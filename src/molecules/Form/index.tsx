@@ -1,20 +1,21 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { ReactElement, useEffect, useRef, useState } from "react"
 
 import { Button } from "../../atoms/Button"
 import { iForm } from "../../interfaces/molecules"
 
 import "./index.scss"
+import { ReactNode } from "../../interfaces/atoms"
 
 export const Form = ({ children, handleSubmit, buttonText = "Enviar" }: iForm) => {
-	const formRef = useRef<HTMLElement>(null)
+	const formRef = useRef<HTMLFormElement>(null)
 	const formValuesState = useState({}) // TODO: [REFACTOR] create a context for forms
-	const [ requiredInputs, setRequiredInputs ] = useState([])
+	const [ requiredInputs, setRequiredInputs ] = useState<HTMLInputElement[]>([])
 
 	const [ isDisabled, setIsDisabled ] = useState(true)
 
 	useEffect(() => {
-		const formChildren = formRef?.current.querySelectorAll('.input-container')
-		const formInputs = Array.from(formChildren).reduce((reqInputs, inputContainer) => {
+		const formChildren = formRef?.current ? formRef?.current.querySelectorAll('.input-container') : []
+		const formInputs = Array.from(formChildren).reduce((reqInputs: HTMLInputElement[], inputContainer: HTMLInputElement) => {
 			const currentInput = inputContainer.querySelector('input')
 			const isRequired = inputContainer.querySelector('input')?.hasAttribute('required')
 
@@ -50,7 +51,7 @@ export const Form = ({ children, handleSubmit, buttonText = "Enviar" }: iForm) =
 
     return (
 		<form ref={formRef} className="form">
-			{ React.Children.map(children, (child, index) => {
+			{ React.Children.map(children, (child: ReactElement, index: number) => {
                 return (React.cloneElement(child, {
                     index,
                     formValuesState

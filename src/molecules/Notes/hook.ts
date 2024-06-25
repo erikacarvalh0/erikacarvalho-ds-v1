@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 
 import { getLSItem } from "../../utils/storage"
-import { iNotes } from "../../interfaces/molecules"
+import { iNotesRef } from "../../interfaces/molecules"
 
-export const useNotes = (notesRef: iNotes) => {
+export const useNotes = (notesRef: iNotesRef) => {
     const [ selectedText, setSelectedText ] = useState('')
     const [ storedNotes, setStoredNotes ] = useState(getLSItem('notes'))
     const [ showList, setShowList ] = useState(false)

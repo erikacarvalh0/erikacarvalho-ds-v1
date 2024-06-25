@@ -2,7 +2,7 @@ import { createContext, useEffect, useRef, useState } from "react"
 
 import { iObject } from "../../interfaces/atoms"
 
-export const TableContext = createContext([])
+export const TableContext = createContext({})
 
 export const useTable = (data: iObject[]) => {
     const paginationConfig = {
@@ -16,42 +16,37 @@ export const useTable = (data: iObject[]) => {
         dir: 'asc'
     })
 
-    const [ isSorted, setIsSorted ] = useState(true)
-    const hiddenColsState = useState([])
+    const hiddenColsState = useState<number[]>([])
     const visibleItemsState = useState(data)
     const [ visibleItems, setVisibleItems ] = visibleItemsState
     const [ hiddenCols, setHiddenCols ] = hiddenColsState
     const [ sortValues ] = sortState
     
-    const hiddenIndexes = []
+    const hiddenIndexes: number[] = []
 
-    const tableRef = useRef(null)
+    const tableRef = useRef<HTMLTableElement | null>(null)
 
-    // useEffect(() => { // TODO: SORT NEW VISIBLE ITEMS
-    //     if (!isSorted) {
-    //         sortTable()
-    //     }
-    // }, [ visibleItems, sortValues.dir ])
 
     const sortTable = () => {
         const dataToSort = visibleItems || []
         const sortedByCol = dataToSort.sort((a: iObject, b: iObject) => {
             const id = sortValues.id || 0
 
-            return (sortValues.dir === 'desc')
-                ? a?.[id] < b?.[id] ? 1 : -1
-                : a?.[id] > b?.[id] ? 1 : -1
+            return a?.[id] && b?.[id] 
+                ? (sortValues.dir === 'desc')
+                    ? a?.[id] < b?.[id] ? 1 : -1
+                    : a?.[id] > b?.[id] ? 1 : -1
+                : - 1
         })
         setVisibleItems([...sortedByCol])
-        setIsSorted(true)
     }
 
     const hideCols = () => {
-        const currTableWidth = tableRef.current.getBoundingClientRect().width
+        const currTableWidth = tableRef?.current ? tableRef?.current.getBoundingClientRect().width : 0
         const windowWidth = window.innerWidth
 
         if (currTableWidth > windowWidth) {
-            const headerCols = tableRef.current.querySelectorAll('th')
+            const headerCols = tableRef?.current ? tableRef?.current.querySelectorAll('th') : []
 
             Array.from(headerCols).map((td, i) => {
                 const rightPos = td.getBoundingClientRect().right
@@ -61,8 +56,8 @@ export const useTable = (data: iObject[]) => {
                 }
             })
         }
-
-        setHiddenCols([...hiddenIndexes.sort()])
+        const newHidden = [...hiddenIndexes.sort()]
+        setHiddenCols(newHidden)
     }
 
     useEffect(() => {

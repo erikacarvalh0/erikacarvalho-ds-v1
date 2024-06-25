@@ -2,29 +2,30 @@ import React, { useContext, useEffect, useRef } from "react"
 import classNames from "classnames"
 
 import { getRandomNumber } from "../../utils/randomNumber"
+import { ReactNode, iCarousel, iCompChildren } from "../../interfaces/atoms"
 
 import { Button } from "../Button"
 import { CarouselContext, useCarousel } from "./hook"
 import './index.scss'
 
 
-export const CItem = ({ children }) => {
+export const CItem = ({ children } : iCompChildren) => {
     const { config, childrenArr, activeItem, isPrevious } = useContext(CarouselContext)
-    const itemRef = useRef(null)
+    const itemRef = useRef<HTMLElement>(null)
 
-    const currentIndex = childrenArr.findIndex((childArr) => childArr.props.children === children)
+    const currentIndex = childrenArr?.findIndex((childArr: ReactNode) => childArr?.props?.children === children)
     const isActive = isPrevious ? currentIndex === activeItem - 1 : currentIndex === activeItem
-    const isLastItem = currentIndex === childrenArr.length - 1  && activeItem === children.length
+    const isLastItem = currentIndex === childrenArr?.length - 1  && activeItem === children?.length
     const isFirstItem = currentIndex === 0 && activeItem === 0
     
-    const { itemsPerPage } = config
-    const itemWidth = 100 / itemsPerPage
+    const { itemsPerPage } = config || {}
+    const itemWidth = 100 / ( itemsPerPage || 1 )
     
     const randId = getRandomNumber()
 
     useEffect(() => {
-        if (isActive || isLastItem || isFirstItem) {
-            itemRef.current.scrollIntoView()
+        if (itemRef?.current && (isActive || isLastItem || isFirstItem)) {
+            itemRef?.current?.scrollIntoView()
         }
     }, [])
 
@@ -33,7 +34,7 @@ export const CItem = ({ children }) => {
     </li>)
 }
 
-export const Carousel = ({ children, config, title }) => {
+export const Carousel = ({ children, config, title }: iCarousel) => {
     const {
         dotsAmount,
         activeIndex,

@@ -6,7 +6,7 @@ import { iObject } from "../../interfaces/atoms"
 
 interface iRule { rule: (param:number | string) => string }
 
-export const useInput = (fieldError: boolean, type: string, rules?: any[], name: string, formValuesState?: any) => {
+export const useInput = (fieldError: boolean, type: string, rules?: any[], name?: string, formValuesState?: any) => {
     const [ showDomains, setShowDomains ] = useState(false)
     const [ value, setValue ] = useState('')
     const [ typeState, setTypeState ] = useState(type)

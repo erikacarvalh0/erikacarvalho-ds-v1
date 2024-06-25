@@ -34,7 +34,7 @@ const App = () => {
   const toggleSuccess = () => setIsSuccessOpen(!isSuccessOpen)
   const toggleError = () => setIsErrorOpen(!isErrorOpen)
   const handleFormSubmit = (values: iObject) => console.log('handle submit', values)
-  const notesRef = useRef(null)
+  const notesRef = useRef<HTMLParagraphElement | null>(null)
 
   return (<div className="container">
     <Header title="Sobre o Projeto" content={headerContent} links={headerLinks} />

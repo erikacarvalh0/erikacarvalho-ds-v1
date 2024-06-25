@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from "react";
-import { iDialogHook, iObject } from "../../interfaces/molecules";
+import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { iDialogHook  } from "../../interfaces/molecules";
+import { iObject } from "../../interfaces/atoms";
 
 export const useDialog = ({ isOpen, toggleDialog }: iDialogHook) => {
-	const dialogRef = useRef();
+	const dialogRef: MutableRefObject<HTMLDialogElement | null> = useRef(null);
 	const [mustHide, setMustHide] = useState(false);
 
 	const themeTitle: iObject = {

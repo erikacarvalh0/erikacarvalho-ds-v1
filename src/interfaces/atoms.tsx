@@ -1,13 +1,53 @@
 import { ReactElement, ReactPortal } from "react";
+import { isObject } from "../utils/isObject";
 
 type ReactText = string | number;
-export type ReactChild = ReactElement | ReactText;
+export type ReactChild = ReactElement | ReactText | ReactElement[];
 
 interface ReactNodeArray extends Array<ReactNode> {}
 type ReactFragment = {} | ReactNodeArray;
 
 export type iFn = () => void
 export type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
+
+export type tChildren = {
+    props: iObject | ReactNode
+}
+
+export type iCarouselLayout = "ctrls-in-line" | "vertical-align"
+export interface iCarouselResponsive {
+    breakpoint: number,
+    settings: {
+      layout: iCarouselLayout,
+      centerSingleItemAW?: boolean
+    }
+  }
+export interface iCarouselConfig  {
+    autoWidth?: boolean,
+    maxDots?: boolean,
+    groupScroll?: boolean,
+    layout?: iCarouselLayout,
+    dots?: boolean,
+    itemsPerPage: number,
+    responsive?: iCarouselResponsive[]
+}
+export interface iCarousel {
+    children: tChildren[],
+    config: any,
+    title?: string
+}
+
+export interface iCarouselContext { 
+    itemsPerPage?: number,
+    config?: iCarouselConfig,
+    childrenArr?: ReactNode[],
+    activeItem: number,
+    isPrevious: boolean
+}
+
+export interface iCompChildren {
+    children: ReactNode
+}
 
 export interface iLink {
     text?: string,
@@ -46,7 +86,7 @@ export interface iSelect {
 }
 
 export interface iObject {
-    [key: string]: string | number | boolean | iObject | undefined | iFunction
+    [key: string | number]: string | number | boolean | iObject | undefined | iFunction | ReactNode
 }
 
 export interface iFunction {
@@ -99,7 +139,7 @@ export interface iCard {
     subtitle: string,
     img?: iImg,
     text?: string,
-    list?: iList,
+    list?: iObject[],
     button?: iButton,
     link?: iLink,
     children?: ReactNode
@@ -129,12 +169,13 @@ export interface iTabs {
 export interface iTabsHeader {
     children: ReactNode, 
     handleOnChange: any, 
-    id: number
+    id: number,
+    activeId: string
 }
 
 export interface iTCol {
     children: ReactNode 
-    sort: string
+    sort?: boolean
     id: string
 }
 
@@ -182,14 +223,14 @@ export interface iPagination {
 
 export interface iTableRow {
     rowIndex: number
-    row: any[]
+    row: iObject
     hiddenCols: any[]
-    rowsIndexes: number[]
-    header: any[]
+    rowsIndexes: string[]
+    header: ReactNode
 }
 
 export interface iBarColumnData {
-    [key: string]: number[] 
+    [key: string]: number[] | iObject[] | number
 }
 export interface iPieData {
     label: string,
@@ -203,5 +244,5 @@ export interface iChartConfig {
 
 export interface iChart {
     config: iChartConfig,
-    data: number[] | iPieData | iBarColumnData
+    data: number[] | iPieData[] | iBarColumnData
 }

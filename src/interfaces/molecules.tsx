@@ -1,3 +1,4 @@
+import { ReactElement } from "react"
 import { ReactNode, iFn, iObject } from "./atoms"
 
 export interface iContentDialog {
@@ -24,7 +25,7 @@ export interface iDialog {
 export interface iDialogHook { isOpen: boolean, toggleDialog: () => void }
 
 export interface iForm {
-	children?: ReactNode,
+	children: ReactElement[],
     handleSubmit?: (values: iObject) => void,
     buttonText?: string
 }
@@ -40,7 +41,9 @@ export interface iNotesTooltip {
     setText: any
     setHasNewNote: any
 }
-
+export interface iNotesRef{
+    current?: HTMLElement | null
+}
 export interface iNotes {
-    notesRef: any
+    notesRef: iNotesRef
 }

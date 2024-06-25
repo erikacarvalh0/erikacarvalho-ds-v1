@@ -1,8 +1,11 @@
 import { Children, createContext, useState } from "react"
+import { ReactNode, iCarouselConfig, iCarouselContext } from "../../interfaces/atoms"
 
-export const CarouselContext = createContext({})
+export const CarouselContext = createContext<iCarouselContext>(
+    { activeItem: 0, isPrevious: false, config: { itemsPerPage: 1 } } 
+)
 
-export const useCarousel = (config, children) => {
+export const useCarousel = (config: iCarouselConfig, children: ReactNode) => {
     const { itemsPerPage } = config
     const childrenArr = Children.toArray(children)
     const [ activeItem, setActiveItem ] = useState(0)
@@ -32,7 +35,7 @@ export const useCarousel = (config, children) => {
         }
     }
 
-    const handleDot = (index) => {
+    const handleDot = (index: number) => {
         const goToItem = itemsPerPage === 1 || index === 0
             ? index 
             : (2 * index) + 1

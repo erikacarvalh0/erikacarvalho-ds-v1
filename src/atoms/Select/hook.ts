@@ -7,7 +7,7 @@ export const useSelect = (fieldError: boolean, options: string[]) => {
     const [ value, setValue ] = useState('')
     const [ selectedOption, setSelectedOption ] = useState(-1)
     const [ hasError, setHasError ] = useState(fieldError)
-    const optionsRef = useRef(null)
+    const optionsRef = useRef<HTMLElement>(null)
     const [ filteredOptions, setFilteredOptions ] = useState(options)
 
     const randId = getRandomNumber()
@@ -40,9 +40,9 @@ export const useSelect = (fieldError: boolean, options: string[]) => {
 
     const scrollElementToView = (pressedDown: boolean, pressedUp: boolean) => {
         if( optionsRef?.current && selectedOption > -1) {
-            const listPosition = optionsRef?.current ? optionsRef?.current.getBoundingClientRect() : -1
+            const listPosition = optionsRef?.current ? optionsRef?.current.getBoundingClientRect() : { top: -1, bottom: -1}
 
-            if (listPosition > -1) {
+            if (listPosition?.top > -1 ) {
                 const optionsElms = optionsRef?.current?.children
                 const currentOptionElm = optionsElms[selectedOption]
                 const currentOptionPosition = currentOptionElm.getBoundingClientRect()
