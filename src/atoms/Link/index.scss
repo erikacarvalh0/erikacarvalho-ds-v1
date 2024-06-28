@@ -1,10 +1,11 @@
  .link {
+    position: relative;
     cursor: pointer;
     text-decoration: none;
     font-family: $fontPrimary;
     font-size: 16px;
 
-    @include fixBoldHover(title);
+    // @include fixBoldHover(title);
     @include underlineDefault();
 
     &:not(.no-hover):hover {

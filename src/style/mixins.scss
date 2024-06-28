@@ -51,6 +51,8 @@
 @mixin underlineDefault() {
     &:after {
         content: '';
+        position: absolute;
+        left: 0;
         background: currentColor;
         display: block;
         width: 0;
