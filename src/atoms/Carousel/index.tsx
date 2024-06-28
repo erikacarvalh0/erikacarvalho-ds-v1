@@ -47,16 +47,16 @@ export const Carousel = ({ children, config, title }: iCarousel) => {
      return (<CarouselContext.Provider value={context}>
         <section className="carousel__container">
             { title && <p className="carousel__title">{title}</p>}
-            <ul className="carousel">
+            <ul style={{ gap: config?.gap }} className="carousel">
                 {children}
             </ul>
-            <footer className="carousel__footer">
+            {dotsAmount > 1 && <footer className="carousel__footer">
                 <Button customClass="carousel__btn carousel__btn-previous" action={handlePrevious} />
                 { config.dots && Array.from(Array(dotsAmount)).map((_, index) => 
                     <Button key={index} customClass={classNames("carousel__btn", "carousel__btn-dot", {  'active': activeIndex === index})} action={() => handleDot(index)} />
                 )}
                 <Button customClass="carousel__btn carousel__btn-next" action={handleNext} />
-            </footer>
+            </footer>}
         </section>
      </CarouselContext.Provider>
 )}
