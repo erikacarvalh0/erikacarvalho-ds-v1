@@ -29,7 +29,11 @@ export const CItem = ({ children } : iCompChildren) => {
         }
     }, [])
 
-    return (<li ref={itemRef} style={{ minWidth: `${itemWidth}%` }} className={classNames("carousel__item", { 'active': isActive})} key={randId}>
+    return (<li 
+        ref={itemRef}
+        // style={{ minWidth: `${itemWidth}%` }}
+        className={classNames("carousel__item", { 'active': isActive})} 
+        key={randId}>
             { children }
     </li>)
 }
