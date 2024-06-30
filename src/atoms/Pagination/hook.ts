@@ -1,8 +1,6 @@
-import { createContext, useEffect, useState } from "react"
+import {  useEffect, useState } from "react"
 import { createArray } from "../../utils/createArray"
 import { iPagination } from "../../interfaces/atoms"
-
-export const PaginationContext = createContext({})
 
 export const usePagination = ({ config, allItems, visibleItemsState }: iPagination) => {
     const { itemsPerPage, maxPagesNums } = config
