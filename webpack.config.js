@@ -13,9 +13,15 @@ const setRelativePath = (filePath) => {
   return path
 }
 
-module.exports = (_, argv) => ({
+module.exports = (_, argv) => {
+  
+  const ecdsPathTemp = argv.mode === 'development'
+    ? "/"
+    : "https://ds.erikacarvalho.dev/"
+
+  return ({
   output: {
-    publicPath: "/",
+    publicPath: ecdsPathTemp,
   },
 
   resolve: {
@@ -118,4 +124,4 @@ module.exports = (_, argv) => ({
     }),
     new Dotenv()
   ],
-});
+})};
