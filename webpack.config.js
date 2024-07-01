@@ -15,7 +15,7 @@ const setRelativePath = (filePath) => {
 
 module.exports = (_, argv) => ({
   output: {
-    publicPath: "http://localhost:1234/",
+    publicPath: "/",
   },
 
   resolve: {
