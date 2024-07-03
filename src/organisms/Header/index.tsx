@@ -9,7 +9,6 @@ import { Link } from "../../atoms/Link"
 
 export const Header = ({ title, content, links, routerContext }: iHeader) => {
 	const { isHome, isOpen, toggleDialog } = useHeader();
-	console.log('routerContext', routerContext)
 
     return (
 		<header data-component className="header">
