@@ -16,7 +16,7 @@ const setRelativePath = (filePath) => {
 module.exports = (_, argv) => {
   
   const ecdsPathTemp = argv.mode === 'development'
-    ? "/"
+    ? "http://localhost:1234/"
     : "https://ds.erikacarvalho.dev/"
 
   return ({

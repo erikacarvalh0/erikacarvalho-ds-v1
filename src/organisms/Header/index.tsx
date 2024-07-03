@@ -7,17 +7,17 @@ import './index.scss'
 import { iHeader, iHeaderLinks } from "../../interfaces/organisms"
 import { Link } from "../../atoms/Link"
 
-export const Header = ({ title, content, links }: iHeader) => {
+export const Header = ({ title, content, links, routerContext }: iHeader) => {
 	const { isHome, isOpen, toggleDialog } = useHeader();
 
     return (
 		<header data-component className="header">
 			<nav className="header__nav">
-                <label  className="header__nav-icon" htmlFor="menu-btn">
-                    <Menu className="header__image" />
-                    <div className="header__hamburguer"></div>
-                </label>
-                <input type="checkbox" id="menu-btn" role="button"  />
+				<label  className="header__nav-icon" htmlFor="menu-btn">
+					<Menu className="header__image" />
+					<div className="header__hamburguer"></div>
+				</label>
+				<input type="checkbox" id="menu-btn" role="button"  />
 				
 				<ul data-js="menu" className="header__menu">
 					<label htmlFor="menu-btn" data-js="closeMenu" className="header__menu-button">
@@ -25,7 +25,7 @@ export const Header = ({ title, content, links }: iHeader) => {
 					</label>
 					{ links?.map(({ text, href, target}: iHeaderLinks, index: number) => (
 						<li key={index} className="header__menu-item">
-							<Link theme="light" customClass="header__menu-link" href={href} target={target} text={text} />
+							<Link routerContext={routerContext} theme="light" customClass="header__menu-link" href={href} target={target} text={text} />
 						</li>
 					)) }
 					{ content && 
@@ -37,7 +37,7 @@ export const Header = ({ title, content, links }: iHeader) => {
 				</ul>
 		
 				<Dialog title={title} content={content} isOpen={isOpen} toggleDialog={toggleDialog} />
-            </nav>
+			</nav>
 
 			{!isHome &&
 				<Link href="https://erikacarvalho.dev">

@@ -56,6 +56,7 @@ export interface iLink {
     theme?: "default" | "highlight" | "alert" | "light",
     customClass?: string,
     children?: ReactNode
+    routerContext?: any
 }
 export interface iButton {
     isDisabled?: boolean

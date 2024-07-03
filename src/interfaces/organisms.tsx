@@ -9,5 +9,6 @@ export interface iHeaderLinks {
 export interface iHeader {
     content?: iContentDialog[],
     links: iHeaderLinks[],
-    title: string
+    title: string,
+    routerContext: any
 }
