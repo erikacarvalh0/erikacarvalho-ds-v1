@@ -106,6 +106,7 @@ module.exports = (_, argv) => {
         "./Header": "./src/organisms/Header/index.tsx",
 
       },
+      
       shared: {
         ...deps,
         react: {
