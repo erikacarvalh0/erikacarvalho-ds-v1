@@ -1,7 +1,7 @@
 import React from "react"
-import './index.scss'
-import { iLink } from "../../interfaces/atoms"
 import classNames from "classnames"
+import { iLink } from "../../interfaces/atoms"
+import './index.scss'
 
 export const Link =({href, target, text, theme = "default", children, routerContext}: iLink) => {
     const linkProps = {
@@ -14,8 +14,10 @@ export const Link =({href, target, text, theme = "default", children, routerCont
         {children}
     </>)
 
+    const isExternal = href.includes('http')
+
     return (
-        routerContext 
+        routerContext && !isExternal
         ? <button onClick={() => routerContext(href)} aria-roledescription="link" {...linkProps} >
             <LinkChildren />
         </button>
