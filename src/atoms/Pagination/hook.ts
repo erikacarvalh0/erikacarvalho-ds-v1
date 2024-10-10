@@ -30,7 +30,7 @@ export const usePagination = ({ config, allItems, visibleItemsState }: iPaginati
         const isNext = index > activePage 
         const pagesAround = Math.floor(maxPagesNumsDefault / 2)
         const isOdd = maxPagesNumsDefault % 2 == 0
-        const isFirsts = index <= pagesAround + 1
+        const isFirsts = isNext ? index <= pagesAround + 1 : index <= pagesAround
         const isLasts = isOdd 
             ?  index > maxPages - (pagesAround - 1) 
             : index > maxPages - pagesAround
@@ -38,9 +38,11 @@ export const usePagination = ({ config, allItems, visibleItemsState }: iPaginati
         if (!isFirsts && !isLasts) {
             if (isNext) {
                 setPagesNums(pagesNums.map(num => num + 1))
-            } else {
-                setPagesNums(pagesNums.map(num => num - 1))
-            }
+            } 
+        }
+        
+        if (!isLastPage && !isNext && !isFirsts) {
+            setPagesNums(pagesNums.map(num => num - 1))
         }
      }
 
@@ -57,15 +59,10 @@ export const usePagination = ({ config, allItems, visibleItemsState }: iPaginati
     }
 
     const handlePrevious = () => {
-        const previousPage = activePage - 1
-
-        if (previousPage > 0) {
-            setHasPrevious(true)
-            handlePageItems(previousPage)
-        } else {
-            setHasPrevious(false)
+        if (activePage > 1) {
+            handlePageItems(activePage - 1)
         }
-
+        
         setHasNext(true)
     }
 
@@ -77,8 +74,17 @@ export const usePagination = ({ config, allItems, visibleItemsState }: iPaginati
         handlePagesNums(index)
         
         setActivePage(index)
-        setIsLastPage(index >= maxPages)
         setVisibleItems(currentItems)
+        setIsLastPage(index >= maxPages)
+        
+
+        if (index >= maxPages) {
+            setHasNext(false)
+        } 
+
+        if (index <= 1) {
+            setHasPrevious(false)
+        }
 
     }
 

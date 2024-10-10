@@ -11,7 +11,7 @@
       color: $acqua;
     }
 
-    &:hover {
+    &:hover:not(:disabled) {
       color: $acquaDark;
     }
   }
@@ -27,7 +27,11 @@
       height: calc(var(--gridSizeDefault) + var(--gridSizeSmall));
       transition: color .3s ease;
 
-      &:hover {
+      &:disabled {
+        cursor: initial
+      }
+
+      &:hover:not(:disabled) {
         background: none;
         color: $acquaDark;
       }
@@ -56,7 +60,7 @@
         background: $acqua;
       }
   
-      &:hover {
+      &:hover:not(:disabled) {
         background: $acquaDark;
       }
     }
