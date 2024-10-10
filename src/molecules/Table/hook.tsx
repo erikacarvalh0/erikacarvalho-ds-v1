@@ -20,6 +20,7 @@ export const useTable = (data: iObject[]) => {
     const visibleItemsState = useState(data)
     const [ visibleItems, setVisibleItems ] = visibleItemsState
     const [ hiddenCols, setHiddenCols ] = hiddenColsState
+    let previouWidth = 0
     const [ sortValues ] = sortState
     
     const hiddenIndexes: number[] = []
@@ -60,10 +61,34 @@ export const useTable = (data: iObject[]) => {
         setHiddenCols(newHidden)
     }
 
+
+    const showCols = () => {
+        hiddenIndexes.shift()
+    
+        setHiddenCols([...hiddenIndexes])
+        
+    }
+
+    const controlCols = ({ target }) => {
+        const currWidth = target.innerWidth
+        const diffWidths = Math.abs(previouWidth - currWidth)
+        const firstThElm = getComputedStyle(tableRef?.current.querySelector('th'))
+        const colWidth = parseInt(firstThElm["min-width"].replace('px', '')) 
+        const treshold = previouWidth > currWidth ? colWidth - (colWidth * .25) : colWidth
+        
+        if (diffWidths > treshold) {
+            if  (previouWidth > currWidth) {
+                hideCols()
+            } else {
+                showCols()
+            }
+            previouWidth = currWidth
+        }
+    }
+
     useEffect(() => {
         hideCols()
-
-        window.addEventListener('resize', hideCols)
+        window.addEventListener('resize', controlCols)
     }, [])
 
     useEffect(() => {
