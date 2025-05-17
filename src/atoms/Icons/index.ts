@@ -16,5 +16,7 @@ export { default as Octocat } from "./Octocat";
 export { default as Pause } from "./Pause";
 export { default as Play } from "./Play";
 export { default as Rewind } from "./Rewind";
+export { default as Sad } from "./Sad";
 export { default as Search } from "./Search";
+export { default as Trash } from "./Trash";
 export { default as Twitter } from "./Twitter";

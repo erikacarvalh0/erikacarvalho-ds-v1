@@ -5,7 +5,8 @@ import { iNotesRef } from "../../interfaces/molecules"
 
 export const useNotes = (notesRef: iNotesRef) => {
     const [ selectedText, setSelectedText ] = useState('')
-    const [ storedNotes, setStoredNotes ] = useState(getLSItem('notes'))
+    const storedNotesState = useState(getLSItem('notes'))
+    const [ , setStoredNotes ] = storedNotesState
     const [ showList, setShowList ] = useState(false)
     const [ mouseCoord, setMouseCoord ] = useState({ x: 0, y: 0 })
     const [ hasNewNote, setHasNewNote ] = useState(false)
@@ -16,17 +17,19 @@ export const useNotes = (notesRef: iNotesRef) => {
         setShowList(!showList)
     }
 
+    const addNoteOnMouseUp = (e: any) => {
+        const selection = window.getSelection()?.toString() || ''
+        const rect = e.target.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        setSelectedText(selection)
+        setMouseCoord({ x, y })
+    }
+
     useEffect(() => {
         if (notesRef?.current) {
-            notesRef.current.addEventListener('mouseup', (e: any) => {
-                const selection = window.getSelection()?.toString() || ''
-                const rect = e.target.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-
-                setSelectedText(selection)
-                setMouseCoord({ x, y })
-            })
+            notesRef.current.addEventListener('mouseup', addNoteOnMouseUp)
         }
     }, [])
 
@@ -36,10 +39,10 @@ export const useNotes = (notesRef: iNotesRef) => {
 
     return {
         selectedText,
-        storedNotes,
         mouseCoord,
         hasNewNote,
         showList,
+        storedNotesState,
         setHasNewNote,
         setSelectedText,
         handleNotes,

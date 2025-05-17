@@ -1,0 +1,68 @@
+@import '../../../atoms//List/index.scss';
+
+.notes .list {
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--gridSizeDefault);
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--acquaLight);
+    font-family: var(--fontSecondary);
+    text-transform: uppercase;
+    font-weight: 700;
+
+    .list__buttons {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--gridSizeDefault);
+    }
+
+    .button {
+      position: relative;
+
+      &:hover {
+        font-weight: normal;
+      }
+
+      &.copied:before {
+        content: '\2713';
+        position: absolute;
+        top: -10px;
+        right: -8px;
+        display: block;
+        background: var(--acquaLight);
+        width: var(--gridSize2x);
+        height: var(--gridSize2x);
+        font-size: 12px;
+        padding: 2px;
+        border-radius: 50%;
+        animation: fadeIn .3s ease-in;
+      }
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+
+    &:before {
+      color: var(--acqua);
+    }
+
+    .button svg {
+      width: var(--gridSize2x);
+      height: var(--gridSize2x);
+    }
+  }
+}
+
+  

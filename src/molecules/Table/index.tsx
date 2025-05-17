@@ -8,6 +8,7 @@ import { Pagination } from "../../atoms/Pagination"
 
 import { TableContext, useTable } from "./hook"
 import './index.scss'
+import { i18n } from "../../utils/i18n"
 
 export const CombinedRow = ({rowIndex, row, hiddenCols, rowsIndexes, header} : iTableRow) => {
     return (<>
@@ -55,7 +56,7 @@ export const Table =({ data, children, paginationConfig } : iTable) => {
 
     return (
         <TableContext.Provider value={context}>
-            {sortMsg && <p>Sorted by: {sortMsg}</p>}
+            {sortMsg && <p>{i18n('Ordenado por')}: {sortMsg}</p>}
             <table ref={tableRef} className="table">
                 <thead className="table__header">
                     <tr className="table__row">{ 

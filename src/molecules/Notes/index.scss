@@ -1,6 +1,18 @@
  .notes {
   position: relative;
 
+  &__empty {
+    display: flex;
+    gap: var(--gridSizeDefault);
+    align-items: center;
+
+    svg {
+      color: var(--acqua);
+      width: var(--gridSize3x);
+      height: var(--gridSize3x);
+    }
+  }
+
   .button {
     position: relative;
     z-index: 1;
@@ -26,7 +38,7 @@
       width: 12px;
       height: 12px;
       border-radius: 8px;
-
+      animation: fadeIn .3s ease-in;
     }
   }
 
