@@ -3,9 +3,9 @@ import classNames from "classnames"
 import { iLink } from "../../interfaces/atoms"
 import './index.scss'
 
-export const Link =({href, target, text, theme = "default", children, routerContext}: iLink) => {
+export const Link =({href, target, text, theme = "default", children, routerContext, customClass, ...props}: iLink) => {
     const linkProps = {
-        className: classNames("link", theme, {"no-hover": children}),
+        className: classNames("link", theme, customClass, {"no-hover": children}),
         title: text
     }
 
@@ -18,10 +18,10 @@ export const Link =({href, target, text, theme = "default", children, routerCont
 
     return (
         routerContext && !isExternal
-        ? <button onClick={() => routerContext(href)} aria-roledescription="link" {...linkProps} >
+        ? <button onClick={() => routerContext(href)} aria-roledescription="link" {...linkProps} {...props}>
             <LinkChildren />
         </button>
-        : <a href={href} target={target} {...linkProps}>
+        : <a href={href} target={target} {...linkProps} {...props}>
             <LinkChildren />
         </a>
 )}
