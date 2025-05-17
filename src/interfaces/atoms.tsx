@@ -57,6 +57,7 @@ export interface iLink {
     customClass?: string,
     children?: ReactNode
     routerContext?: any
+    onFocus?: any
 }
 export interface iButton {
     isDisabled?: boolean
@@ -170,6 +171,7 @@ export interface iTabs {
 export interface iTabsHeader {
     children: ReactNode, 
     handleOnChange: any, 
+    onPressEnter: any, 
     id: number,
     activeId: string
 }

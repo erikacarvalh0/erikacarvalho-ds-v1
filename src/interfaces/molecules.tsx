@@ -1,5 +1,5 @@
 import { ReactElement } from "react"
-import { ReactNode, iFn, iObject } from "./atoms"
+import { ReactNode, iFn, iObject, iPagConfig, iPagination } from "./atoms"
 
 export interface iContentDialog {
     text: string,
@@ -32,7 +32,8 @@ export interface iForm {
 
 export interface iTable {
     data: iObject[],
-    children: ReactNode
+    children: ReactNode,
+    paginationConfig?: iPagConfig
 }
 
 export interface iNotesTooltip { 
@@ -40,6 +41,11 @@ export interface iNotesTooltip {
     text: string
     setText: any
     setHasNewNote: any
+}
+
+export interface iNotesList {
+    storedNotesState: any,
+    handleClose: any,
 }
 export interface iNotesRef{
     current?: HTMLElement | null
