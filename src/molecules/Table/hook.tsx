@@ -2,18 +2,20 @@ import { createContext, useEffect, useRef, useState } from "react"
 
 import { iObject } from "../../interfaces/atoms"
 
-export const TableContext = createContext({})
+export const TableContext = createContext({} as any)
 
 export const useTable = (data: iObject[]) => {
-    const paginationConfig = {
+    const defaultPaginationConfig = {
         maxPagesNums: 4,
-        itemsPerPage: 1,
+        itemsPerPage: 10,
         arrows: true
     }
     
     const sortState = useState({
         id: null,
-        dir: 'asc'
+        dir: 'asc',
+        index: -1,
+        text: ''
     })
 
     const hiddenColsState = useState<number[]>([])
@@ -22,6 +24,7 @@ export const useTable = (data: iObject[]) => {
     const [ hiddenCols, setHiddenCols ] = hiddenColsState
     let previouWidth = 0
     const [ sortValues ] = sortState
+    const [ sortMsg, setSortMsg ] = useState(sortValues.text)
     
     const hiddenIndexes: number[] = []
 
@@ -39,7 +42,8 @@ export const useTable = (data: iObject[]) => {
                     : a?.[id] > b?.[id] ? 1 : -1
                 : - 1
         })
-        setVisibleItems([...sortedByCol])
+
+        setVisibleItems(sortedByCol)
     }
 
     const hideCols = () => {
@@ -57,32 +61,41 @@ export const useTable = (data: iObject[]) => {
                 }
             })
         }
+        
         const newHidden = [...hiddenIndexes.sort()]
         setHiddenCols(newHidden)
     }
 
+    const sortedMessage = () => {
+        const sorttedHidden = hiddenCols.includes(sortValues.index)
+        const currentMsg = sorttedHidden ? sortValues.text : ''
+        setSortMsg(currentMsg)
+    }
 
     const showCols = () => {
         hiddenIndexes.shift()
-    
+  
         setHiddenCols([...hiddenIndexes])
-        
     }
 
-    const controlCols = ({ target }) => {
-        const currWidth = target.innerWidth
-        const diffWidths = Math.abs(previouWidth - currWidth)
-        const firstThElm = getComputedStyle(tableRef?.current.querySelector('th'))
-        const colWidth = parseInt(firstThElm["min-width"].replace('px', '')) 
-        const treshold = previouWidth > currWidth ? colWidth - (colWidth * .25) : colWidth
-        
-        if (diffWidths > treshold) {
-            if  (previouWidth > currWidth) {
-                hideCols()
-            } else {
-                showCols()
+    const controlCols = ({ target } : any) => {
+        if (tableRef.current) {
+            const currWidth = target?.innerWidth
+            const diffWidths = Math.abs(previouWidth - currWidth)
+            const thead = tableRef.current.querySelector('th')
+            const firstThElm = thead ? getComputedStyle(thead) : null
+            const minWith = firstThElm?.["min-width"] as string
+            const colWidth = firstThElm ? parseInt(minWith.replace('px', '')) : 0
+            const treshold = previouWidth > currWidth ? colWidth - (colWidth * .25) : colWidth
+            
+            if (diffWidths > treshold) {
+                if  (previouWidth > currWidth) {
+                    hideCols()
+                } else {
+                    showCols()
+                }
+                previouWidth = currWidth
             }
-            previouWidth = currWidth
         }
     }
 
@@ -97,11 +110,16 @@ export const useTable = (data: iObject[]) => {
         }
     }, [sortValues])
 
+    useEffect(() => {
+        sortedMessage()
+    }, [hiddenCols])
+
     return {
         hiddenCols,
         sortState,
+        sortMsg,
         tableRef,
-        paginationConfig,
+        defaultPaginationConfig,
         visibleItemsState,
         visibleItems
     }

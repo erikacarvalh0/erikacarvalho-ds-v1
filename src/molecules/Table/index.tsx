@@ -1,4 +1,4 @@
-import React, { Children } from "react"
+import React, { Children, ReactElement } from "react"
 
 import { iTable } from "../../interfaces/molecules"
 import { iTableRow } from "../../interfaces/atoms"
@@ -22,9 +22,10 @@ export const CombinedRow = ({rowIndex, row, hiddenCols, rowsIndexes, header} : i
             <td colSpan={rowsIndexes.length - hiddenCols.length}>
                 <Accordion title="Mais informações" hasArrow size="small">
                     { hiddenCols.map((hiddenCol, colIndex) => {
-                        const tColText = Children.toArray(header)[hiddenCol].props.children
+                        const childElement = Children.toArray(header)[hiddenCol] as ReactElement
+                        const tColText = childElement.props.children
                         const rowText = row[rowsIndexes[hiddenCol]]
-                        
+
                         return (<p key={colIndex} className="table__inner-text"><strong>{ tColText }:</strong> { rowText }</p>)
                     }) }
                 </Accordion>
@@ -35,20 +36,26 @@ export const CombinedRow = ({rowIndex, row, hiddenCols, rowsIndexes, header} : i
     )
 }
 
-export const Table =({ data, children } : iTable) => {
+export const Table =({ data, children, paginationConfig } : iTable) => {
     const { 
         hiddenCols,
         sortState,
+        sortMsg,
         tableRef,
-        paginationConfig,
+        defaultPaginationConfig,
         visibleItemsState,
         visibleItems
     } = useTable(data)
 
     const context: any = { sortState }
+    const currPaginationConfig = {
+        ...defaultPaginationConfig,
+        ...paginationConfig
+    }
 
     return (
         <TableContext.Provider value={context}>
+            {sortMsg && <p>Sorted by: {sortMsg}</p>}
             <table ref={tableRef} className="table">
                 <thead className="table__header">
                     <tr className="table__row">{ 
@@ -67,7 +74,7 @@ export const Table =({ data, children } : iTable) => {
                     }) }
                 </tbody>
             </table>
-            <Pagination allItems={data} config={paginationConfig} visibleItemsState={visibleItemsState} />
+            <Pagination allItems={data} config={currPaginationConfig} visibleItemsState={visibleItemsState} />
         </TableContext.Provider>
     )
 }

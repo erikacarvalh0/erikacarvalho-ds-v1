@@ -10,9 +10,9 @@ export const TCol = ({ children, sort, id } : iTCol) => {
     const context = useContext(TableContext)
     const [ sortValues, setSortValues ] = context?.sortState
 
-    const handleSorting = () =>{ 
+    const handleSorting = ({ target }: any) =>{ 
         const nextDir =  sortValues?.dir === 'asc' ? 'desc' : 'asc'
-        setSortValues({ id, dir: nextDir })
+        setSortValues({ id, dir: nextDir, index: Number(id) - 1, text: target.innerText })
     }
     
     return (  
