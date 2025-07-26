@@ -11,7 +11,7 @@ import { useInput } from "./hook"
 
 import './index.scss'
 
-export const Input = ({ label, type, name, customClass, rules, isRequired = false , fieldError = false, formValuesState}: iInput) => {
+export const Input = ({ preventValidation, handleOnChange, label, type = "text", name, customClass, rules, isRequired = false , fieldError = false, formValuesState}: iInput) => {
     const {
         inputId,
         domainsRef,
@@ -31,7 +31,7 @@ export const Input = ({ label, type, name, customClass, rules, isRequired = fals
         handleMouseContainer,
         handlePasswordType,
         handleBlur
-    } = useInput(fieldError, type, rules, name, formValuesState)
+    } = useInput(fieldError, type, rules, name, formValuesState, handleOnChange, preventValidation)
 
     const showDomainsElements = isEmail && showDomains && hasError;
 

@@ -6,7 +6,7 @@ import { iObject } from "../../interfaces/atoms"
 
 interface iRule { rule: (param:number | string) => string }
 
-export const useInput = (fieldError: boolean, type: string, rules?: any[], name?: string, formValuesState?: any) => {
+export const useInput = (fieldError: boolean, type: string, rules?: any[], name?: string, formValuesState?: any, handleOnChange?: any, preventValidation) => {
     const [ showDomains, setShowDomains ] = useState(false)
     const [ value, setValue ] = useState('')
     const [ typeState, setTypeState ] = useState(type)
@@ -39,12 +39,19 @@ export const useInput = (fieldError: boolean, type: string, rules?: any[], name?
         const currentValue = e.target.value
         
         setValue(currentValue)
-        checkFields(e.target)
 
-        setTimeout(() => {
+        if (handleOnChange) {
+            handleOnChange(e, setValue)
+        }
+
+        if (!preventValidation) {
             checkFields(e.target)
-            checkRequired(e.target)
-        }, 1000)
+            
+            setTimeout(() => {
+                checkFields(e.target)
+                checkRequired(e.target)
+            }, 1000)
+        }
     }
 
     const checkFields = (target: HTMLInputElement, isBlur?: boolean) => {
