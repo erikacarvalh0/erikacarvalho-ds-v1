@@ -1,5 +1,4 @@
 import { ReactElement, ReactPortal } from "react";
-import { isObject } from "../utils/isObject";
 
 type ReactText = string | number;
 export type ReactChild = ReactElement | ReactText | ReactElement[];
@@ -30,11 +29,6 @@ export interface iCarouselConfig  {
     dots?: boolean,
     itemsPerPage: number,
     responsive?: iCarouselResponsive[]
-}
-export interface iCarousel {
-    children: tChildren[],
-    config: any,
-    title?: string
 }
 
 export interface iCarouselContext { 
@@ -71,13 +65,15 @@ export interface iButton {
 }
 export interface iInput {
     label?: string,
-    type: "text" | "number" | "date" | "email" | "password"
+    type?: "text" | "number" | "date" | "email" | "password"
     customClass?: string,
     name: string,
     fieldError?: boolean,
     rules?: iObject[]
     isRequired?: boolean,
     formValuesState?: any
+    handleOnChange?: any
+    preventValidation?: boolean
 }
 export interface iSelect {
     label?: string,

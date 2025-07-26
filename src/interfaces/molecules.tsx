@@ -1,5 +1,32 @@
 import { ReactElement } from "react"
-import { ReactNode, iFn, iObject, iPagConfig, iPagination } from "./atoms"
+import { ReactNode, iObject, iPagConfig, tChildren } from "./atoms"
+
+export interface iCarouselConfig {
+    gap?: number
+    pagination?: iPagConfig
+}
+
+export interface iCarousel {
+    children: tChildren[],
+    config?: iCarouselConfig
+    title?: string
+}
+
+export interface iCommentData {
+    id: number;
+    text: string;
+    replies: iCommentData[];
+    handleDeleteComment?: any
+ }
+export interface iComment {
+    comment: iCommentData
+    handleDeleteComment: any
+ }
+export interface iComments {
+    label?: string
+    comments: iCommentData[]
+ }
+
 
 export interface iContentDialog {
     text: string,
@@ -25,7 +52,7 @@ export interface iDialog {
 export interface iDialogHook { isOpen: boolean, toggleDialog: () => void }
 
 export interface iForm {
-	children: ReactElement[],
+	children: ReactElement[] | ReactElement,
     handleSubmit?: (values: iObject) => void,
     buttonText?: string
 }
@@ -34,6 +61,10 @@ export interface iTable {
     data: iObject[],
     children: ReactNode,
     paginationConfig?: iPagConfig
+}
+
+export interface iTags {
+    label?: string
 }
 
 export interface iNotesTooltip { 
