@@ -1,0 +1,63 @@
+.button {
+    cursor: pointer;
+    font-size: var(--gridSize2x);
+    text-align: center;
+    font-family: $fontPrimary;
+    text-transform: lowercase;
+    transition: all .3s ease-in;
+    color: $grey;
+    height: 40px;
+
+    &:hover {
+        height: 40px;
+        color: white;
+    }
+
+    &.neutral,
+    &.cta,
+    &.cancel {
+        padding: var(--gridSizeDefault) var(--gridSize2x);
+        color: $grey6;
+
+        &:hover {
+            color: white;
+        }
+    }
+
+    &.neutral {
+        background: $grey3;
+
+        &:hover {
+            background: $grey;
+        }
+
+        &:disabled {
+            background: $grey4;
+        }
+    }
+
+    &.cta {
+        background: $acqua;
+
+        &:hover {
+            background: $acquaDark;
+        }
+
+        &:disabled {
+            background: $acquaLight;
+        }
+    }
+
+    &.cancel {
+        background: $pink;
+
+        &:hover {
+            background: $pinkDark;
+        }
+
+        &:disabled {
+            background: $pinkLight;
+            color: $grey3;
+        }
+    }
+}
