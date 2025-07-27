@@ -1,15 +1,12 @@
-import React, { Fragment, useState } from "react"
-import classnames from "classnames"
+import React, { useState } from "react"
 
-import { iContentDialog, iDialog, iTags } from "../../interfaces/molecules"
-import { Link } from "../../atoms/Link"
+import { iTags } from "../../interfaces/molecules"
 
-import { useDialog } from "./hook"
-import "./index.scss"
+import { default as SvgTrash } from "../../atoms/Icons/Trash"
 import { Input } from "../../atoms/Input"
 import { Button } from "../../atoms/Button"
-import { default as SvgTrash } from "../../atoms/Icons/Trash"
 
+import "./index.scss"
 
 export const Tags = ({ label }: iTags) => {
 	const [tags, setTags] = useState<Set<string>>(new Set());
