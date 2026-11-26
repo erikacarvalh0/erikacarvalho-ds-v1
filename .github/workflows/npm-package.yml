@@ -1,0 +1,19 @@
+name: npm package validation
+on:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  pack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: yarn install --frozen-lockfile
+      - run: npm pack --json > pack.json
+      - run: node -e "const p=require('./pack.json')[0]; for(const f of ['lib/index.cjs','lib/types/library.d.ts']) if(!p.files.some(x=>x.path===f)) throw Error('Missing '+f)"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: npm-tarball
+          path: '*.tgz'
