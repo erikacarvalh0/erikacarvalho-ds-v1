@@ -1,10 +1,10 @@
 import { createContext, useEffect, useRef, useState } from "react"
 
-import { iObject } from "../../interfaces/atoms"
+import type { ReactNode } from "react"
 
 export const TableContext = createContext({} as any)
 
-export const useTable = (data: iObject[]) => {
+export const useTable = (data: Record<string, ReactNode>[]) => {
     const defaultPaginationConfig = {
         maxPagesNums: 4,
         itemsPerPage: 10,
@@ -33,12 +33,12 @@ export const useTable = (data: iObject[]) => {
 
     const sortTable = () => {
         const dataToSort = visibleItems || []
-        const sortedByCol = dataToSort.sort((a: iObject, b: iObject) => {
+        const sortedByCol = dataToSort.sort((a, b) => {
             const id = sortValues.id || 0
 
             const left = a?.[String(id)]
             const right = b?.[String(id)]
-            return left && right 
+            return (typeof left === "string" && typeof right === "string") || (typeof left === "number" && typeof right === "number") 
                 ? (sortValues.dir === 'desc')
                     ? left < right ? 1 : -1
                     : left > right ? 1 : -1
