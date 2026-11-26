@@ -72,6 +72,16 @@
       "types": "./lib/types/atoms/Card/index.d.ts",
       "import": "./lib/Card.mjs",
       "require": "./lib/Card.cjs"
+    },
+    "./Input": {
+      "types": "./lib/types/atoms/Input/index.d.ts",
+      "import": "./lib/Input.mjs",
+      "require": "./lib/Input.cjs"
+    },
+    "./Select": {
+      "types": "./lib/types/atoms/Select/index.d.ts",
+      "import": "./lib/Select.mjs",
+      "require": "./lib/Select.cjs"
     }
   },
   "files": [

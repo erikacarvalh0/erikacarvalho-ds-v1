@@ -1,0 +1,14 @@
+name: Field entrypoints
+on: [pull_request, workflow_dispatch]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: yarn install --frozen-lockfile
+      - run: npm run prepack
+      - run: node --input-type=module -e "import {Input} from './lib/Input.mjs';import {Select} from './lib/Select.mjs';if(typeof Input!=='function'||typeof Select!=='function')throw Error('Missing export')"
+      - run: node -e "for(const n of ['Input','Select']){if(typeof require('./lib/'+n+'.cjs')[n]!=='function')throw Error(n);if(require('fs').statSync('lib/'+n+'.mjs').size>=require('fs').statSync('lib/index.mjs').size)throw Error('Bundle size '+n)}"
