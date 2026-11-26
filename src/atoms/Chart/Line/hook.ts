@@ -6,7 +6,7 @@ interface iLineHook {
 }
 
 export const useLine = ({ data, interval }: iLineHook) => {
-    const chartRef = useRef(null)
+    const chartRef = useRef<HTMLDivElement>(null)
     const chartWidth = (data.length * interval) + (interval * 2)
     const [ pointsPos, setPointsPos ] = useState<number[]>([])
     const maxValue = Math.max(...data)
