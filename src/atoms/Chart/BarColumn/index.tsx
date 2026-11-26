@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import React, { Fragment } from 'react'
+import React from 'react'
 
 import { iChart } from '..'
 
@@ -13,7 +13,7 @@ export const BarColumn = ({ config, data } : iChart) => {
         directions,
     } = useBarColumn({ type, data })
 
-    return (<div role="group" className={classNames("chart", type)}>
+    return (<ul role="list" className={classNames("chart", type)}>
     { valuesGrouped?.map((values: Record<string, number>, chartI: number) => {
         return Object.keys(values).map((label, i) => {
             const {
@@ -22,7 +22,7 @@ export const BarColumn = ({ config, data } : iChart) => {
                 textDir
             } = directions(values, label)
 
-            return <Fragment key={`${type}-${chartI}-${label}`}>
+            return <li role="listitem" className="chart__item" key={`${type}-${chartI}-${label}`}>
                 <p style={{ 
                     [`${chartDir}Start`]: textDir.start,
                     [`${chartDir}End`]: textDir.end,
@@ -31,7 +31,6 @@ export const BarColumn = ({ config, data } : iChart) => {
                     'space': i === 0
                 })} >{ label }</p>
                 <div aria-hidden="true"
-                    key={`${chartI}-${i}`} 
                     className={classNames("chart__col", { 
                         'space': i === 0
                     })} 
@@ -47,8 +46,8 @@ export const BarColumn = ({ config, data } : iChart) => {
                         [`${chartDir}Start`]: valueDir.start,
                         [`${chartDir}End`]: `${valueDir.end}`,
                     }}>{ values[label]}</span>
-            </Fragment>}
+            </li>}
         )}
     )}
-</div>)
+</ul>)
 }
