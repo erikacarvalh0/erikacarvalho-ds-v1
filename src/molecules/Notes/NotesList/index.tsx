@@ -3,7 +3,6 @@ import classNames from "classnames"
 
 import { i18n } from "../../../utils/i18n"
 
-import { iObject } from "../../../interfaces/atoms"
 import { iNotesList } from "../../../interfaces/molecules"
 
 import { Copy, Download } from "../../../atoms/Icons"
@@ -27,7 +26,7 @@ export const NotesList = (props: iNotesList) => {
 				</div>
 			</header>
 			<ul className="list" tabIndex={0}>
-				{ storedNotes.map((item: iObject, index: number) => item.text && 
+				{ storedNotes.map((item: { text?: string }, index: number) => item.text && 
 					<li tabIndex={index + 1} key={index} className={classNames("list__item")}>
 						<p className="list__text">{item.text}</p>
 						<Button action={() => handleClick(index)}><SvgTrash /></Button>
