@@ -1,0 +1,14 @@
+name: Component entrypoint
+on: [pull_request, workflow_dispatch]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: yarn install --frozen-lockfile
+      - run: npm run prepack
+      - run: node --input-type=module -e "import {Button} from './lib/Button.mjs'; if(typeof Button !== 'function') throw Error('Missing Button')"
+      - run: node -e "const fs=require('fs'); if(fs.statSync('lib/Button.mjs').size >= fs.statSync('lib/index.mjs').size) throw Error('No size reduction')"
