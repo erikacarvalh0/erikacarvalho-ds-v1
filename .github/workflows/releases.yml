@@ -1,0 +1,17 @@
+name: Release preparation
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: yarn install
+      - run: npm exec --yes --package=@changesets/cli@2.29.7 -- changeset version
+      - run: git diff --exit-code || git diff
