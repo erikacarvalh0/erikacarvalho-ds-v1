@@ -36,10 +36,12 @@ export const useTable = (data: iObject[]) => {
         const sortedByCol = dataToSort.sort((a: iObject, b: iObject) => {
             const id = sortValues.id || 0
 
-            return a?.[String(id)] && b?.[String(id)] 
+            const left = a?.[String(id)]
+            const right = b?.[String(id)]
+            return left && right 
                 ? (sortValues.dir === 'desc')
-                    ? a?.[String(id)] < b?.[String(id)] ? 1 : -1
-                    : a?.[String(id)] > b?.[String(id)] ? 1 : -1
+                    ? left < right ? 1 : -1
+                    : left > right ? 1 : -1
                 : - 1
         })
 
@@ -84,7 +86,7 @@ export const useTable = (data: iObject[]) => {
             const diffWidths = Math.abs(previouWidth - currWidth)
             const thead = tableRef.current.querySelector('th')
             const firstThElm = thead ? getComputedStyle(thead) : null
-            const minWith = firstThElm?.["min-width"] as string
+            const minWith = firstThElm?.getPropertyValue("min-width") ?? ""
             const colWidth = firstThElm ? parseInt(minWith.replace('px', '')) : 0
             const treshold = previouWidth > currWidth ? colWidth - (colWidth * .25) : colWidth
             
