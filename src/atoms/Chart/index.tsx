@@ -18,7 +18,7 @@ export const Chart = ({ title, config, data } : iChart) => {
     const ChartComponent = () => {
         switch (type) {
             case 'pie':
-                return <Pie data={data} />
+                return <Pie data={data} donut={config.donut} centerLabel={config.centerLabel} />
             case 'line':
                 return <Line config={config} data={data} />
             default:
