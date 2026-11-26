@@ -62,7 +62,12 @@
     "./package.json": "./package.json",
     "./styles.css": "./lib/styles.css",
     "./tokens.css": "./lib/tokens.css",
-    "./scss/*": "./lib/scss/*"
+    "./scss/*": "./lib/scss/*",
+    "./Button": {
+      "types": "./lib/types/atoms/Button/index.d.ts",
+      "import": "./lib/Button.mjs",
+      "require": "./lib/Button.cjs"
+    }
   },
   "files": [
     "lib",
