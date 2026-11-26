@@ -3,16 +3,21 @@ import { useEffect, useState } from "react"
 import { getLSItem } from "../../utils/storage"
 import { iNotesRef } from "../../interfaces/molecules"
 
+const getStoredNotes = () => {
+    const storedNotes = getLSItem('notes')
+    return Array.isArray(storedNotes) ? storedNotes : []
+}
+
 export const useNotes = (notesRef: iNotesRef) => {
     const [ selectedText, setSelectedText ] = useState('')
-    const storedNotesState = useState(getLSItem('notes'))
+    const storedNotesState = useState(getStoredNotes)
     const [ , setStoredNotes ] = storedNotesState
     const [ showList, setShowList ] = useState(false)
     const [ mouseCoord, setMouseCoord ] = useState({ x: 0, y: 0 })
     const [ hasNewNote, setHasNewNote ] = useState(false)
 
     const handleNotes = () => {
-        const recentStoredNotes = getLSItem('notes')
+        const recentStoredNotes = getStoredNotes()
         setStoredNotes(recentStoredNotes)
         setShowList(!showList)
     }

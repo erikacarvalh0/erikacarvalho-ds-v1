@@ -17,7 +17,7 @@ import { Form } from "./molecules/Form";
 import { iObject } from "./interfaces/atoms";
 import { Table } from "./molecules/Table";
 import { TCol } from "./molecules/Table/TCol";
-import { Carousel, CItem } from "./atoms/Carousel";
+import { Carousel, CItem } from "./molecules/Carousel";
 import { Video } from "./molecules/Video";
 import { Audio } from "./molecules/Audio";
 import { Notes } from "./molecules/Notes";
