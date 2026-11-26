@@ -1,4 +1,8 @@
-import { useRef, useState, useId } from "react"
+import * as React from "react"
+import { useRef, useState } from "react"
+
+// Runtime peers are React 18/19; legacy build declarations still target React 17.
+const { useId } = React as typeof React & { useId: () => string }
 
 
 
