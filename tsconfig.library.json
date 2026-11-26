@@ -9,7 +9,7 @@
     "incremental": false,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "strict": false
+    "strict": true
   },
   "include": [
     "src/library.ts",
