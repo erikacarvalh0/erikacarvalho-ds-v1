@@ -1,5 +1,5 @@
 {
-  "name": "ecds",
+  "name": "@erikacarvalho/react",
   "version": "1.0.0",
   "scripts": {
     "svgr": "node node_modules/@svgr/cli/bin/svgr --typescript --memo --icon --title-prop -d src/atoms/icons public/images/icons",
@@ -8,7 +8,9 @@
     "build:start": "cd dist && PORT=1234 npx serve",
     "start": "webpack serve --open --mode development",
     "start:icons": "yarn svgr && webpack serve --open --mode development",
-    "start:live": "yarn svgr && webpack serve --open --mode development --live-reload --hot"
+    "start:live": "yarn svgr && webpack serve --open --mode development --live-reload --hot",
+    "build:library": "webpack --config webpack.library.config.js --mode production && tsc -p tsconfig.library.json",
+    "prepack": "yarn build:library"
   },
   "license": "MIT",
   "author": {
@@ -47,5 +49,23 @@
     "webpack": "^5.90.0",
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.3.1"
+  },
+  "main": "./lib/index.cjs",
+  "types": "./lib/types/library.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/types/library.d.ts",
+      "require": "./lib/index.cjs",
+      "default": "./lib/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "LICENSE"
+  ],
+  "peerDependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   }
 }
