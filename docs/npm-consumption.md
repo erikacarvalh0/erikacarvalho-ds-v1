@@ -11,10 +11,10 @@ npm install @erikacarvalho/react react@18.3.1 react-dom@18.3.1
 ```tsx
 import { Button } from '@erikacarvalho/react';
 import '@erikacarvalho/react/styles.css';
-export function Example() { return <Button text="Continue" />; }
+export function Example() { return <Button text="Continue" action={() => {}} />; }
 ```
 
-For Next.js Pages Router import global CSS in pages/_app; for App Router use the root layout. Components using browser APIs need client boundaries and may need SSR disabled. React 19 is not yet certified.
+For Next.js Pages Router import global CSS in pages/_app; for App Router use the root layout. Components using browser APIs need client boundaries and may need SSR disabled. React 18.3 and React 19 are supported by the peer range; CI covers React 18.3.1 and 19.1.0. Use client boundaries for interactive components. Button and Card also expose standalone subpaths. The Button action prop is required.
 
 ## Release checklist
 
