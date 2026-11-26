@@ -10,7 +10,7 @@
     "start:icons": "yarn svgr && webpack serve --open --mode development",
     "start:live": "yarn svgr && webpack serve --open --mode development --live-reload --hot",
     "build:library": "webpack --config webpack.library.config.js --mode production && tsc -p tsconfig.library.json",
-    "prepack": "yarn build:library"
+    "prepack": "yarn build:library && node scripts/package-styles.cjs"
   },
   "license": "MIT",
   "author": {
@@ -58,7 +58,10 @@
       "require": "./lib/index.cjs",
       "default": "./lib/index.cjs"
     },
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./styles.css": "./lib/styles.css",
+    "./tokens.css": "./lib/tokens.css",
+    "./scss/*": "./lib/scss/*"
   },
   "files": [
     "lib",
