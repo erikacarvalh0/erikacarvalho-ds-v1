@@ -57,6 +57,9 @@ export interface iForm {
 	children: ReactElement[] | ReactElement,
     handleSubmit?: (values: iObject) => void,
     buttonText?: string
+    customClass?: string
+    validate?: (values: Record<string, string>) => Record<string, string | undefined>
+    onValidationError?: (errors: Record<string, string | undefined>) => void
 }
 
 export interface iTable {

@@ -1,64 +1,72 @@
-import React, { ReactElement, useEffect, useRef, useState } from "react"
-
+import React, { ReactElement, useState } from "react"
+import classNames from "classnames"
 import { Button } from "../../atoms/Button"
 import { iForm } from "../../interfaces/molecules"
 
 import "./index.scss"
 
-export const Form = ({ children, handleSubmit, buttonText = "Enviar" }: iForm) => {
-	const formRef = useRef<HTMLFormElement>(null)
-	const formValuesState = useState({}) // TODO: [REFACTOR] create a context for forms
-	const [ requiredInputs, setRequiredInputs ] = useState<HTMLInputElement[]>([])
+export const Form = ({ children, handleSubmit, buttonText = "Enviar", customClass, validate, onValidationError }: iForm) => {
+    const formValuesState = useState({})
+    const [errors, setErrors] = useState<Record<string, string | undefined>>({})
 
-	const [ isDisabled, setIsDisabled ] = useState(true)
+    function decorateChildren(nodes: React.ReactNode): React.ReactNode {
+        return React.Children.map(nodes, child => {
+            if (!React.isValidElement(child)) return child
 
-	useEffect(() => {
-		const formChildren = formRef?.current?.querySelectorAll<HTMLElement>('.input-container') ?? []
-		const formInputs = Array.from(formChildren).reduce((reqInputs: HTMLInputElement[], inputContainer: HTMLElement) => {
-			const currentInput = inputContainer.querySelector('input')
-			const isRequired = inputContainer.querySelector('input')?.hasAttribute('required')
+            const element = child as ReactElement<any>
+            const props = element.props
+            const nested = props.children ? { children: decorateChildren(props.children) } : {}
 
-			return isRequired 
-				? (currentInput ? [...reqInputs, currentInput] : reqInputs)
-				: reqInputs
-		}, [])
+            if (typeof element.type === 'string') {
+                return React.cloneElement(element, nested)
+            }
 
-		setRequiredInputs(formInputs)
-	}, [])
+            return React.cloneElement(element, {
+                ...nested,
+                ...(props.name ? { formValuesState, fieldError: !!errors[props.name] || props.fieldError } : {})
+            })
+        })
+    }
 
-	useEffect(() => {
-		if (requiredInputs.length > 0) {
-			Array.from(requiredInputs)
-				.map((input: HTMLInputElement) => input?.addEventListener('keyup', handleRequiredChange))
-		}
-	}, [ requiredInputs ])
+    function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+        event.preventDefault()
 
-	const handleRequiredChange = () => {
-		const isAllFilled = Array.from(requiredInputs)
-			.every((input: HTMLInputElement) => input?.value && !input.classList.contains('error'))
-		
-		setIsDisabled(!isAllFilled)
-	}
+        const form = event.currentTarget
+        const values: Record<string, string> = {}
+        new FormData(form).forEach((value, name) => {
+            if (typeof value === 'string') values[name] = value
+        })
 
-	const onSubmit = (e: Event) => {
-		e.preventDefault()
+        const nextErrors = { ...validate?.(values) }
+        const fields = Array.from(form.querySelectorAll<HTMLInputElement>('input:not([type="hidden"])'))
 
-		if (handleSubmit) {
-			handleSubmit(formValuesState[0])
-			formRef?.current?.reset()
-		}
-	}
+        fields.forEach(field => {
+            const name = field.name || field.id
+            if ((field.required || field.getAttribute('aria-required') === 'true') && !field.value.trim()) {
+                nextErrors[name] = 'Campo obrigatório'
+            } else if (field.classList.contains('error') || field.getAttribute('aria-invalid') === 'true') {
+                nextErrors[name] = 'Campo inválido'
+            }
+        })
+
+        setErrors(nextErrors)
+
+        if (Object.values(nextErrors).some(Boolean)) {
+            onValidationError?.(nextErrors)
+            return
+        }
+
+        handleSubmit?.(values)
+    }
+
+    function clearErrors() {
+        if (Object.keys(errors).length) setErrors({})
+    }
 
     return (
-		<form ref={formRef} className="form">
-			{ React.Children.map(children, (child: ReactElement, index: number) => {
-                return (React.cloneElement(child, {
-                    index,
-                    formValuesState
-                }))
-			})
-			}
-			<Button isDisabled={isDisabled} theme="cta" type="submit" action={ onSubmit }> { buttonText } </Button>
-		</form>
+        <form className={classNames("form", customClass)} noValidate onSubmit={onSubmit} onChange={clearErrors}>
+            {decorateChildren(children)}
+            <Button theme="cta" type="submit" action={() => {}}>{buttonText}</Button>
+        </form>
     )
 }
