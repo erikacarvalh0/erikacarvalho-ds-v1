@@ -65,9 +65,14 @@ export interface iButton {
     action: (event: any) => void,
     type?: "button" | "submit" | "reset"
 }
+export type FieldValidator = (value: string) => string | undefined
+
 export interface iInput {
     label?: string,
-    type?: "text" | "number" | "date" | "email" | "password"
+    type?: "text" | "number" | "date" | "email" | "password" | "month" | "search"
+    defaultValue?: string
+    validate?: FieldValidator
+    onValueChange?: (value: string) => void
     customClass?: string,
     name: string,
     fieldError?: boolean,
