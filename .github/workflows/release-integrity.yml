@@ -10,5 +10,6 @@ jobs:
           node-version: 22
       - run: yarn install --frozen-lockfile
       - run: |
-          npm pack --json > "$RUNNER_TEMP/pack.json"
+          npm run prepack
+          npm pack --ignore-scripts --json > "$RUNNER_TEMP/pack.json"
           node -e "const p=require(process.env.RUNNER_TEMP+'/pack.json')[0];const fs=require('fs'),c=require('crypto');const b=fs.readFileSync(p.filename);if('sha512-'+c.createHash('sha512').update(b).digest('base64')!==p.integrity)throw Error('Integrity mismatch');const files=new Set(p.files.map(f=>f.path));for(const [k,v] of Object.entries(require('./package.json').exports)){for(const path of typeof v==='string'?[v]:Object.values(v)){if(!path.includes('*')&&!files.has(path.replace(/^\\.\\//,'')))throw Error('Missing '+k+' '+path)}}for(const f of files)if(!/^(lib\\/|package.json$|LICENSE|README)/i.test(f))throw Error('Unexpected '+f)"
