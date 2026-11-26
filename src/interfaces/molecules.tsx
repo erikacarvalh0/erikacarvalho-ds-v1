@@ -57,6 +57,7 @@ export interface iForm {
 	children: ReactElement[] | ReactElement,
     handleSubmit?: (values: iObject) => void,
     buttonText?: string
+    customClass?: string
 }
 
 export interface iTable {
