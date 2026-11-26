@@ -61,3 +61,4 @@ export const Select = ({ label, name, customClass, options, fieldError = false}:
         { showOptions &&  <div onClick={handleClickClose} className="option__bg"></div> }
     </>
 )}
+export { NativeSelect } from "./NativeSelect"

@@ -77,6 +77,17 @@ export interface iInput {
     handleOnChange?: any
     preventValidation?: boolean
 }
+export interface iNativeSelect extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'children'> {
+    label?: string
+    options: Array<{ value: string; label: string }>
+    fieldError?: boolean
+}
+
+export interface iNativeInput extends React.InputHTMLAttributes<HTMLInputElement> {
+    label?: string
+    fieldError?: boolean
+}
+
 export interface iSelect {
     label?: string,
     customClass?: string,
