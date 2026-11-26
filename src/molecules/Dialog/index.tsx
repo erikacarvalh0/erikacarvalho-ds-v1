@@ -12,7 +12,13 @@ export const Dialog = ({ isOpen, toggleDialog, theme = 'default', icon, title, c
 	const { dialogRef, closeDialog, mustHide, themeTitle, themeText } = useDialog({ isOpen, toggleDialog })
     
 	return (
-		<dialog ref={dialogRef} className={classnames("dialog", { hide: mustHide, [theme]: theme})}>
+		<dialog 
+			ref={dialogRef} 
+			className={classnames("dialog", { hide: mustHide, [theme]: theme})}
+			aria-modal="true"
+			role="dialog"
+			aria-labelledby={title}
+		>
 			<button onClick={closeDialog} className="dialog__close" data-js="hideInfo"></button>
 			<header className="dialog__header">
 				{ icon }

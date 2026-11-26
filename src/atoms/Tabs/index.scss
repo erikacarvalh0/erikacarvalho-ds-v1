@@ -5,7 +5,7 @@
     display: flex;
     width: 100%;
     max-width: 100vw;
-    overflow: scroll;
+    overflow: auto;
     gap: var(--gridSize2x);
 
     input:checked {
@@ -43,9 +43,14 @@
 
       @include underlineDefault();
 
-      &:hover {
+      &:hover,
+      &:focus {
         @include underlineHover();
       }
+
+      // &:focus {
+      //   border: 1px solid red;
+      // }
 
       &:after {
         position: absolute;

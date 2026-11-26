@@ -8,24 +8,24 @@ import { iHeader, iHeaderLinks } from "../../interfaces/organisms"
 import { Link } from "../../atoms/Link"
 
 export const Header = ({ title, content, links, routerContext }: iHeader) => {
-	const { isHome, isOpen, toggleDialog } = useHeader();
+	const { isHome, isOpen, isMenuOpen, toggleDialog, onChangeMenu, openMenu, inputRef, closeMenu } = useHeader();
 
     return (
-		<header data-component className="header">
+		<header onBlur={closeMenu} data-component className="header">
 			<nav className="header__nav">
-				<label  className="header__nav-icon" htmlFor="menu-btn">
-					<Menu className="header__image" />
-					<div className="header__hamburguer"></div>
+				<label className="header__nav-icon" htmlFor="menu-btn">
+					<Menu className="header__image" aria-label="Menu icon" />
+					<div className="header__hamburguer"  aria-hidden></div>
 				</label>
-				<input type="checkbox" id="menu-btn" role="button"  />
+				<input ref={inputRef} onChange={onChangeMenu} type="checkbox" id="menu-btn" role="button"  />
 				
-				<ul data-js="menu" className="header__menu">
+				<ul data-js="menu" className="header__menu" aria-expanded={isMenuOpen}>
 					<label htmlFor="menu-btn" data-js="closeMenu" className="header__menu-button">
 						<Menu className="header__menu-icon" />
 					</label>
 					{ links?.map(({ text, href, target}: iHeaderLinks, index: number) => (
 						<li key={index} className="header__menu-item">
-							<Link routerContext={routerContext} theme="light" customClass="header__menu-link" href={href} target={target} text={text} />
+							<Link onFocus={openMenu} routerContext={routerContext} theme="light" customClass="header__menu-link" href={href} target={target} text={text} />
 						</li>
 					)) }
 					{ content && 

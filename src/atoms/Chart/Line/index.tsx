@@ -20,12 +20,12 @@ export const Line = ({ config, data }: iChart) => {
                 } = getPointInfos(index, interval)
 
                 return (<div key={index} className="line__chart"> 
-                    <div 
+                    { pointPos && <div 
                         style={pointPos} 
                         id={`point${index + 1}`} 
                         className='line__point'
-                    /> 
-                    <p style={labelPos} className="line__point-label">{ point }</p>
+                    /> }
+                    {labelPos && <p style={labelPos} className="line__point-label">{ point }</p> }
                     { index < data.length - 1 && 
                         <div 
                             style={{

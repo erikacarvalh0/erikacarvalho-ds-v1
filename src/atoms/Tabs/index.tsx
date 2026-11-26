@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useRef } from "react"
 import classNames from "classnames"
 
 import { iTab, iTabsHeader } from "../../interfaces/atoms"
@@ -6,7 +6,15 @@ import { useTab } from "./hook"
 
 import './index.scss'
 
-export const TabsHeader = ({children, handleOnChange, id, activeId} : iTabsHeader) => (
+export const TabsHeader = ({children, handleOnChange, onPressEnter, id, activeId} : iTabsHeader) => {
+    const handleKeyUp = ({ keyCode, target }) => {
+        if (keyCode === 13) { // ENTER KEY
+            const input = target.previousElementSibling
+            onPressEnter(input)
+        }
+    }
+
+    return (
     <header className="tabs__header">
         { React.Children.map(children, ({ props }, index) => {
             return (<>
@@ -18,7 +26,9 @@ export const TabsHeader = ({children, handleOnChange, id, activeId} : iTabsHeade
                     role="button"
                     checked={activeId === `tab-${index}`}
                 />
-                <label 
+                <label onKeyUp={handleKeyUp} tabIndex={index} 
+                    aria-selected={activeId === `tab-${index}`}
+                    aria-controls={`tab-${index}`}
                     className={classNames("tabs__header-item", props?.theme,
                     { 
                         "has-arrow": props?.hasArrow,
@@ -30,19 +40,21 @@ export const TabsHeader = ({children, handleOnChange, id, activeId} : iTabsHeade
             </>)
         })}
     </header>
-)
+)}
 
-export const Tabs = ({ children } ) => {
-    const {  randId, tabsContentRef, maxHeight, activeId, onChange, onChangeContent } = useTab()
+export const Tabs = ({ children, title } ) => {
+    const {  randId, tabsContentRef, maxHeight, activeId, onChange, onChangeContent, onPressEnter } = useTab()
 
     return <section className="tabs">
-        <TabsHeader activeId={activeId} id={randId} handleOnChange={onChange}>{children}</TabsHeader>
+        <TabsHeader activeId={activeId} id={randId} handleOnChange={onChange} onPressEnter={onPressEnter}>{children}</TabsHeader>
         
         <main 
             onChange={onChangeContent} 
             style={{minHeight: maxHeight}} 
             className="tabs__content" 
             ref={tabsContentRef}
+            role="tablist"
+            aria-label={title || "List of Tabs"}
         >
             { React.Children.map(children, (child, index) => {
                 return (React.cloneElement(child, {
@@ -57,7 +69,12 @@ export const Tabs = ({ children } ) => {
 export const TabItem = ({ children, index, activeId } : iTab) => {
     const itemId = `tab-${index}`
     return (
-        <div className={classNames("tab__item", { "is-active": activeId ===  itemId})} >
+        <div 
+            role="presentation" 
+            aria-labelledby={itemId}
+            tabIndex={index}
+            className={classNames("tab__item", { "is-active": activeId ===  itemId})} 
+        >
             { children }
         </div>
 )}

@@ -20,6 +20,8 @@
 					width: 0;
 				}
 			}
+			
+			&:focus,
 			&:hover {
 				.header__hamburguer {
 					width: 25px;

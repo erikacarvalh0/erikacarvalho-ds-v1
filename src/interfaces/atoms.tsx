@@ -53,6 +53,16 @@ export interface iLink {
     routerContext?: any
     onFocus?: any
 }
+
+export interface iBreadcrumbData {
+	id: number;
+	name: string;
+	children?: iBreadcrumbData[];
+};
+export interface iBreadcrumb {
+	data: iBreadcrumbData[];
+    selectedId: number;
+};
 export interface iButton {
     isDisabled?: boolean
     text?: string,

@@ -4,7 +4,6 @@ import { Button } from "../../atoms/Button"
 import { iForm } from "../../interfaces/molecules"
 
 import "./index.scss"
-import { ReactNode } from "../../interfaces/atoms"
 
 export const Form = ({ children, handleSubmit, buttonText = "Enviar" }: iForm) => {
 	const formRef = useRef<HTMLFormElement>(null)
@@ -46,6 +45,7 @@ export const Form = ({ children, handleSubmit, buttonText = "Enviar" }: iForm) =
 
 		if (handleSubmit) {
 			handleSubmit(formValuesState[0])
+			formRef?.current?.reset()
 		}
 	}
 

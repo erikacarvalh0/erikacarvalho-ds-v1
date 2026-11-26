@@ -9,7 +9,7 @@ export const useTab = () => {
     const [ maxHeight, setMaxHeight ] = useState(0)
 
     const setContentHeight = (activeId: string) => {
-        const itemIndex = activeId.split('-')[1]
+        const itemIndex = activeId.split('-')[1] as string
         const activeContent = tabsContentRef?.current?.children?.[itemIndex]
         const activeContentHeight = activeContent.clientHeight
 
@@ -17,6 +17,12 @@ export const useTab = () => {
     }
 
     const onChange = ({ target } : { target: any}) => {
+        const activeId = target.getAttribute('id')
+        setContentHeight(activeId)
+        setActiveId(activeId)
+    }
+
+    const onPressEnter = (target: any) => {
         const activeId = target.getAttribute('id')
         setContentHeight(activeId)
         setActiveId(activeId)
@@ -53,6 +59,7 @@ export const useTab = () => {
         maxHeight,
         activeId,
         onChange,
-        onChangeContent
+        onChangeContent,
+        onPressEnter
     }
 }

@@ -6,12 +6,11 @@
     text-transform: lowercase;
     transition: all .3s ease-in;
     color: $grey;
-
-    // @include fixBoldHover(title);
+    height: 40px;
 
     &:hover {
+        height: 40px;
         color: white;
-        font-weight: 700;
     }
 
     &.neutral,
