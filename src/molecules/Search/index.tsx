@@ -9,7 +9,7 @@ const SUGGESTIONS = [
 ];
 
 const fetchSuggestions = (query, maxSuggestions) =>
-  new Promise((resolve) => {
+  new Promise<string[]>((resolve) => {
     const delay = Math.random() * 800 + 300;
     setTimeout(() => {
       const result = SUGGESTIONS.filter((word) =>
@@ -21,7 +21,7 @@ const fetchSuggestions = (query, maxSuggestions) =>
 
 export const Search = ({ maxSuggestions = 5}: any) => {
   const [query, setQuery] = useState('');
-  const [suggestions, setSuggestions] = useState([]);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
 
   const requestIdRef = useRef(0);
