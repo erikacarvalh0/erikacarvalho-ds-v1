@@ -146,6 +146,7 @@ export interface iCard {
 }
 
 export interface iAccordion {
+    defaultOpen?: boolean,
     title: string,
     children: ReactNode,
     hasArrow?: boolean,
