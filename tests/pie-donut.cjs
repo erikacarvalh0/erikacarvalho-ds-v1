@@ -1,0 +1,10 @@
+const assert = require('node:assert/strict');
+const React = require('react');
+const { renderToStaticMarkup } = require('react-dom/server');
+const { Chart } = require('@erikacarvalho/react');
+const data = [{label:'Housing',percentage:100,color:'#21949F'}];
+const render = config => renderToStaticMarkup(React.createElement(Chart,{config:{type:'pie',...config},data}));
+assert.ok(render({donut:true,centerLabel:'Total'}).includes('pie__chart--donut'));
+assert.ok(render({donut:true,centerLabel:'Total'}).includes('Total'));
+assert.ok(!render({}).includes('pie__chart--donut'));
+assert.ok(render({}).includes('Housing'));
