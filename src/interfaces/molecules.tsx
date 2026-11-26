@@ -58,7 +58,7 @@ export interface iForm {
 }
 
 export interface iTable {
-    data: iObject[],
+    data: Record<string, ReactNode>[],
     children: ReactNode,
     paginationConfig?: iPagConfig
 }
