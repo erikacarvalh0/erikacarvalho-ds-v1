@@ -90,3 +90,21 @@
     }
   }
 }
+.pie__chart--donut {
+  aspect-ratio: 1;
+  height: auto;
+  display: grid;
+  place-items: center;
+  min-width: 0;
+}
+.pie__center {
+  display: grid;
+  place-items: center;
+  width: 68%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--pie-surface, white);
+  font-family: var(--fontPrimary);
+  color: var(--grey);
+  text-align: center;
+}
