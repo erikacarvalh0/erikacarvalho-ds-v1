@@ -36,7 +36,7 @@ export const useSelect = (fieldError: boolean, options: string[], initialLabel =
         setFilteredOptions(options)
         setShowOptions(false)
         setSelectedOption(-1)
-        setHasError(isRequired && index < 0 && hasValue < 0 && !hasOnlyOneChoice)
+
         if (hasOnlyOneChoice) onSelection?.(filteredOptions[0])
         else if (index < 0 && hasValue < 0) onSelection?.('')
     }
@@ -94,16 +94,13 @@ export const useSelect = (fieldError: boolean, options: string[], initialLabel =
             const newOptions = options.filter(option => option.toLowerCase().includes(value.toLowerCase()))
 
             if (newOptions.length <= 0) {
-                setHasError(true)
                 setFilteredOptions(options)
             } else {
-                setHasError(false)
                 setFilteredOptions(newOptions)
             }
         } 
         
         if (!value) {
-            setHasError(false)
             setFilteredOptions(options)
         }
     }
@@ -148,11 +145,17 @@ export const useSelect = (fieldError: boolean, options: string[], initialLabel =
         }
     }
 
+    function handleBlur(event: React.FocusEvent<HTMLInputElement>) {
+        const currentValue = event.currentTarget.value
+        setHasError((isRequired && !currentValue.trim()) || (!!currentValue && !options.includes(currentValue)))
+    }
+
     const handleShowOptions = () => { 
         setShowOptions(true)
     }
 
     return {
+        handleBlur,
         randId,
         optionsRef,
         filteredOptions,

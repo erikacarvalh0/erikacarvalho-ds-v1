@@ -20,6 +20,7 @@ export const Select = ({ label, name, customClass, options, fieldError = false, 
     }
 
     const {
+        handleBlur,
         randId,
         optionsRef,
         filteredOptions,
@@ -41,6 +42,7 @@ export const Select = ({ label, name, customClass, options, fieldError = false, 
             <input 
                 value={value}
                 onKeyUp={handleKeyUp}
+                onBlur={handleBlur}
                 onChange={changeValue}
                 type="text" 
                 onClick={handleShowOptions}
