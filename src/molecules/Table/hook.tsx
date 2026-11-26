@@ -36,10 +36,10 @@ export const useTable = (data: iObject[]) => {
         const sortedByCol = dataToSort.sort((a: iObject, b: iObject) => {
             const id = sortValues.id || 0
 
-            return a?.[id] && b?.[id] 
+            return a?.[String(id)] && b?.[String(id)] 
                 ? (sortValues.dir === 'desc')
-                    ? a?.[id] < b?.[id] ? 1 : -1
-                    : a?.[id] > b?.[id] ? 1 : -1
+                    ? a?.[String(id)] < b?.[String(id)] ? 1 : -1
+                    : a?.[String(id)] > b?.[String(id)] ? 1 : -1
                 : - 1
         })
 
