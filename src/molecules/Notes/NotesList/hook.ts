@@ -7,7 +7,7 @@ import { iNotesList } from "../../../interfaces/molecules"
 import { printCss } from "./print"
 
 export const useNotesList = ({ storedNotesState, handleClose }: iNotesList) => {
-	const notesListRef = useRef(null)
+	const notesListRef = useRef<HTMLElement>(null)
 	const [ storedNotes, setStoredNotes ] = storedNotesState
 
 	const handleClick = (index: number) => {
@@ -39,7 +39,7 @@ export const useNotesList = ({ storedNotesState, handleClose }: iNotesList) => {
 			w?.print()
 		}
 
-		w.close()
+		w?.close()
 	}
 
 	const handleCopy = ({ target }: any) => {
