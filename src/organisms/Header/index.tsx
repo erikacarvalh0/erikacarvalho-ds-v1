@@ -4,10 +4,11 @@ import { Logo, Menu } from "../../atoms/Icons"
 
 import { useHeader } from  './hook'
 import './index.scss'
-import { iHeader, iHeaderLinks } from "../../interfaces/organisms"
+import { iHeader } from "../../interfaces/organisms"
 import { Link } from "../../atoms/Link"
+import { HeaderMenuItem } from "./HeaderMenuItem"
 
-export const Header = ({ title, content, links, routerContext, isFixed, logo, logoHref }: iHeader) => {
+export const Header = ({ title, content, links, routerContext, isFixed, logo, logoHref, footerLinks, footerContent }: iHeader) => {
 	const { isHome, isOpen, isMenuOpen, toggleDialog, onChangeMenu, openMenu, inputRef, closeMenu } = useHeader();
 	const menuId = useId()
     const fixedClass = isFixed ? "header--fixed" : ""
@@ -21,16 +22,26 @@ export const Header = ({ title, content, links, routerContext, isFixed, logo, lo
 				</label>
 				<input ref={inputRef} onChange={onChangeMenu} type="checkbox" id={menuId} className="header__toggle" role="button" aria-label="Menu" aria-expanded={isMenuOpen}  />
 				
-				<ul data-js="menu" className="header__menu" >
+				<ul data-js="menu" className={`header__menu${footerLinks?.length || footerContent != null ? " header__menu--with-footer" : ""}`} >
 					<label htmlFor={menuId} data-js="closeMenu" className="header__menu-button">
 						<Menu className="header__menu-icon" />
 					</label>
-					{ links?.map(({ text, href, target}: iHeaderLinks, index: number) => (
-						<li key={index} className="header__menu-item">
-							<Link onFocus={openMenu} routerContext={routerContext} theme="light" customClass="header__menu-link" href={href} target={target} text={text} />
-						</li>
-					)) }
-					{ content && 
+					{links?.map(item => (
+                        <HeaderMenuItem key={item.href} item={item} routerContext={routerContext} onFocus={openMenu} />
+                    ))}
+                    {(footerLinks?.length || footerContent != null) ? (
+                        <li className="header__footer">
+                            {footerLinks?.length ? (
+                                <ul className="header__footer-links">
+                                    {footerLinks.map(item => (
+                                        <HeaderMenuItem key={item.href} item={item} routerContext={routerContext} onFocus={openMenu} />
+                                    ))}
+                                </ul>
+                            ) : null}
+                            {footerContent != null && <div className="header__footer-content">{footerContent}</div>}
+                        </li>
+                    ) : null}
+                    { content && 
 						<button onClick={toggleDialog} className="header__info" data-js="showInfo"> 
 							<span>i</span> 
 							{ title }
