@@ -8,7 +8,8 @@
     "rootDir": "src",
     "incremental": false,
     "noUnusedLocals": false,
-    "noUnusedParameters": false
+    "noUnusedParameters": false,
+    "strict": false
   },
   "include": [
     "src/library.ts",
