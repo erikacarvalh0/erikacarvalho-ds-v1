@@ -15,7 +15,7 @@ export const Comments = ({ comments, label }: iComments) => {
 	// const [ reply, setReply ] = useState(false)
 
 	const handleSubmit = (inputs : any) => {
-		const [text] = Object.values(inputs)
+		const [text] = Object.values(inputs as Record<string, string>)
 		const randId = Math.random()
 		const currComment = {
 			id: randId,
