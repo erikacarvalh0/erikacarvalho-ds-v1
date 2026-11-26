@@ -13,3 +13,5 @@ for(const [name,props,expected] of [
  assert.equal(typeof ds[name],'function',name);
  assert.ok(renderToStaticMarkup(React.createElement(ds[name],props)).includes(expected),name);
 }
+
+for(const type of ['button','submit','reset']) assert.ok(renderToStaticMarkup(React.createElement(ds.Button,{type,action:()=>{}})).includes('type="'+type+'"'));
