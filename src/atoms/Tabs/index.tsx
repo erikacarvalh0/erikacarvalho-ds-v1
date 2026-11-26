@@ -59,7 +59,7 @@ export const Tabs = ({ children, title }: { children: React.ReactNode; title?: s
             aria-label={title || "List of Tabs"}
         >
             { React.Children.map(children, (child, index) => {
-                return React.isValidElement(child) ? (React.cloneElement(child, {
+                return React.isValidElement<Pick<iTab, 'index' | 'activeId'>>(child) ? (React.cloneElement(child, {
                     index,
                     activeId
                 })) : null
