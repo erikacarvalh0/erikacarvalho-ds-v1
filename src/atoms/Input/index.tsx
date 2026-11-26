@@ -79,4 +79,3 @@ export const Input = ({ preventValidation, handleOnChange, label, type = "text",
         { showDomainsElements &&  <div onClick={closeDomainList} className="domain__bg"></div> }
     </>
 )}
-export { NativeInput } from "./NativeInput"
