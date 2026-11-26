@@ -47,14 +47,7 @@ export const useInput = (fieldError: boolean, type: string, rules?: any[], name?
             handleOnChange(e, setValue)
         }
 
-        if (!preventValidation) {
-            checkFields(e.target)
-            
-            setTimeout(() => {
-                checkFields(e.target)
-                checkRequired(e.target)
-            }, 1000)
-        }
+
     }
 
     const checkFields = (target: HTMLInputElement, isBlur?: boolean) => {
@@ -166,7 +159,6 @@ export const useInput = (fieldError: boolean, type: string, rules?: any[], name?
         const [ newEmail ] = value.split('@')
         const newValue = `${newEmail}@${selectedDomain}`
         setValue(newValue)
-        checkEmail(newValue)
         closeDomainList()
     }
 
@@ -226,11 +218,9 @@ export const useInput = (fieldError: boolean, type: string, rules?: any[], name?
     }
 
     const handleBlur = ({ target }: { target: HTMLInputElement}) => {
+        if (preventValidation) return
         checkRequired(target)
-
-        if (validate || isRequired || value) {
-            checkFields(target, true)
-        }
+        checkFields(target, true)
     }
 
     return {
