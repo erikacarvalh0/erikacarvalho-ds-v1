@@ -1,0 +1,27 @@
+name: Changesets release PR
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+concurrency:
+  group: changesets-release
+  cancel-in-progress: false
+jobs:
+  release-pr:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: yarn install --frozen-lockfile
+      - uses: changesets/action@v1
+        with:
+          version: npm exec --yes --package=@changesets/cli@2.29.7 -- changeset version
+          title: 'chore: version ECDS'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
