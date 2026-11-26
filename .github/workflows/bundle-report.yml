@@ -1,0 +1,19 @@
+name: Bundle size report
+on: [pull_request, workflow_dispatch]
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: yarn install --frozen-lockfile
+      - run: npm run prepack
+      - run: |
+          node -e "const fs=require('fs'),z=require('zlib');for(const n of fs.readdirSync('lib').filter(n=>/\\.(mjs|cjs)$/.test(n))){const b=fs.readFileSync('lib/'+n);console.log(n,b.length,z.gzipSync(b).length)}" | tee bundle-sizes.txt
+          cat bundle-sizes.txt >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bundle-sizes
+          path: bundle-sizes.txt
