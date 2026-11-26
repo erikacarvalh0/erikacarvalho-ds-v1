@@ -67,6 +67,11 @@
       "types": "./lib/types/atoms/Button/index.d.ts",
       "import": "./lib/Button.mjs",
       "require": "./lib/Button.cjs"
+    },
+    "./Card": {
+      "types": "./lib/types/atoms/Card/index.d.ts",
+      "import": "./lib/Card.mjs",
+      "require": "./lib/Card.cjs"
     }
   },
   "files": [
