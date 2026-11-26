@@ -1,17 +1,9 @@
-import { ReactElement, ReactPortal } from "react";
+import type { ReactElement, ReactNode as NativeReactNode } from "react";
 
-type ReactText = string | number;
-export type ReactChild = ReactElement | ReactText | ReactElement[];
-
-interface ReactNodeArray extends Array<ReactNode> {}
-type ReactFragment = {} | ReactNodeArray;
-
+export type ReactChild = ReactElement | string | number | ReactElement[];
 export type iFn = () => void
-export type ReactNode = ReactChild | ReactFragment | ReactPortal | boolean | null | undefined;
-
-export type tChildren = {
-    props: iObject | ReactNode
-}
+export type ReactNode = NativeReactNode;
+export type tChildren = ReactElement
 
 export type iCarouselLayout = "ctrls-in-line" | "vertical-align"
 export interface iCarouselResponsive {
@@ -137,7 +129,7 @@ export interface iImg {
 }
 
 export interface iList {
-    items: iObject[],
+    items: (iObject & { text?: ReactNode })[],
     status?: iObject,
     validateError?: boolean
 }
@@ -147,7 +139,7 @@ export interface iCard {
     subtitle: string,
     img?: iImg,
     text?: string,
-    list?: iObject[],
+    list?: iList["items"],
     button?: iButton,
     link?: iLink,
     children?: ReactNode
@@ -232,7 +224,7 @@ export interface iPagination {
 
 export interface iTableRow {
     rowIndex: number
-    row: iObject
+    row: Record<string, ReactNode>
     hiddenCols: any[]
     rowsIndexes: string[]
     header: ReactNode
