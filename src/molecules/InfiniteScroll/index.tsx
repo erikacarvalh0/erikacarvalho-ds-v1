@@ -9,7 +9,7 @@ export const InfiniteScroll = ({
   } : any) => {
 	const observer = useRef<IntersectionObserver>();
   
-	const lastItemRef = useCallback((node) => {
+	const lastItemRef = useCallback((node: HTMLElement | null) => {
 	  if (loading) return;
 	  if (observer.current) observer.current.disconnect();
   
