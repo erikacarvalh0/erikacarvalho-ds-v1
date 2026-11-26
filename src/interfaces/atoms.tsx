@@ -71,7 +71,7 @@ export interface iButton {
     theme?: "neutral" | "cta" | "cancel",
     customClass?: string,
     action: (event: any) => void,
-    type?: "submit"
+    type?: "button" | "submit" | "reset"
 }
 export interface iInput {
     label?: string,
