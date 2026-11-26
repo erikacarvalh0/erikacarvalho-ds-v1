@@ -16,7 +16,7 @@ export const BarColumn = ({ config, data } : iChart) => {
     } = useBarColumn({ type, data })
 
     return (<ul className={classNames("chart", type)}>
-    { valuesGrouped?.map((values: iBarColumnData, chartI: number) => {
+    { valuesGrouped?.map((values: Record<string, number>, chartI: number) => {
         return Object.keys(values).map((label, i) => {
             const {
                 valueDir,
