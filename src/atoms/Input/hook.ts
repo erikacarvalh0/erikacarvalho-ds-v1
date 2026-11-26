@@ -47,7 +47,13 @@ export const useInput = (fieldError: boolean, type: string, rules?: any[], name?
             handleOnChange(e, setValue)
         }
 
-
+        if (!preventValidation) {
+            checkFields(e.target)
+            setTimeout(() => {
+                checkFields(e.target)
+                checkRequired(e.target)
+            }, 1000)
+        }
     }
 
     const checkFields = (target: HTMLInputElement, isBlur?: boolean) => {
@@ -159,6 +165,13 @@ export const useInput = (fieldError: boolean, type: string, rules?: any[], name?
         const [ newEmail ] = value.split('@')
         const newValue = `${newEmail}@${selectedDomain}`
         setValue(newValue)
+        onValueChange?.(newValue)
+        checkEmail(newValue)
+        if (validate || isRequired) {
+            const message = isRequired && !newValue.trim() ? 'Campo obrigatório' : validate?.(newValue)
+            setValidationMessage(message)
+            if (message) setHasError(true)
+        }
         closeDomainList()
     }
 
@@ -220,7 +233,10 @@ export const useInput = (fieldError: boolean, type: string, rules?: any[], name?
     const handleBlur = ({ target }: { target: HTMLInputElement}) => {
         if (preventValidation) return
         checkRequired(target)
-        checkFields(target, true)
+
+        if (value || isRequired || validate) {
+            checkFields(target, true)
+        }
     }
 
     return {
