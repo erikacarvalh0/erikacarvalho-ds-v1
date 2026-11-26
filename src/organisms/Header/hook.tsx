@@ -1,8 +1,8 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 export const useHeader = () => {
-    const currentPage = window.location.pathname;
-	const isHome =  currentPage == "/"
+    const [isHome, setIsHome] = useState(false)
+    useEffect(() => { setIsHome(window.location.pathname === "/") }, [])
     const inputRef = useRef<HTMLInputElement>(null)
     const [ isMenuOpen, setIsMenuOpen ] = useState(false)
 
