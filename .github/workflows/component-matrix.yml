@@ -1,0 +1,22 @@
+name: Component SSR matrix
+on: [pull_request, workflow_dispatch]
+jobs:
+  matrix:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        react: ['18.3.1', '19.1.0']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: yarn install --frozen-lockfile
+      - run: |
+          tmp=$(mktemp -d)
+          npm pack --pack-destination "$tmp"
+          cp scripts/test-component-matrix.cjs "$tmp/check.cjs"
+          cd "$tmp"
+          npm init -y
+          npm install --legacy-peer-deps react@${{ matrix.react }} react-dom@${{ matrix.react }} ./*.tgz
+          node check.cjs
