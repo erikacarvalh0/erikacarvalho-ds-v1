@@ -8,7 +8,7 @@ npm pack --pack-destination "$tmp"
 cp "tests/browser/hydration.cjs" "$tmp/check.cjs"
 cd "$tmp"
 npm init -y >/dev/null
-npm install --legacy-peer-deps next@15.5 react@19.1.0 react-dom@19.1.0 playwright ./*.tgz
+npm install next@15.5 react@19.1.0 react-dom@19.1.0 playwright ./*.tgz
 npx playwright install --with-deps chromium
 mkdir pages
 cat > pages/index.js <<'EOF'
