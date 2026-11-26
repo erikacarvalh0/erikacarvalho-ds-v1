@@ -1,0 +1,17 @@
+name: Architecture builds
+on:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: yarn install
+      - run: yarn build
+      - run: test -f dist/remoteEntry.js && test -f dist/index.html
+      - run: yarn webpack --config webpack.library.config.js --mode production
+      - run: test -f lib/index.cjs
