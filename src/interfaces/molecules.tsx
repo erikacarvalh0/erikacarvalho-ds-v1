@@ -39,7 +39,9 @@ export interface iContentDialog {
     }
 }
 
-export interface iDialog { 
+export interface iDialog {
+    headerActions?: import('react').ReactNode,
+    children?: import('react').ReactNode, 
     isOpen: boolean, 
     toggleDialog: () => void,
     theme?: 'default' | 'success' | 'error',

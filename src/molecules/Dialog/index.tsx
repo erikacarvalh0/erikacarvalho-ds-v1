@@ -8,7 +8,7 @@ import { useDialog } from "./hook"
 import "./index.scss"
 
 
-export const Dialog = ({ isOpen, toggleDialog, theme = 'default', icon, title, content, message }: iDialog) => {
+export const Dialog = ({ isOpen, toggleDialog, theme = 'default', icon, title, content, message, headerActions, children }: iDialog) => {
 	const { dialogRef, closeDialog, mustHide, themeTitle, themeText } = useDialog({ isOpen, toggleDialog })
     
 	return (
@@ -23,10 +23,12 @@ export const Dialog = ({ isOpen, toggleDialog, theme = 'default', icon, title, c
 			<header className="dialog__header">
 				{ icon }
 				<h2 className="dialog__title">{title || themeTitle[theme]}</h2>
+                {headerActions}
 			</header>
 
 			<section className="dialog__body">
-				{ !content && !message && 
+                {children}
+				{ !content && !message && !children && 
 					<p className="dialog__text">
 						{ themeText[theme] }
 					</p>
