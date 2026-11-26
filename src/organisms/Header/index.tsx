@@ -7,11 +7,12 @@ import './index.scss'
 import { iHeader, iHeaderLinks } from "../../interfaces/organisms"
 import { Link } from "../../atoms/Link"
 
-export const Header = ({ title, content, links, routerContext }: iHeader) => {
+export const Header = ({ title, content, links, routerContext, isFixed }: iHeader) => {
 	const { isHome, isOpen, isMenuOpen, toggleDialog, onChangeMenu, openMenu, inputRef, closeMenu } = useHeader();
+	const fixedClass = isFixed ? "header--fixed" : ""
 
     return (
-		<header onBlur={closeMenu} data-component className="header">
+		<header onBlur={closeMenu} data-component className={`header ${fixedClass}`}>
 			<nav className="header__nav">
 				<label className="header__nav-icon" htmlFor="menu-btn">
 					<Menu className="header__image" aria-label="Menu icon" />

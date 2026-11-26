@@ -4,6 +4,12 @@
 	flex-flow: row-reverse;
 	margin: 20px 50px;
 
+	&--fixed {
+		position: sticky;
+		top: 0;
+		max-height: 100vh;
+	}
+
 	&__nav {
 		width: 60px;
 
