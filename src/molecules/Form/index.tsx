@@ -1,13 +1,28 @@
-import React, { ReactElement, useState } from "react"
+import React, { ReactElement, useState, useRef, useEffect } from "react"
 import classNames from "classnames"
 import { Button } from "../../atoms/Button"
 import { iForm } from "../../interfaces/molecules"
 
 import "./index.scss"
 
-export const Form = ({ children, handleSubmit, buttonText = "Enviar", customClass, validate, onValidationError }: iForm) => {
+export const Form = ({ children, handleSubmit, buttonText = "Enviar", customClass }: iForm) => {
     const formValuesState = useState({})
-    const [errors, setErrors] = useState<Record<string, string | undefined>>({})
+    const formRef = useRef<HTMLFormElement>(null)
+    const [isDisabled, setIsDisabled] = useState(true)
+
+    function updateAvailability() {
+        const fields = Array.from(formRef.current?.querySelectorAll<HTMLInputElement>('input:not([type="hidden"])') ?? [])
+        setIsDisabled(fields.some(field => ((field.required || field.getAttribute('aria-required') === 'true') && !field.value.trim()) || field.classList.contains('error') || field.getAttribute('aria-invalid') === 'true'))
+    }
+
+    useEffect(() => {
+        const form = formRef.current
+        if (!form) return
+        const observer = new MutationObserver(updateAvailability)
+        observer.observe(form, { subtree: true, childList: true, attributes: true, attributeFilter: ['class', 'aria-invalid', 'required', 'aria-required'] })
+        updateAvailability()
+        return () => observer.disconnect()
+    }, [])
 
     function decorateChildren(nodes: React.ReactNode): React.ReactNode {
         return React.Children.map(nodes, child => {
@@ -23,7 +38,7 @@ export const Form = ({ children, handleSubmit, buttonText = "Enviar", customClas
 
             return React.cloneElement(element, {
                 ...nested,
-                ...(props.name ? { formValuesState, fieldError: !!errors[props.name] || props.fieldError } : {})
+                ...(props.name ? { formValuesState, fieldError: props.fieldError } : {})
             })
         })
     }
@@ -37,36 +52,16 @@ export const Form = ({ children, handleSubmit, buttonText = "Enviar", customClas
             if (typeof value === 'string') values[name] = value
         })
 
-        const nextErrors = { ...validate?.(values) }
-        const fields = Array.from(form.querySelectorAll<HTMLInputElement>('input:not([type="hidden"])'))
-
-        fields.forEach(field => {
-            const name = field.name || field.id
-            if ((field.required || field.getAttribute('aria-required') === 'true') && !field.value.trim()) {
-                nextErrors[name] = 'Campo obrigatório'
-            } else if (field.classList.contains('error') || field.getAttribute('aria-invalid') === 'true') {
-                nextErrors[name] = 'Campo inválido'
-            }
-        })
-
-        setErrors(nextErrors)
-
-        if (Object.values(nextErrors).some(Boolean)) {
-            onValidationError?.(nextErrors)
-            return
-        }
+        if (isDisabled) return
 
         handleSubmit?.(values)
     }
 
-    function clearErrors() {
-        if (Object.keys(errors).length) setErrors({})
-    }
 
     return (
-        <form className={classNames("form", customClass)} noValidate onSubmit={onSubmit} onChange={clearErrors}>
+        <form ref={formRef} className={classNames("form", customClass)} noValidate onSubmit={onSubmit} onChange={updateAvailability} onBlur={updateAvailability}>
             {decorateChildren(children)}
-            <Button theme="cta" type="submit" action={() => {}}>{buttonText}</Button>
+            <Button isDisabled={isDisabled} theme="cta" type="submit" action={() => {}}>{buttonText}</Button>
         </form>
     )
 }
