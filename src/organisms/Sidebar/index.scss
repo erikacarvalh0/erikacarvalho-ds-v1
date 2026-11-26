@@ -1,0 +1,32 @@
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gridSize3x);
+    padding: var(--gridSize2x);
+    background: var(--sidebar-background, var(--acquaDark));
+    color: var(--sidebar-color, white);
+    font-family: var(--fontPrimary);
+    --nav-item-active-background: var(--acquaLight);
+    --nav-item-active-color: var(--grey);
+
+    &__brand {
+        font-family: var(--fontSecondary);
+    }
+
+    &__navigation {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        gap: var(--gridSize3x);
+    }
+
+    &__list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        &--footer {
+            margin-top: auto;
+        }
+    }
+}
