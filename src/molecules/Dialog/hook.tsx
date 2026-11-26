@@ -1,19 +1,18 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { iDialogHook  } from "../../interfaces/molecules";
-import { iObject } from "../../interfaces/atoms";
 
 export const useDialog = ({ isOpen, toggleDialog }: iDialogHook) => {
 	const dialogRef: MutableRefObject<HTMLDialogElement | null> = useRef(null);
 	const [mustHide, setMustHide] = useState(false);
 
-	const themeTitle: iObject = {
+	const themeTitle: Partial<Record<"default" | "success" | "error", string>> = {
 		success: "Deu tudo certo!",
-		errror: "Algo deu errado",
+		error: "Algo deu errado",
 	}
 
-	const themeText: iObject = {
+	const themeText: Partial<Record<"default" | "success" | "error", string>> = {
 		success: "Deu tudo certo!",
-		errror: "Algo deu errado",
+		error: "Algo deu errado",
 	}
 
 	useEffect(() => {
