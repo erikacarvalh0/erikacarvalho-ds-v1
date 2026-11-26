@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import classNames from "classnames"
 
 import { iSelect } from "../../interfaces/atoms"
@@ -8,7 +8,17 @@ import { useSelect } from "./hook"
 
 import './index.scss'
 
-export const Select = ({ label, name, customClass, options, fieldError = false}: iSelect) => {
+export const Select = ({ label, name, customClass, options, fieldError = false, defaultValue = '', isRequired = false, onValueChange}: iSelect) => {
+    const entries = options.map(option => typeof option === 'string' ? { value: option, label: option } : option)
+    const [selectedValue, setSelectedValue] = useState(defaultValue)
+    const usesIdentifiers = options.some(option => typeof option !== 'string')
+
+    function handleSelection(label: string) {
+        const nextValue = entries.find(option => option.label === label)?.value ?? ''
+        setSelectedValue(nextValue)
+        onValueChange?.(nextValue)
+    }
+
     const {
         randId,
         optionsRef,
@@ -23,7 +33,7 @@ export const Select = ({ label, name, customClass, options, fieldError = false}:
         handleKeyUp,
         handleMouseContainer,
         handleShowOptions
-    } = useSelect(fieldError, options)
+    } = useSelect(fieldError, entries.map(option => option.label), entries.find(option => option.value === defaultValue)?.label, handleSelection, isRequired)
 
     return (
     <>
@@ -34,11 +44,14 @@ export const Select = ({ label, name, customClass, options, fieldError = false}:
                 onChange={changeValue}
                 type="text" 
                 onClick={handleShowOptions}
-                name={name} 
+                name={usesIdentifiers ? undefined : name}
+                aria-required={isRequired}
+                aria-invalid={hasError} 
                 id={`input-${name}-${randId}`}
                 className={classNames("input", "select", { filled: !!value, error: hasError})} 
             />
             
+            {usesIdentifiers && <input type="hidden" name={name} value={selectedValue} />}
             {label && <label className="label" htmlFor={`input-${name}-${randId}`}>{label}</label>}
             
             { showOptions && 

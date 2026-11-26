@@ -6,9 +6,9 @@ const { useId } = React as typeof React & { useId: () => string }
 
 
 
-export const useSelect = (fieldError: boolean, options: string[]) => {
+export const useSelect = (fieldError: boolean, options: string[], initialLabel = '', onSelection?: (label: string) => void, isRequired = false) => {
     const [ showOptions, setShowOptions ] = useState(false)
-    const [ value, setValue ] = useState('')
+    const [ value, setValue ] = useState(initialLabel)
     const [ selectedOption, setSelectedOption ] = useState(-1)
     const [ hasError, setHasError ] = useState(fieldError)
     const optionsRef = useRef<HTMLElement>(null)
@@ -19,6 +19,7 @@ export const useSelect = (fieldError: boolean, options: string[]) => {
     const changeValue = (e: any) => {
         const currentValue = e.target.value
         setValue(currentValue)
+        onSelection?.(options.includes(currentValue) ? currentValue : '')
     }
 
 
@@ -35,7 +36,9 @@ export const useSelect = (fieldError: boolean, options: string[]) => {
         setFilteredOptions(options)
         setShowOptions(false)
         setSelectedOption(-1)
-        setHasError(false)
+        setHasError(isRequired && index < 0 && hasValue < 0 && !hasOnlyOneChoice)
+        if (hasOnlyOneChoice) onSelection?.(filteredOptions[0])
+        else if (index < 0 && hasValue < 0) onSelection?.('')
     }
 
     const handleClickClose = () => {
@@ -73,6 +76,7 @@ export const useSelect = (fieldError: boolean, options: string[]) => {
         const index = filteredOptions.findIndex(option => option === selectedOption)
 
         setValue(selectedOption)
+        onSelection?.(selectedOption)
         closeOptionList(index)
     }
 
