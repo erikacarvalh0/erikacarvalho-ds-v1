@@ -16,7 +16,9 @@ export const TabsHeader = ({children, handleOnChange, onPressEnter, id, activeId
 
     return (
     <header className="tabs__header">
-        { React.Children.map(children, ({ props }, index) => {
+        { React.Children.map(children, (child, index) => {
+            if (!React.isValidElement(child)) return null;
+            const props = child.props;
             return (<>
                 <input 
                     onChange={handleOnChange} 
