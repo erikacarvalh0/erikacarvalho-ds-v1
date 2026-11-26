@@ -1,0 +1,14 @@
+name: Strict library types
+on:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  strict:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: yarn install --frozen-lockfile
+      - run: yarn tsc -p tsconfig.library.json --strict --noEmitOnError

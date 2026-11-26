@@ -9,9 +9,9 @@ export const useTab = () => {
     const [ maxHeight, setMaxHeight ] = useState(0)
 
     const setContentHeight = (activeId: string) => {
-        const itemIndex = activeId.split('-')[1] as string
+        const itemIndex = Number(activeId.split('-')[1])
         const activeContent = tabsContentRef?.current?.children?.[itemIndex]
-        const activeContentHeight = activeContent.clientHeight
+        const activeContentHeight = activeContent?.clientHeight ?? 0
 
         setMaxHeight(activeContentHeight)
     }

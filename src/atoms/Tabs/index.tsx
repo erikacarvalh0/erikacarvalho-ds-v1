@@ -7,9 +7,9 @@ import { useTab } from "./hook"
 import './index.scss'
 
 export const TabsHeader = ({children, handleOnChange, onPressEnter, id, activeId} : iTabsHeader) => {
-    const handleKeyUp = ({ keyCode, target }) => {
+    const handleKeyUp = ({ keyCode, target }: React.KeyboardEvent<HTMLLabelElement>) => {
         if (keyCode === 13) { // ENTER KEY
-            const input = target.previousElementSibling
+            const input = (target as HTMLLabelElement).previousElementSibling
             onPressEnter(input)
         }
     }
@@ -44,7 +44,7 @@ export const TabsHeader = ({children, handleOnChange, onPressEnter, id, activeId
     </header>
 )}
 
-export const Tabs = ({ children, title } ) => {
+export const Tabs = ({ children, title }: { children: React.ReactNode; title?: string }) => {
     const {  randId, tabsContentRef, maxHeight, activeId, onChange, onChangeContent, onPressEnter } = useTab()
 
     return <section className="tabs">
@@ -59,10 +59,10 @@ export const Tabs = ({ children, title } ) => {
             aria-label={title || "List of Tabs"}
         >
             { React.Children.map(children, (child, index) => {
-                return (React.cloneElement(child, {
+                return React.isValidElement<Pick<iTab, 'index' | 'activeId'>>(child) ? (React.cloneElement(child, {
                     index,
                     activeId
-                }))
+                })) : null
             })}
         </main>
     </section>

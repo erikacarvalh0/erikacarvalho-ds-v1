@@ -13,14 +13,14 @@ export const Form = ({ children, handleSubmit, buttonText = "Enviar" }: iForm) =
 	const [ isDisabled, setIsDisabled ] = useState(true)
 
 	useEffect(() => {
-		const formChildren = formRef?.current ? formRef?.current.querySelectorAll('.input-container') : []
-		const formInputs = Array.from(formChildren).reduce((reqInputs: HTMLInputElement[], inputContainer: HTMLInputElement) => {
+		const formChildren = formRef?.current?.querySelectorAll<HTMLElement>('.input-container') ?? []
+		const formInputs = Array.from(formChildren).reduce((reqInputs: HTMLInputElement[], inputContainer: HTMLElement) => {
 			const currentInput = inputContainer.querySelector('input')
 			const isRequired = inputContainer.querySelector('input')?.hasAttribute('required')
 
 			return isRequired 
-				? [...reqInputs, currentInput]
-				: [reqInputs]
+				? (currentInput ? [...reqInputs, currentInput] : reqInputs)
+				: reqInputs
 		}, [])
 
 		setRequiredInputs(formInputs)

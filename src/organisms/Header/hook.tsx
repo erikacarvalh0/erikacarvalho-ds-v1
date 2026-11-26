@@ -3,7 +3,7 @@ import { useRef, useState } from "react"
 export const useHeader = () => {
     const currentPage = window.location.pathname;
 	const isHome =  currentPage == "/"
-    const inputRef = useRef(null)
+    const inputRef = useRef<HTMLInputElement>(null)
     const [ isMenuOpen, setIsMenuOpen ] = useState(false)
 
     const [ isOpen, setIsOpen ] = useState(false);
@@ -12,7 +12,7 @@ export const useHeader = () => {
         setIsOpen(!isOpen);
     }
 
-    const onChangeMenu = ({ target }) => {
+    const onChangeMenu = ({ target }: { target: HTMLInputElement }) => {
         setIsMenuOpen(target.checked)
     }
 
