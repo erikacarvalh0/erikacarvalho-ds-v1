@@ -44,6 +44,9 @@ export interface iLink {
     children?: ReactNode
     routerContext?: any
     onFocus?: any
+    preserveHover?: boolean
+    "aria-current"?: "page"
+
 }
 
 export interface iBreadcrumbData {

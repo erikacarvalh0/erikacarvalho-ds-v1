@@ -5,6 +5,8 @@ export interface iHeaderLinks {
     text: string,
     href: string,
     target?: string | undefined,
+    icon?: React.ReactNode,
+    isActive?: boolean,
 }
 
 export interface iHeader {
@@ -14,5 +16,7 @@ export interface iHeader {
     routerContext: any,
     isFixed?: boolean,
     logo?: React.ReactNode,
-    logoHref?: string
+    logoHref?: string,
+    footerLinks?: iHeaderLinks[],
+    footerContent?: React.ReactNode
 }
