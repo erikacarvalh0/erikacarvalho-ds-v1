@@ -7,7 +7,7 @@ export const InfiniteScroll = ({
 	loadMore,
 	children,
   } : any) => {
-	const observer = useRef();
+	const observer = useRef<IntersectionObserver>();
   
 	const lastItemRef = useCallback((node) => {
 	  if (loading) return;
