@@ -1,0 +1,28 @@
+name: Release candidate artifact
+on:
+  workflow_dispatch:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  pack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: yarn install --frozen-lockfile
+      - run: npm run prepack
+      - run: |
+          mkdir -p candidate
+          npm pack --ignore-scripts --json --pack-destination candidate > candidate/pack.json
+          cd candidate
+          sha256sum *.tgz > SHA256SUMS
+          git rev-parse HEAD > REVISION
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ecds-release-candidate
+          path: candidate/
+          retention-days: 14
+          if-no-files-found: error
