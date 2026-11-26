@@ -1,3 +1,4 @@
+import type React from "react";
 import { iContentDialog } from "./molecules";
 
 export interface iHeaderLinks {
@@ -10,5 +11,8 @@ export interface iHeader {
     content?: iContentDialog[],
     links: iHeaderLinks[],
     title: string,
-    routerContext: any
+    routerContext: any,
+    isFixed?: boolean,
+    logo?: React.ReactNode,
+    logoHref?: string
 }
