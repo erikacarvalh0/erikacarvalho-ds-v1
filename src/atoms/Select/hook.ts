@@ -6,9 +6,9 @@ const { useId } = React as typeof React & { useId: () => string }
 
 
 
-export const useSelect = (fieldError: boolean, options: string[]) => {
+export const useSelect = (fieldError: boolean, options: string[], initialLabel = '', onSelection?: (label: string) => void, isRequired = false) => {
     const [ showOptions, setShowOptions ] = useState(false)
-    const [ value, setValue ] = useState('')
+    const [ value, setValue ] = useState(initialLabel)
     const [ selectedOption, setSelectedOption ] = useState(-1)
     const [ hasError, setHasError ] = useState(fieldError)
     const optionsRef = useRef<HTMLElement>(null)
@@ -19,6 +19,7 @@ export const useSelect = (fieldError: boolean, options: string[]) => {
     const changeValue = (e: any) => {
         const currentValue = e.target.value
         setValue(currentValue)
+        onSelection?.(options.includes(currentValue) ? currentValue : '')
     }
 
 
@@ -35,7 +36,9 @@ export const useSelect = (fieldError: boolean, options: string[]) => {
         setFilteredOptions(options)
         setShowOptions(false)
         setSelectedOption(-1)
-        setHasError(false)
+
+        if (hasOnlyOneChoice) onSelection?.(filteredOptions[0])
+        else if (index < 0 && hasValue < 0) onSelection?.('')
     }
 
     const handleClickClose = () => {
@@ -73,6 +76,7 @@ export const useSelect = (fieldError: boolean, options: string[]) => {
         const index = filteredOptions.findIndex(option => option === selectedOption)
 
         setValue(selectedOption)
+        onSelection?.(selectedOption)
         closeOptionList(index)
     }
 
@@ -90,16 +94,13 @@ export const useSelect = (fieldError: boolean, options: string[]) => {
             const newOptions = options.filter(option => option.toLowerCase().includes(value.toLowerCase()))
 
             if (newOptions.length <= 0) {
-                setHasError(true)
                 setFilteredOptions(options)
             } else {
-                setHasError(false)
                 setFilteredOptions(newOptions)
             }
         } 
         
         if (!value) {
-            setHasError(false)
             setFilteredOptions(options)
         }
     }
@@ -144,11 +145,17 @@ export const useSelect = (fieldError: boolean, options: string[]) => {
         }
     }
 
+    function handleBlur(event: React.FocusEvent<HTMLInputElement>) {
+        const currentValue = event.currentTarget.value
+        setHasError((isRequired && !currentValue.trim()) || (!!currentValue && !options.includes(currentValue)))
+    }
+
     const handleShowOptions = () => { 
         setShowOptions(true)
     }
 
     return {
+        handleBlur,
         randId,
         optionsRef,
         filteredOptions,

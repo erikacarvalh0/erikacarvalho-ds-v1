@@ -87,7 +87,10 @@ export interface iSelect {
     customClass?: string,
     name: string,
     fieldError?: boolean,
-    options: string[]
+    options: Array<string | { value: string; label: string }>
+    defaultValue?: string
+    isRequired?: boolean
+    onValueChange?: (value: string) => void
 }
 
 export interface iObject {
