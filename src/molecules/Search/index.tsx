@@ -8,7 +8,7 @@ const SUGGESTIONS = [
   'camera', 'cake', 'candle', 'call', 'cab', 'cap', 'cape',
 ];
 
-const fetchSuggestions = (query, maxSuggestions) =>
+const fetchSuggestions = (query: string, maxSuggestions: number) =>
   new Promise<string[]>((resolve) => {
     const delay = Math.random() * 800 + 300;
     setTimeout(() => {
@@ -27,7 +27,7 @@ export const Search = ({ maxSuggestions = 5}: any) => {
   const requestIdRef = useRef(0);
 
   const debouncedFetch = useRef(
-    debounce(async (input, currentId) => {
+    debounce(async (input: string, currentId: number) => {
       setLoading(true);
       const result = await fetchSuggestions(input, maxSuggestions);
       if (currentId === requestIdRef.current) {
@@ -37,7 +37,7 @@ export const Search = ({ maxSuggestions = 5}: any) => {
     }, 300)
   ).current;
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value;
     setQuery(input);
 
@@ -50,7 +50,7 @@ export const Search = ({ maxSuggestions = 5}: any) => {
     debouncedFetch(input, currentId);
   };
 
-  const handleSelect = (word) => {
+  const handleSelect = (word: string) => {
     setQuery(word);
     setSuggestions([]);
   };
