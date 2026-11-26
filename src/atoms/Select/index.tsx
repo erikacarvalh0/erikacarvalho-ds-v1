@@ -54,7 +54,7 @@ export const Select = ({ label, name, customClass, options, fieldError = false}:
                 />
             }
 
-            <button className={classNames("input__btn-select", { "open": showOptions})} aria-label="Alterar visibilidade das opções" onClick={handleShowOptions}>
+            <button type="button" className={classNames("input__btn-select", { "open": showOptions})} aria-expanded={showOptions} aria-label="Alterar visibilidade das opções" onClick={handleShowOptions}>
             </button>
         </div>
 
