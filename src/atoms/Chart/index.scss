@@ -1,6 +1,10 @@
  .chart {
   display: grid;
 
+  &__item {
+    display: contents;
+  }
+
   &__container {
     margin-bottom: var(--gridSize4x);
   }
@@ -41,7 +45,7 @@
       margin-left: var(--gridSize2x);
     }
 
-    & > :not(.space) {
+    & > .chart__item > :not(.space) {
       margin-right: var(--gridSize2x);
     }
 
