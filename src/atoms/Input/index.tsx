@@ -11,8 +11,9 @@ import { useInput } from "./hook"
 
 import './index.scss'
 
-export const Input = ({ preventValidation, handleOnChange, label, type = "text", name, customClass, rules, isRequired = false , fieldError = false, formValuesState}: iInput) => {
+export const Input = ({ preventValidation, handleOnChange, label, type = "text", name, customClass, rules, isRequired = false , fieldError = false, formValuesState, defaultValue, validate, onValueChange}: iInput) => {
     const {
+        validationMessage,
         inputId,
         domainsRef,
         typeState,
@@ -31,7 +32,7 @@ export const Input = ({ preventValidation, handleOnChange, label, type = "text",
         handleMouseContainer,
         handlePasswordType,
         handleBlur
-    } = useInput(fieldError, type, rules, name, formValuesState, handleOnChange, preventValidation)
+    } = useInput(fieldError, type, rules, name, formValuesState, handleOnChange, preventValidation, defaultValue, validate, onValueChange, isRequired)
 
     const showDomainsElements = isEmail && showDomains && hasError;
 
@@ -47,9 +48,12 @@ export const Input = ({ preventValidation, handleOnChange, label, type = "text",
                 name={name} 
                 id={inputId}
                 required={isRequired}
+                aria-invalid={hasError}
+                aria-describedby={validationMessage ? `${inputId}-error` : undefined}
                 className={classNames("input", type, { filled: !!value, error: hasError})} 
             />
             
+            {validationMessage && <span id={`${inputId}-error`} role="alert">{validationMessage}</span>}
             {label && <label className="label" htmlFor={inputId}>{label}</label>}
             
             { showDomainsElements && 

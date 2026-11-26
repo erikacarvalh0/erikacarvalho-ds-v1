@@ -6,9 +6,11 @@ import { iObject } from "../../interfaces/atoms"
 
 interface iRule { rule: (param:number | string) => string }
 
-export const useInput = (fieldError: boolean, type: string, rules?: any[], name?: string, formValuesState?: any, handleOnChange?: any, preventValidation?: boolean) => {
+export const useInput = (fieldError: boolean, type: string, rules?: any[], name?: string, formValuesState?: any, handleOnChange?: any, preventValidation?: boolean, defaultValue = '', validate?: (value: string) => string | undefined, onValueChange?: (value: string) => void, isRequired = false) => {
     const [ showDomains, setShowDomains ] = useState(false)
-    const [ value, setValue ] = useState('')
+    const [ value, setValue ] = useState(defaultValue)
+    const [ validationMessage, setValidationMessage ] = useState<string | undefined>()
+    useEffect(() => { setHasError(fieldError) }, [fieldError])
     const [ typeState, setTypeState ] = useState(type)
     const [ selectedDomain, setSelectedDomain ] = useState(-1)
     const [ hasError, setHasError ] = useState(fieldError)
@@ -39,6 +41,7 @@ export const useInput = (fieldError: boolean, type: string, rules?: any[], name?
         const currentValue = e.target.value
         
         setValue(currentValue)
+        onValueChange?.(currentValue)
 
         if (handleOnChange) {
             handleOnChange(e, setValue)
@@ -46,7 +49,6 @@ export const useInput = (fieldError: boolean, type: string, rules?: any[], name?
 
         if (!preventValidation) {
             checkFields(e.target)
-            
             setTimeout(() => {
                 checkFields(e.target)
                 checkRequired(e.target)
@@ -56,6 +58,15 @@ export const useInput = (fieldError: boolean, type: string, rules?: any[], name?
 
     const checkFields = (target: HTMLInputElement, isBlur?: boolean) => {
         const currentValue = target.value
+
+        if (validate || isRequired) {
+            const message = isRequired && !currentValue.trim() ? 'Campo obrigatório' : validate?.(currentValue)
+            setValidationMessage(message)
+            if (message || validate || !currentValue) {
+                setHasError(!!message)
+                return
+            }
+        }
 
         switch(type) {
             case "email": {
@@ -154,7 +165,13 @@ export const useInput = (fieldError: boolean, type: string, rules?: any[], name?
         const [ newEmail ] = value.split('@')
         const newValue = `${newEmail}@${selectedDomain}`
         setValue(newValue)
+        onValueChange?.(newValue)
         checkEmail(newValue)
+        if (validate || isRequired) {
+            const message = isRequired && !newValue.trim() ? 'Campo obrigatório' : validate?.(newValue)
+            setValidationMessage(message)
+            if (message) setHasError(true)
+        }
         closeDomainList()
     }
 
@@ -214,14 +231,16 @@ export const useInput = (fieldError: boolean, type: string, rules?: any[], name?
     }
 
     const handleBlur = ({ target }: { target: HTMLInputElement}) => {
+        if (preventValidation) return
         checkRequired(target)
 
-        if (value) {
+        if (value || isRequired || validate) {
             checkFields(target, true)
         }
     }
 
     return {
+        validationMessage,
         inputId,
         domainsRef,
         typeState,
