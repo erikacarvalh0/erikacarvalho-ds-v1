@@ -1,0 +1,26 @@
+name: Consumer TypeScript matrix
+on: [pull_request, workflow_dispatch]
+jobs:
+  types:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - react: '18.3.1'
+            types: '18'
+          - react: '19.1.0'
+            types: '19'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: yarn install --frozen-lockfile
+      - run: |
+          tmp=$(mktemp -d)
+          npm pack --pack-destination "$tmp"
+          cd "$tmp"
+          npm init -y
+          npm install react@${{ matrix.react }} react-dom@${{ matrix.react }} @types/react@${{ matrix.types }} @types/react-dom@${{ matrix.types }} typescript@5.7 ./*.tgz
+          printf '%s\n' 'import {Button,Card} from "@erikacarvalho/react";' 'export const demo = <Card title="Test" subtitle="Types"><Button action={()=>{}} text="OK"/></Card>;' > demo.tsx
+          npx tsc --noEmit --strict --jsx react-jsx --module Node16 --moduleResolution Node16 --target ES2022 demo.tsx
