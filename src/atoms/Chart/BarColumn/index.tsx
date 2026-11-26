@@ -1,11 +1,9 @@
 import classNames from 'classnames'
 import React, { Fragment } from 'react'
 
-import { getRandomNumber } from '../../../utils/randomNumber'
 import { iChart } from '..'
 
 import { useBarColumn } from './hook'
-import { iBarColumnData } from '../../../interfaces/atoms'
 
 export const BarColumn = ({ config, data } : iChart) => {
     const { type } = config
@@ -15,7 +13,7 @@ export const BarColumn = ({ config, data } : iChart) => {
         directions,
     } = useBarColumn({ type, data })
 
-    return (<ul className={classNames("chart", type)}>
+    return (<div role="group" className={classNames("chart", type)}>
     { valuesGrouped?.map((values: Record<string, number>, chartI: number) => {
         return Object.keys(values).map((label, i) => {
             const {
@@ -23,9 +21,8 @@ export const BarColumn = ({ config, data } : iChart) => {
                 itemDir,
                 textDir
             } = directions(values, label)
-            const randId = getRandomNumber()
 
-            return <Fragment key={`${type}-${chartI}${randId + 2}`}>
+            return <Fragment key={`${type}-${chartI}-${label}`}>
                 <p style={{ 
                     [`${chartDir}Start`]: textDir.start,
                     [`${chartDir}End`]: textDir.end,
@@ -33,7 +30,7 @@ export const BarColumn = ({ config, data } : iChart) => {
                 className={classNames("chart__label", { 
                     'space': i === 0
                 })} >{ label }</p>
-                <li 
+                <div aria-hidden="true"
                     key={`${chartI}-${i}`} 
                     className={classNames("chart__col", { 
                         'space': i === 0
@@ -53,5 +50,5 @@ export const BarColumn = ({ config, data } : iChart) => {
             </Fragment>}
         )}
     )}
-</ul>)
+</div>)
 }
