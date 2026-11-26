@@ -79,6 +79,8 @@ module.exports = (_, argv) => {
       filename: "remoteEntry.js",
       remotes: {},
       exposes: {
+        "./NavItem": "./src/atoms/NavItem/index.tsx",
+        "./Sidebar": "./src/organisms/Sidebar/index.tsx",
         "./Styles": "./src/atoms/Styles/index.tsx",
         "./Accordion": "./src/atoms/Accordion/index.tsx",
         "./Button": "./src/atoms/Button/index.tsx",

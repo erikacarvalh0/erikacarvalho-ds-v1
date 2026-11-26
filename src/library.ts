@@ -56,3 +56,10 @@ export { Table, CombinedRow } from './molecules/Table/index';
 export { Tags } from './molecules/Tag/index';
 export { Video } from './molecules/Video/index';
 export { Header } from './organisms/Header/index';
+
+export * as NavItemModule from './atoms/NavItem/index';
+export * as SidebarModule from './organisms/Sidebar/index';
+export { NavItem } from './atoms/NavItem/index';
+export { Sidebar } from './organisms/Sidebar/index';
+export type { NavItemProps } from './atoms/NavItem/index';
+export type { SidebarProps } from './organisms/Sidebar/index';

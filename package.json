@@ -207,6 +207,16 @@
       "types": "./lib/types/atoms/Icons/index.d.ts",
       "import": "./lib/Icons.mjs",
       "require": "./lib/Icons.cjs"
+    },
+    "./NavItem": {
+      "types": "./lib/types/atoms/NavItem/index.d.ts",
+      "import": "./lib/NavItem.mjs",
+      "require": "./lib/NavItem.cjs"
+    },
+    "./Sidebar": {
+      "types": "./lib/types/organisms/Sidebar/index.d.ts",
+      "import": "./lib/Sidebar.mjs",
+      "require": "./lib/Sidebar.cjs"
     }
   },
   "files": [
