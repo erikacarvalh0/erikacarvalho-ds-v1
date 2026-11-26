@@ -1,6 +1,10 @@
+import * as React from "react"
 import { useRef, useState } from "react"
 
-import { getRandomNumber } from "../../utils/randomNumber"
+// Runtime peers are React 18/19; legacy build declarations still target React 17.
+const { useId } = React as typeof React & { useId: () => string }
+
+
 
 export const useSelect = (fieldError: boolean, options: string[]) => {
     const [ showOptions, setShowOptions ] = useState(false)
@@ -10,7 +14,7 @@ export const useSelect = (fieldError: boolean, options: string[]) => {
     const optionsRef = useRef<HTMLElement>(null)
     const [ filteredOptions, setFilteredOptions ] = useState(options)
 
-    const randId = getRandomNumber()
+    const randId = useId()
 
     const changeValue = (e: any) => {
         const currentValue = e.target.value
@@ -24,7 +28,7 @@ export const useSelect = (fieldError: boolean, options: string[]) => {
         
         if (hasOnlyOneChoice) {
             setValue(filteredOptions[0])
-        } else if (index < 0 && !hasValue) {
+        } else if (index < 0 && hasValue < 0) {
             setValue('')
         }
 
@@ -45,6 +49,7 @@ export const useSelect = (fieldError: boolean, options: string[]) => {
             if (listPosition?.top > -1 ) {
                 const optionsElms = optionsRef?.current?.children
                 const currentOptionElm = optionsElms[selectedOption]
+                if (!currentOptionElm) return
                 const currentOptionPosition = currentOptionElm.getBoundingClientRect()
                 const currentOptionBottom = currentOptionPosition.bottom + currentOptionPosition.height
                 const currentOptionTop = currentOptionPosition.top + currentOptionPosition.height
@@ -114,16 +119,16 @@ export const useSelect = (fieldError: boolean, options: string[]) => {
             setSelectedOption(selectedOption - 1)
         }
         
-        if (pressedDown && selectedOption < options.length - 1) {
+        if (pressedDown && selectedOption < filteredOptions.length - 1) {
             setSelectedOption(selectedOption + 1)
         }
 
-        if (pressedEnter && selectedOption > -1) {
-            handleOptionSelection(options[selectedOption])
+        if (pressedEnter && selectedOption > -1 && selectedOption < filteredOptions.length) {
+            handleOptionSelection(filteredOptions[selectedOption])
         }
 
-        if(selectedOption >= options.length) {
-            setSelectedOption(options.length - 1)
+        if(selectedOption >= filteredOptions.length) {
+            setSelectedOption(filteredOptions.length - 1)
         }
 
         if (pressedEsc) {
@@ -134,7 +139,7 @@ export const useSelect = (fieldError: boolean, options: string[]) => {
             scrollElementToView(pressedDown, pressedUp)
         }
 
-        if (!pressedDown && !pressedDown && !pressedEnter && !pressedEsc) {
+        if (!pressedUp && !pressedDown && !pressedEnter && !pressedEsc) {
             searchOption()
         }
     }
