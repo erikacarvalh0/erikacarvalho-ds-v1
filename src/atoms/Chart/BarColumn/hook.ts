@@ -10,9 +10,10 @@ interface iBarColumnHook {
 export const useBarColumn = ({ type, data } : iBarColumnHook) => {
     const isBarChart = type === 'bar'
     const chartDir = isBarChart ? 'gridColumn' : 'gridRow'
-    const labels = Object.keys(data)
+    const series = data as Record<string, number[]>
+    const labels = Object.keys(series)
 
-    const maxValue: number  = Object.values(data).reduce((maxAll: number, val: number[], index: number) => {
+    const maxValue: number  = Object.values(series).reduce((maxAll: number, val: number[], index: number) => {
         const maxColVal = val.reduce((max: number, colVal: number) => {
             return colVal > max ? colVal : val[index]
         }, 0)
@@ -20,9 +21,9 @@ export const useBarColumn = ({ type, data } : iBarColumnHook) => {
         return maxColVal > maxAll ? maxColVal : maxAll
     }, 0)
         
-    const valuesGrouped = Object.values(data)?.[0]?.reduce((all: any, value: number, index: number) => {
+    const valuesGrouped = Object.values(series)?.[0]?.reduce((all: any, value: number, index: number) => {
         const groupedByPeriod = labels.reduce((allLabelsGrouped, label: string) => {
-            return {...allLabelsGrouped, [label]: data?.[label][index]}
+            return {...allLabelsGrouped, [label]: series?.[label][index]}
         }, {})
 
         return [...all, groupedByPeriod]
