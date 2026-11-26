@@ -1,0 +1,14 @@
+name: Card entrypoint
+on: [pull_request, workflow_dispatch]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: yarn install --frozen-lockfile
+      - run: npm run prepack
+      - run: node --input-type=module -e "import {Card} from './lib/Card.mjs'; if(typeof Card!=='function') throw Error('Missing Card')"
+      - run: node -e "if(typeof require('./lib/Card.cjs').Card!=='function') throw Error('Missing Card');const fs=require('fs');if(fs.statSync('lib/Card.mjs').size>=fs.statSync('lib/index.mjs').size)throw Error('No size reduction')"
