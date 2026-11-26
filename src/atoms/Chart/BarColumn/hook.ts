@@ -1,4 +1,10 @@
-import { iBarColumnData, iObject } from "../../../interfaces/atoms"
+import { iBarColumnData } from "../../../interfaces/atoms"
+const GRID_SCALE = 100
+const LABEL_START = 1
+const PLOT_START = LABEL_START + 1
+const PLOT_END = PLOT_START + GRID_SCALE
+const GRID_END = PLOT_END + 1
+
 interface iValuesDirections {
     [key: string]: number
 }
@@ -13,14 +19,12 @@ export const useBarColumn = ({ type, data } : iBarColumnHook) => {
     const series = data as Record<string, number[]>
     const labels = Object.keys(series)
 
-    const maxValue: number  = Object.values(series).reduce((maxAll: number, val: number[], index: number) => {
-        const maxColVal = val.reduce((max: number, colVal: number) => {
-            return colVal > max ? colVal : val[index]
-        }, 0)
-        
-        return maxColVal > maxAll ? maxColVal : maxAll
-    }, 0)
-        
+    const maxValue = Object.values(series).reduce(
+        (max, values) => values.reduce((current, value) =>
+            Number.isFinite(value) ? Math.max(current, value) : current, max), 0)
+    const scale = (value: number) => maxValue > 0 && Number.isFinite(value)
+        ? Math.max(0, Math.min(GRID_SCALE, Math.round(value / maxValue * GRID_SCALE))) : 0
+
     const valuesGrouped = Object.values(series)?.[0]?.reduce((all: any, value: number, index: number) => {
         const groupedByPeriod = labels.reduce((allLabelsGrouped, label: string) => {
             return {...allLabelsGrouped, [label]: series?.[label][index]}
@@ -30,26 +34,11 @@ export const useBarColumn = ({ type, data } : iBarColumnHook) => {
     }, [])
 
     const directions = (values: iValuesDirections, label: string) => {
-        const valueDir = {
-            start: isBarChart ? values[label] + 1 : 1,
-            end: isBarChart ? `span ${maxValue - values[label]}` : (maxValue - values[label]) + 1
-        }
-        
-        const itemDir = {
-            start: isBarChart ? 2 : typeof valueDir?.end === 'number' ? valueDir?.end + 1 : ``,
-            end: isBarChart ? `span ${values[label] - 1}` : maxValue + 1
-        }
-        
-        const textDir = {
-            start: isBarChart ? 1 :  typeof itemDir?.end === 'number' ? itemDir?.end + 1 : ``,
-            end: isBarChart ? `span 1` : typeof itemDir?.end === 'number' ? itemDir?.end + 2 : ``
-        }
-
-        return {
-            valueDir,
-            itemDir,
-            textDir
-        }
+        const size = scale(values[label])
+        const valueDir = isBarChart ? { start: PLOT_START + size, end: GRID_END } : { start: LABEL_START, end: PLOT_END - size }
+        const itemDir = isBarChart ? { start: PLOT_START, end: PLOT_START + size } : { start: PLOT_END - size, end: PLOT_END }
+        const textDir = isBarChart ? { start: LABEL_START, end: PLOT_START } : { start: PLOT_END, end: GRID_END }
+        return { valueDir, itemDir, textDir }
     }
 
     return {
