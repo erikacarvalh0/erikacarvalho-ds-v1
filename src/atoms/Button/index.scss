@@ -1,63 +1,79 @@
 .button {
+    --button-tone: #{$grey};
+    --button-tone-hover: #{$grey};
+    --button-tone-disabled: #{$grey4};
     cursor: pointer;
     font-size: var(--gridSize2x);
     text-align: center;
     font-family: $fontPrimary;
     text-transform: lowercase;
-    transition: all .3s ease-in;
+    transition: background-color .3s ease-in, color .3s ease-in, border-color .3s ease-in;
     color: $grey;
     height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 
-    &:hover {
-        height: 40px;
-        color: white;
-    }
-
-    &.neutral,
-    &.cta,
-    &.cancel {
+    &.neutral, &.cta, &.cancel {
         padding: var(--gridSizeDefault) var(--gridSize2x);
         color: $grey6;
-
-        &:hover {
+        background: var(--button-tone);
+        &:hover:not(:disabled) {
             color: white;
+            background: var(--button-tone-hover);
+        }
+        &:disabled {
+            background: var(--button-tone-disabled);
         }
     }
 
     &.neutral {
-        background: $grey3;
-
-        &:hover {
-            background: $grey;
-        }
-
-        &:disabled {
-            background: $grey4;
-        }
+        --button-tone: #{$grey3};
+        --button-tone-hover: #{$grey};
+        --button-tone-disabled: #{$grey4};
     }
 
     &.cta {
-        background: $acqua;
-
-        &:hover {
-            background: $acquaDark;
-        }
-
-        &:disabled {
-            background: $acquaLight;
-        }
+        --button-tone: #{$acqua};
+        --button-tone-hover: #{$acquaDark};
+        --button-tone-disabled: #{$acquaLight};
     }
 
     &.cancel {
-        background: $pink;
+        --button-tone: #{$pink};
+        --button-tone-hover: #{$pinkDark};
+        --button-tone-disabled: #{$pinkLight};
+        &:disabled { color: $grey3; }
+    }
 
-        &:hover {
-            background: $pinkDark;
+    &.button--rounded { border-radius: var(--button-radius, 6px); }
+
+    &.button--outline {
+        border: 1px solid var(--button-tone-hover);
+        background: transparent;
+        color: var(--button-tone-hover);
+        &:hover:not(:disabled) {
+            background: var(--button-tone-hover);
+            color: white;
         }
-
         &:disabled {
-            background: $pinkLight;
+            background: transparent;
             color: $grey3;
+            border-color: $grey4;
         }
     }
+
+    &.button--with-icon { gap: var(--gridSizeDefault); }
+    &.button--icon-only { width: 40px; padding: 0; }
+    & .button__icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        width: 20px;
+        height: 20px;
+        & svg { width: 100%; height: 100%; }
+    }
+    &:focus-visible { outline: 2px solid var(--button-tone-hover); outline-offset: 2px; }
+    &:disabled { cursor: not-allowed; }
 }
