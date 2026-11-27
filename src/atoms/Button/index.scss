@@ -1,79 +1,122 @@
 .button {
-    --button-tone: #{$grey};
-    --button-tone-hover: #{$grey};
-    --button-tone-disabled: #{$grey4};
     cursor: pointer;
     font-size: var(--gridSize2x);
     text-align: center;
     font-family: $fontPrimary;
     text-transform: lowercase;
-    transition: background-color .3s ease-in, color .3s ease-in, border-color .3s ease-in;
+    transition: all .3s ease-in;
     color: $grey;
     height: 40px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
 
-    &.neutral, &.cta, &.cancel {
+    &:hover {
+        height: 40px;
+        color: white;
+    }
+
+    &.neutral,
+    &.cta,
+    &.cancel {
         padding: var(--gridSizeDefault) var(--gridSize2x);
         color: $grey6;
-        background: var(--button-tone);
-        &:hover:not(:disabled) {
+
+        &:hover {
             color: white;
-            background: var(--button-tone-hover);
-        }
-        &:disabled {
-            background: var(--button-tone-disabled);
         }
     }
 
     &.neutral {
-        --button-tone: #{$grey3};
-        --button-tone-hover: #{$grey};
-        --button-tone-disabled: #{$grey4};
+        background: $grey3;
+
+        &:hover {
+            background: $grey;
+        }
+
+        &:disabled {
+            background: $grey4;
+        }
     }
 
     &.cta {
-        --button-tone: #{$acqua};
-        --button-tone-hover: #{$acquaDark};
-        --button-tone-disabled: #{$acquaLight};
+        background: $acqua;
+
+        &:hover {
+            background: $acquaDark;
+        }
+
+        &:disabled {
+            background: $acquaLight;
+        }
     }
 
     &.cancel {
-        --button-tone: #{$pink};
-        --button-tone-hover: #{$pinkDark};
-        --button-tone-disabled: #{$pinkLight};
-        &:disabled { color: $grey3; }
+        background: $pink;
+
+        &:hover {
+            background: $pinkDark;
+        }
+
+        &:disabled {
+            background: $pinkLight;
+            color: $grey3;
+        }
     }
 
-    &.button--rounded { border-radius: var(--button-radius, 6px); }
+    // Opt-in modifiers: keep legacy button rendering unchanged.
+    &.button--rounded {
+        border-radius: var(--button-radius, 6px);
+    }
 
     &.button--outline {
-        border: 1px solid var(--button-tone-hover);
-        background: transparent;
-        color: var(--button-tone-hover);
-        &:hover:not(:disabled) {
-            background: var(--button-tone-hover);
-            color: white;
-        }
-        &:disabled {
+        --button-outline-tone: #{$grey};
+        &.neutral { --button-outline-tone: #{$grey3}; }
+        &.cta { --button-outline-tone: #{$acquaDark}; }
+        &.cancel { --button-outline-tone: #{$pinkDark}; }
+
+        &, &.neutral, &.cta, &.cancel {
+            border: 1px solid var(--button-outline-tone);
             background: transparent;
-            color: $grey3;
-            border-color: $grey4;
+            color: var(--button-outline-tone);
+
+            &:hover:not(:disabled) {
+                background: var(--button-outline-tone);
+                color: white;
+            }
+
+            &:disabled {
+                background: transparent;
+                color: $grey3;
+                border-color: $grey4;
+            }
         }
     }
 
-    &.button--with-icon { gap: var(--gridSizeDefault); }
-    &.button--icon-only { width: 40px; padding: 0; }
-    & .button__icon {
+    &.button--with-icon {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        flex-shrink: 0;
-        width: 20px;
-        height: 20px;
-        & svg { width: 100%; height: 100%; }
+        gap: var(--gridSizeDefault);
+
+        & .button__icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            & svg { width: 100%; height: 100%; }
+        }
     }
-    &:focus-visible { outline: 2px solid var(--button-tone-hover); outline-offset: 2px; }
-    &:disabled { cursor: not-allowed; }
+
+    &.button--icon-only {
+        width: 40px;
+        padding: 0;
+    }
+
+    &.button--rounded, &.button--outline, &.button--with-icon {
+        &:focus-visible {
+            outline: 2px solid currentColor;
+            outline-offset: 2px;
+        }
+        &:disabled { cursor: not-allowed; }
+    }
 }
