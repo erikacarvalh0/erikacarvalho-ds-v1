@@ -19,6 +19,8 @@ export const Pagination = ({ config, allItems, visibleItemsState } : iPagination
         handlePageItems 
     } = usePagination({ config, allItems, visibleItemsState })
 
+    if (allItems.length <= config.itemsPerPage) return null
+
     return (
         <section className="pagination">
             <Button
